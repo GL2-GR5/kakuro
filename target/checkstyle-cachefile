@@ -1,6 +1,6 @@
-#Thu Jan 11 13:54:27 CET 2024
-configuration*?=DA7D78ECAAB76CBC8C57CF8BCBDD911BF03E1AAC
+#Mon Jan 29 10:45:58 CET 2024
+configuration*?=99519B503902C920701BD908226555A045F9B76B
 module-resource*?\:checkstyle-exclusions.xml=C6794E8389FC4E74F5B06F3AE0A414E01103D9D4
 module-resource*?\:checkstyle-xpath-suppressions.xml=D8FE6335AA6C090486A39A02A610592C9CCC56A7
 module-resource*?\:checkstyle-suppressions.xml=255E9ABBBF8A4E80367D56ECE85D0C6FED5F1A1C
-C\:\\Users\\lucap\\Documents\\prog\\java\\kakuro\\src\\main\\java\\fr\\mcgcorp\\Main.java=1704977662418
+C\:\\Users\\lucap\\Documents\\prog\\java\\Kakakuro\\kakuro\\src\\main\\java\\fr\\mcgcorp\\Main.java=1706521551882

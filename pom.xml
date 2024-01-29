@@ -14,6 +14,19 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-graphics</artifactId>
+      <version>17.0.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>17.0.6</version>
+    </dependency>
+  </dependencies>
+
   <build>
     <finalName>Kakuro</finalName>
     <defaultGoal>clean install</defaultGoal>
@@ -83,6 +96,14 @@
         </executions>
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.2.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>0.0.4</version>
+        <configuration>
+          <mainClass>fr.mcgcorp.Main</mainClass>
+        </configuration>
       </plugin>
     </plugins>
   </build>
