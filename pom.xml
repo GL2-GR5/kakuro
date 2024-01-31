@@ -81,13 +81,30 @@
       </plugin>
 
       <plugin>
-        <!-- Creation de la doc-->
+        <!-- Creation de la doc -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.6.2</version>
         <configuration>
           <show>private</show>
           <nohelp>true</nohelp>
+          <reportOutputDirectory>${project.basedir}/doc</reportOutputDirectory>
+          <destDir>javdoc</destDir>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <!-- Suppresion de la doc dans le clean -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.3.2</version>
+        <configuration>
+          <filesets>
+            <!-- Chemin du dossier relatif à la base du projet -->
+            <fileset>
+              <directory>doc/javadoc</directory>
+            </fileset>
+          </filesets>
         </configuration>
       </plugin>
 
