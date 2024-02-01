@@ -16,7 +16,7 @@
   </properties>
 
   <dependencies>
-    <!-- javafx dependencies -->
+    <!-- Javafx dependencies -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
@@ -43,7 +43,7 @@
       <version>${javafx.version}</version>
     </dependency>
 
-    <!-- adding all the platform libs only adds a couple more MB -->
+    <!-- Adding all the platform libs only adds a couple more MB -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-graphics</artifactId>
@@ -67,13 +67,14 @@
   <build>
     <finalName>Kakuro</finalName>
     <defaultGoal>clean install</defaultGoal>
+
     <plugins>
 
       <plugin>
-        <!-- compile java 17 -->
+        <!-- Compile with java 17 -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.11.0</version>
         <configuration>
           <release>17</release>
         </configuration>
@@ -93,12 +94,13 @@
       </plugin>
 
       <plugin>
-        <!-- supresion de la doc dans le clean -->
+        <!-- Suppression de la doc dans le clean -->
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
         <version>3.3.2</version>
         <configuration>
           <filesets>
-            <!-- chemin du dosier relatif a la base du projet -->
+            <!-- Chemin du dossier relatif à la base du projet -->
             <fileset>
               <directory>doc/javadoc</directory>
             </fileset>
@@ -107,9 +109,7 @@
       </plugin>
 
       <plugin>
-        <!-- remise en forme du jar -->
-
-        <!-- bizarement ca marche pas sans ca -->
+        <!-- Remise en forme du .jar -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>3.2.2</version>
