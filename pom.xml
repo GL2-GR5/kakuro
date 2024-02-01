@@ -90,6 +90,7 @@
           <nohelp>true</nohelp>
           <reportOutputDirectory>${project.basedir}/doc</reportOutputDirectory>
           <destDir>javdoc</destDir>
+          <destDir>javadoc</destDir>
         </configuration>
       </plugin>
 
@@ -103,8 +104,19 @@
             <!-- Chemin du dossier relatif à la base du projet -->
             <fileset>
               <directory>doc/javadoc</directory>
+              <directory>${project.basedir}/doc/javadoc</directory>
             </fileset>
           </filesets>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <!-- Implémentaton de JavaFx pour les test -->
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>0.0.8</version>
+        <configuration>
+          <mainClass>${start-class}</mainClass>
         </configuration>
       </plugin>
 
