@@ -89,7 +89,6 @@
           <show>private</show>
           <nohelp>true</nohelp>
           <reportOutputDirectory>${project.basedir}/doc</reportOutputDirectory>
-          <destDir>javdoc</destDir>
           <destDir>javadoc</destDir>
         </configuration>
       </plugin>
@@ -104,7 +103,6 @@
             <!-- Chemin du dossier relatif à la base du projet -->
             <fileset>
               <directory>doc/javadoc</directory>
-              <directory>${project.basedir}/doc/javadoc</directory>
             </fileset>
           </filesets>
         </configuration>
