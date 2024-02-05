@@ -1,4 +1,7 @@
 .idea/
 target/
 .vscode/
+*.swp
+*.vim
+*.tmp
 dependency-reduced-pom.xml
