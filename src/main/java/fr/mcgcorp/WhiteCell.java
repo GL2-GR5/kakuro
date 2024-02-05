@@ -4,14 +4,18 @@ package fr.mcgcorp;
 	@inheritDoc
 	*/
 class WhiteCell extends Cell {
-	/* Attributs de classe */
+	//
+	// Attributs de classe
+	//
 
 	/** Valeur maximal qu'une cellule peut atteindre. */
 	static private int VALUE_MAX = 9;
 	/** Valeur minimal qu'une cellule peut atteindre. */
 	static private int VALUE_MIN = 1;
 
-	/* Attributs d'instance */
+	//
+	// Attributs d'instance
+	//
 
 	/** Valeur attendu pour que cette case soit correct. */
 	private int correctValue;
@@ -20,7 +24,9 @@ class WhiteCell extends Cell {
 	/** Notes de l'utilisateur. */
 	private boolean[] notes;
 
-	/* Constructeur */
+	//
+	// Constructeur
+	//
 
 	/** Constructeur d'une cellule blance
 		@param correctValue La valeur attendu pour cette cellule.
@@ -34,7 +40,9 @@ class WhiteCell extends Cell {
 		this.clean();
 	}
 
-	/* Accesseur sur la valeur correct */
+	//
+	// Accesseur sur la valeur correct
+	//
 
 	/** Renvoit la valeur attendu pour la cellule.
 		@return La valeur attendu.
@@ -53,7 +61,9 @@ class WhiteCell extends Cell {
 		return this.correctValue == this.value;
 	}
 
-	/* Gestion de la valeur saisie */
+	//
+	// Gestion de la valeur saisie
+	//
 
 	/** Renvoit la valeur saisie par le joueur.
 		@return La valeur saisie.
@@ -82,7 +92,9 @@ class WhiteCell extends Cell {
 		this.value = WhiteCell.VALUE_MIN - 1;
 	}
 
-	/* Gestion des notes */
+	//
+	// Gestion des notes
+	//
 
 	/** Compte le nombre de notes de la cellule
 		@return Le nombre de notes de la cellule.
@@ -112,6 +124,7 @@ class WhiteCell extends Cell {
 		}
 		return notes;
 	}
+
 	/** Saisit les notes dans la cellule
 		@param notes La liste des notes à saisire.
 		@return La liste des notes n'ayant pas pût être sauvegardé, car incorrect.
@@ -135,6 +148,32 @@ class WhiteCell extends Cell {
 		}
 		return erreurs.stream().mapToInt(Integer::intValue).toArray();
 	}
+	int[] addNotes(int[] valeurNote) {
+		java.util.ArrayList<Integer> erreurs = new ArrayList<>();
+		java.util.Arrays.sort( notes );
+		for( int i=0,j=0 ; (i<notes.length) && ; i++ ){
+			int note = notes[i] - WhiteCell.VALUE_MIN;
+			if( (note>WhiteCell.VALUE_MAX) || (note<WhiteCell.VALUE_MIN) ){
+				erreurs.add( note );
+			} else {
+				notes[note] = true;
+			}
+		}
+		return erreurs.stream().mapToInt(Integer::intValue).toArray();
+	}
+	int[] removeNotes(int[] valeurNote) {
+		java.util.ArrayList<Integer> erreurs = new ArrayList<>();
+		java.util.Arrays.sort( notes );
+		for( int i=0,j=0 ; (i<notes.length) && ; i++ ){
+			int note = notes[i] - WhiteCell.VALUE_MIN;
+			if( (note>WhiteCell.VALUE_MAX) || (note<WhiteCell.VALUE_MIN) ){
+				erreurs.add( note );
+			} else {
+				notes[note] = false;
+			}
+		}
+		return erreurs.stream().mapToInt(Integer::intValue).toArray();
+	}
 	/** Supprime toutes les notes de la cellule.
 		@since V0.1
 		@author Julien
@@ -145,7 +184,9 @@ class WhiteCell extends Cell {
 		}
 	}
 
-	/* Autres méthodes */
+	//
+	// Autres méthodes
+	//
 
 	/** Nettoie la cellule.
 		@since V0.1
@@ -157,7 +198,9 @@ class WhiteCell extends Cell {
 		this.clean_notes();
 	}
 
-	/* Affichage */
+	//
+	// Affichage
+	//
 
 	/** Affiche une cellule blanche avec la valeur saisit par le joueur
 		@return La cellule formater pour affichage

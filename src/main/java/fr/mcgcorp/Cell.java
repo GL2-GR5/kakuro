@@ -6,7 +6,9 @@ package fr.mcgcorp;
 	@since v0.1
 	*/
 class Cell {
-	/* Affichage */
+	//
+	// Affichage
+	//
 
 	/** Affiche une cellule noire
 		@return La cellule formater pour affichage

@@ -4,14 +4,18 @@ package fr.mcgcorp;
 	@inheritDoc
 	*/
 class ResultCell extends Cell {
-	/* Attributs d'instance */
+	//
+	// Attributs d'instance
+	//
 
 	/** Résultat attendu pour une ligne */
 	private int row;
 	/** Résultat attendu pour une colonne */
 	private int column;
 
-	/* Constructeur */
+	//
+	// Constructeur
+	//
 
 	/** Constructeur d'une cellule de résultat
 		@param row Le resultat attendu pour la ligne.
@@ -25,7 +29,9 @@ class ResultCell extends Cell {
 		this.column = column;
 	}
 
-	/* Accesseur */
+	//
+	// Accesseur
+	//
 
 	/** Renvoit la somme attendu pour la ligne à droite de cette cellule.
 		@return Le résultat attendu pour la ligne.
@@ -35,6 +41,7 @@ class ResultCell extends Cell {
 	int getRow(){
 		return this.row;
 	}
+
 	/** Renvoit la somme attendu pour la colonne en dessous de cette cellule.
 		@return Le résultat attendu pour la ligne.
 		@since V0.1
@@ -44,7 +51,9 @@ class ResultCell extends Cell {
 		return this.column;
 	}
 
-	/* Affichage */
+	//
+	// Affichage
+	//
 
 	/** Affiche une cellule de résultat
 		@return La cellule formater pour affichage
