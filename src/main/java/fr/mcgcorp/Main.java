@@ -6,18 +6,37 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Classe principale de l'application.
+ *
+ * @author GOUDET Lucas, HOUGET Julien, LAHMAR Marwan, LE LUET Hôa, PECHON Erwan, POURCEAU Luca, PUREN Mewen
+ * @see Application
+ */
 public class Main extends Application {
-
+  
+  /**
+   * Méthode principale de l'application.
+   * lance l'application.
+   *
+   * @param args les arguments de la ligne de commande
+   */
   public static void main(String[] args) {
-    launch();
+    launch(args);
   }
 
+  /**
+   * Méthode de démarrage graphique de l'application.
+   * remplissage temporaire en attendant la création de l'interface graphique. TODO
+   *
+   * @param primaryStage la fenêtre principale de l'application
+   * @throws Exception si une erreur survient
+   */
   @Override
-  public void start(Stage stage) throws Exception {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("app.fxml"));
-    Parent root = loader.load();
-    stage.setScene(new Scene(root));
-    stage.setResizable(false);
-    stage.show();
+  public void start(Stage primaryStage) throws Exception {
+    Parent root = FXMLLoader.load(getClass().getResource("/fr/mcgcorp/app.fxml"));
+    primaryStage.setTitle("kaKuro");
+    primaryStage.setScene(new Scene(root, 800, 600));
+    primaryStage.show();
   }
+
 }

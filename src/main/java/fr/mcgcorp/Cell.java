@@ -1,23 +1,27 @@
 package fr.mcgcorp;
 
-/** Une cellule du jeu de kakuro.
-  @see Grid "La grille du jeu de {@fr.mcgcorp.kakuro#grid}"
-  @author Julien , Erwan
-  @since v0.1
-  */
+/**
+ * Cellule de base, qui peut être soit une case vide(noir), soit une case de résultat, soit une case a remplir.
+ *
+ * @author HOUGET Julien, PUREN Mewen, PECHON Erwan 
+ */
 class Cell {
-  //
-  // Affichage
-  //
+  
 
-  /** Affiche une cellule noire
-    @return La cellule formater pour affichage
-    @since V0.1
-    @author Erwan
-    */
+  /**
+   * Constructeur de la classe Cell.
+   */
+  public Cell() {
+
+  }
+
+  /**
+   * Méthode qui retourne le contenu de la cellule.
+   *
+   * @return le contenu de la cellule
+   */
   @Override
-  String toString(){
-    return "XXX";
+  public String toString() {
+    return "";
   }
 }
-

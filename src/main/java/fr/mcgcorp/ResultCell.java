@@ -1,29 +1,31 @@
 package fr.mcgcorp;
 
-/** Contient le résultat demandé pour une ligne et/ou une colonne.
-  @inheritDoc
-  */
+/**
+ * Contient le résultat demandé pour une ligne et/ou une colonne.
+ *
+ * @author HOUGET Julien, PUREN Mewen, PECHON Erwan
+ */
 class ResultCell extends Cell {
   //
   // Attributs d'instance
   //
 
-  /** Résultat attendu pour une ligne */
+  /** Résultat attendu pour une ligne. */
   private int row;
-  /** Résultat attendu pour une colonne */
+  /** Résultat attendu pour une colonne. */
   private int column;
 
   //
   // Constructeur
   //
 
-  /** Constructeur d'une cellule de résultat
-    @param row Le resultat attendu pour la ligne.
-    @param column Le resultat attendu pour la colonne.
-    @since V0.1
-    @author Julien
-    */
-  ResultCell(int row, int column){
+  /**
+   * Constructeur d'une cellule de résultat.
+   *
+   * @param row    Le résultat attendu pour la ligne.
+   * @param column Le résultat attendu pour la colonne.
+   */
+  ResultCell(int row, int column) {
     super();
     this.row = row;
     this.column = column;
@@ -33,21 +35,21 @@ class ResultCell extends Cell {
   // Accesseur
   //
 
-  /** Renvoit la somme attendu pour la ligne à droite de cette cellule.
-    @return Le résultat attendu pour la ligne.
-    @since V0.1
-    @author Julien
-    */
-  int getRow(){
+  /**
+   * Renvoie la somme attendu pour la ligne à droite de cette cellule.
+   *
+   * @return Le résultat attendu pour la ligne.
+   */
+  int getRow() {
     return this.row;
   }
 
-  /** Renvoit la somme attendu pour la colonne en dessous de cette cellule.
-    @return Le résultat attendu pour la ligne.
-    @since V0.1
-    @author Julien
-    */
-  int getColumn(){
+  /**
+   * Renvoie la somme attendu pour la colonne en dessous de cette cellule.
+   *
+   * @return Le résultat attendu pour la ligne.
+   */
+  int getColumn() {
     return this.column;
   }
 
@@ -55,28 +57,13 @@ class ResultCell extends Cell {
   // Affichage
   //
 
-  /** Affiche une cellule de résultat
-    @return La cellule formater pour affichage
-    @since V0.1
-    @author Erwan
-    */
+  /**
+   * Affiche une cellule de résultat.
+   *
+   * @return La cellule formater pour affichage
+   */
   @Override
-  String toString(){
-    String aff = "\";
-    // Ajout du résultat attendu pour la colonne
-    if( this.getColumn() ){
-      aff = this.getColumn() + aff;
-    } else {
-      aff = "X" + aff;
-    }
-    // Ajout du résultat attendu pour la ligne
-    if( this.getRow() ){
-      aff+= this.getRow();
-    } else {
-      aff+= "X";
-    }
-    // Envoit de l'affichage
-    return aff;
+  public String toString() {
+    return this.column + "\\" + this.row;
   }
 }
-
