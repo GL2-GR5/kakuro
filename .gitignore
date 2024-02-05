@@ -1,2 +1,18 @@
-/.idea/
-/target/
+######
+# Fichiers produits par les éditeurs
+.idea/
+.vscode/
+*.swap
+
+######
+# Fichiers produit par Maven
+target/
+doc/
+
+######
+# Liste des dépendance de Mave
+dependency-reduced-pom.xml
+
+######
+# Autres fichiers
+*.tmp
