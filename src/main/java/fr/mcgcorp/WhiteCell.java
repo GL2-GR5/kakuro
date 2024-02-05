@@ -114,16 +114,26 @@ class WhiteCell extends Cell {
 	}
 	/** Saisit les notes dans la cellule
 		@param notes La liste des notes à saisire.
+		@return La liste des notes n'ayant pas pût être sauvegardé, car incorrect.
 		@since V0.1
 		@author Julien , Erwan
 		*/
-	void setNotes(boolean[] notes) throws IllegalArgumentException {
-		if( notes.length > WhiteCell.VALUE_MAX - WhiteCell.VALUE_MIN + 1 ){
-			throw new IllegalArgumentException("Il ne peut pas y avoir plus de "+(WhiteCell.VALUE_MAX - WhiteCell.VALUE_MIN + 1)+" notes.");
+	int[] setNotes(int[] notes){
+		java.util.ArrayList<Integer> erreurs = new ArrayList<>();
+		java.util.Arrays.sort( notes );
+		for( int i=0,j=0 ; (i<notes.length) && ; i++ ){
+			int note = notes[i] - WhiteCell.VALUE_MIN;
+			if( (note>WhiteCell.VALUE_MAX) || (note<WhiteCell.VALUE_MIN) ){
+				erreurs.add( note );
+			} else {
+				while( j<note ){
+					this.notes[j] = false;
+					j++;
+				}
+				notes[j] = true;
+			}
 		}
-		for( int i=0 ; (i<notes.length) && ; i++ ){
-			this.notes[i] = notes[i];
-		}
+		return erreurs.stream().mapToInt(Integer::intValue).toArray();
 	}
 	/** Supprime toutes les notes de la cellule.
 		@since V0.1
