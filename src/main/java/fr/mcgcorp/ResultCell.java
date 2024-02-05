@@ -40,7 +40,7 @@ class ResultCell extends Cell {
    *
    * @return Le résultat attendu pour la ligne.
    */
-  int getRow() {
+  public int getRow() {
     return this.row;
   }
 
@@ -49,7 +49,7 @@ class ResultCell extends Cell {
    *
    * @return Le résultat attendu pour la ligne.
    */
-  int getColumn() {
+  public int getColumn() {
     return this.column;
   }
 

@@ -26,16 +26,16 @@ public class Main extends Application {
 
   /**
    * Méthode de démarrage graphique de l'application.
-   * remplissage temporaire en attendant la création de l'interface graphique. TODO
+   * remplissage temporaire en attendant la création de l'interface graphique. #TODO
    *
    * @param primaryStage la fenêtre principale de l'application
    * @throws Exception si une erreur survient
    */
   @Override
   public void start(Stage primaryStage) throws Exception {
-    Parent root = FXMLLoader.load(getClass().getResource("/fr/mcgcorp/app.fxml"));
-    primaryStage.setTitle("kaKuro");
-    primaryStage.setScene(new Scene(root, 800, 600));
+    Parent root = FXMLLoader.load(getClass().getResource("app.fxml"));
+    primaryStage.setTitle("Kakuro");
+    primaryStage.setScene(new Scene(root));
     primaryStage.show();
   }
 

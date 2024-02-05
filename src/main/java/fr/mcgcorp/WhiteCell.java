@@ -11,7 +11,7 @@ class WhiteCell extends Cell {
 
   /** Valeur de résultat de la case. */
   private int correctValue;
-  /** Valeur entre par le joueur. */
+  /** Valeur entrée par le joueur. */
   private int value;
 
   /** Liste des notes de la case. */
@@ -69,7 +69,7 @@ class WhiteCell extends Cell {
   /**
    * Efface la valeur entrée par le joueur.
    */
-  public void clearCell() {
+  public void clear() {
     this.value = 0;
     for (int i : notes.keySet()) {
       notes.put(i, false);
@@ -89,7 +89,7 @@ class WhiteCell extends Cell {
    * Efface la valeur entrée par le joueur et les notes de la case.
    */
   public void clearAll() {
-    this.clearCell();
+    this.clear();
     this.clearNotes();
   }
 }
