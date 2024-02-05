@@ -53,7 +53,21 @@ class ResultCell extends Cell {
 		*/
 	@Override
 	String toString(){
-		return this.getRow()+'/'+this.getColumn();
+		String aff = "\";
+		// Ajout du résultat attendu pour la colonne
+		if( this.getColumn() ){
+			aff = this.getColumn() + aff;
+		} else {
+			aff = "X" + aff;
+		}
+		// Ajout du résultat attendu pour la ligne
+		if( this.getRow() ){
+			aff+= this.getRow();
+		} else {
+			aff+= "X";
+		}
+		// Envoit de l'affichage
+		return aff;
 	}
 }
 

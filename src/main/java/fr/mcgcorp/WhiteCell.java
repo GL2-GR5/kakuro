@@ -156,7 +156,11 @@ class WhiteCell extends Cell {
 		*/
 	@Override
 	String toString(){
-		return " "+this.getValue()+" ";
+		if( this.getValue() ){
+			return " "+this.getValue()+" ";
+		} else {
+			return " X ";
+		}
 	}
 }
 
