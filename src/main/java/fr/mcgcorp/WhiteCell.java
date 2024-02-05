@@ -161,6 +161,12 @@ class WhiteCell extends Cell {
 		}
 		return erreurs.stream().mapToInt(Integer::intValue).toArray();
 	}
+	/** Ajout des notes dans la cellule
+		@param notes La liste des notes à ajouter.
+		@return La liste des notes n'ayant pas pût être ajouter, car incorrect.
+		@since V0.1
+		@author Julien , Erwan
+		*/
 	int[] addNotes(int[] valeurNote) {
 		java.util.ArrayList<Integer> erreurs = new ArrayList<>();
 		java.util.Arrays.sort( notes );
@@ -174,6 +180,12 @@ class WhiteCell extends Cell {
 		}
 		return erreurs.stream().mapToInt(Integer::intValue).toArray();
 	}
+	/** Enlever des notes de la cellule
+		@param notes La liste des notes à enlever.
+		@return La liste des notes n'ayant pas pût être enlever, car incorrect.
+		@since V0.1
+		@author Julien , Erwan
+		*/
 	int[] removeNotes(int[] valeurNote) {
 		java.util.ArrayList<Integer> erreurs = new ArrayList<>();
 		java.util.Arrays.sort( notes );
