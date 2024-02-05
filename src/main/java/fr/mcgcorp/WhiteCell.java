@@ -71,7 +71,11 @@ class WhiteCell extends Cell {
 		@author Julien
 		*/
 	int getValue(){
-		return this.value;
+		if( this.value == (WhiteCell.VALUE_MIN - 1) ){
+			return null;
+		} else {
+			return this.value;
+		}
 	}
 	/** Saisie la valeur de la cellule.
 		@param value La valeur à saisire.
@@ -80,6 +84,10 @@ class WhiteCell extends Cell {
 		@author Julien , Erwan
 		*/
 	void setValue(int value) throws IllegalArgumentException {
+		if( value == null ){
+			this.value = WhiteCell.VALUE_MIN - 1;
+			return;
+		}
 		if( value > WhiteCell.VALUE_MAX ){
 			throw new IllegalArgumentException("La valeur ne peut pas être supérieur à "+WhiteCell.VALUE_MAX+" : " + valeur);
 		}
@@ -88,6 +96,11 @@ class WhiteCell extends Cell {
 		}
 		this.value = value;
 	}
+	/** Efface la valeur saisie.
+		@param value La valeur à saisire.
+		@since V0.1
+		@author Julien , Erwan
+		*/
 	void clean_value(){
 		this.value = WhiteCell.VALUE_MIN - 1;
 	}
