@@ -1,6 +1,6 @@
 package fr.mcgcorp;
 
-class ResultCell {
+class ResultCell extends Cell {
 	/* Attributs d'instance */
 	private int row;
 	private int column;
