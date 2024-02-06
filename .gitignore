@@ -16,3 +16,7 @@ dependency-reduced-pom.xml
 ######
 # Autres fichiers
 *.tmp
+*.swp
+*.vim
+*.tmp
+dependency-reduced-pom.xml
