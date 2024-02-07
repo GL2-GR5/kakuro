@@ -1,6 +1,7 @@
 package fr.mcgcorp;
 
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Cellule blanche, que le joueur doit modifier pour résoudre le puzzle.
@@ -8,14 +9,12 @@ import java.util.HashMap;
  * @see Cell
  */
 class WhiteCell extends Cell {
-
   /** Valeur de résultat de la case. */
   private int correctValue;
   /** Valeur entrée par le joueur. */
   private int value;
-
   /** Liste des notes de la case. */
-  private HashMap<Integer, Boolean> notes = new HashMap<Integer, Boolean>();
+  private HashSet<Integer> notes;
 
   /**
    * Constructeur d'une cellule blanche.
@@ -24,12 +23,10 @@ class WhiteCell extends Cell {
    */
   public WhiteCell(int correctValue) {
     this.correctValue = correctValue;
-    this.value = 0;
-    for (int i = 1; i <= 9; i++) {
-      notes.put(i, false);
-    }
+    this.notes = new HashSet<Integer>();
+    this.clearAll();
   }
-  
+
   /**
    * Renvoie la valeur correcte de la case. 
    *
@@ -41,11 +38,31 @@ class WhiteCell extends Cell {
 
   /**
    * Renvoie la valeur entrée par le joueur.
-   * 
+   *
    * @return int
    */
   public int getValue() {
     return this.value;
+  }
+
+  /**
+   * Saisit la valeur entrée par le joueur.
+   *
+   * @param value La valeur donnée par le joueur.
+   */
+  public void setValue(int value) {
+    if ((Kakuro.MIN_VALUE <= value) && (value <= Kakuro.MAX_VALUE)) {
+      this.value = value;
+    }
+  }
+
+  /**
+   * Vérifie si la valeur saisit par l'utilisateur est la bonne valeur.
+   *
+   * @return resultat
+   */
+  public boolean isCorrect() {
+    return (this.value == this.correctValue);
   }
 
   /**
@@ -54,7 +71,9 @@ class WhiteCell extends Cell {
    * @param valeurNote note à ajouter
    */
   public void addNote(int valeurNote) {
-    this.notes.put(valeurNote, true);
+    if ((Kakuro.MIN_VALUE <= valeurNote) && (valeurNote <= Kakuro.MAX_VALUE)) {
+      this.notes.add(valeurNote);
+    }
   }
 
   /**
@@ -63,26 +82,62 @@ class WhiteCell extends Cell {
    * @param valeurNote note à retirer
    */
   public void removeNote(int valeurNote) {
-    this.notes.put(valeurNote, false);
+    if ((Kakuro.MIN_VALUE <= valeurNote) && (valeurNote <= Kakuro.MAX_VALUE)) {
+      this.notes.remove(valeurNote);
+    }
+  }
+
+  /**
+   * Redéfinit le set de notes du joueur.
+   *
+   * @param notes Le nouveau set de notes.
+   */
+  public void setNotes(int[] notes) {
+    this.clearNotes();
+    for (int i : notes) {
+      this.addNote(i);
+    }
+  }
+
+  /**
+   * Redéfinit le set de notes du joueur.
+   *
+   * @param notes Le nouveau set de notes.
+   */
+  public void setNotes(HashSet<Integer> notes) {
+    this.clearNotes();
+    for (int i : notes) {
+      this.addNote(i);
+    }
+  }
+
+  /**
+   * Envoit le set de notes du joueur.
+   *
+   * @return La liste des notes séléctionnée.
+   */
+  public int[] getNotes() {
+    int[] notes = new int[this.notes.size()];
+    int i = 0;
+    for (int note : this.notes) {
+      notes[i] = note;
+    }
+    Arrays.sort(notes);
+    return notes;
   }
 
   /**
    * Efface la valeur entrée par le joueur.
    */
   public void clear() {
-    this.value = 0;
-    for (int i : notes.keySet()) {
-      notes.put(i, false);
-    }
+    this.value = Kakuro.NULL_VALUE;
   }
 
   /**
    * Efface les notes de la case.
    */
   public void clearNotes() {
-    for (int i : notes.keySet()) {
-      notes.put(i, false);
-    }
+    this.notes.clear();
   }
 
   /**
