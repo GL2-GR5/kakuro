@@ -12,7 +12,7 @@ class CellError {
   protected TypeError error;
 
   /**
-   * Constructeur de rapport d'erreur
+   * Constructeur de rapport d'erreur.
    *
    * @param coord Les coordonnées de la cellule où une erreur à était déteté.
    * @param error Le type d'erreur détecté.
