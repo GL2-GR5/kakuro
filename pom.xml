@@ -117,11 +117,11 @@
           <windowtitle>${project.name}</windowtitle>
           <doctitle>Documentaion ${project.name}</doctitle>
           <title>${project.name} ${project.version}</title>
-          <overview>${project.basedir}/doc/overview.html</overview>
 
           <!-- Chemin de génération -->
           <reportOutputDirectory>${project.basedir}/doc</reportOutputDirectory>
           <destDir>javadoc</destDir>
+          <docfilessubdirs>true</docfilessubdirs>
 
           <!-- paramètre génération -->
           <serialwarn>true</serialwarn>

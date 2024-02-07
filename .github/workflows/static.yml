@@ -46,9 +46,6 @@ jobs:
       # Build with Maven
       - name: Build with Maven
         run: mvn clean javadoc:javadoc --file pom.xml
-
-      - name: add ressources
-        run: mv ./doc/ressources ./doc/javadoc/ressources
       
       # Configure GitHub Pages
       - name: Setup Pages
