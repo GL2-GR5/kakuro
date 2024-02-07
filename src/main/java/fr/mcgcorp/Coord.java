@@ -11,17 +11,17 @@ package fr.mcgcorp;
  */
 class Coord {
   /** Le numéro de ligne dans la matrice de jeu. */
-  protected int posL;
+  protected int line;
   /** Le numéro de colonne dans la matrice de jeu. */
-  protected int posC;
+  protected int column;
 
   /**
    * Le constructeur des coordonnée est privé afin d'obligé les programmeur à utilisé des constructeurs avec des noms plus parlant à leurs besoins.
    * @author PECHON Erwan
    */
   private Coord() {
-    this.posL = -1;
-    this.posC = -1;
+    this.line = -1;
+    this.column = -1;
   }
 
 
@@ -33,10 +33,10 @@ class Coord {
    * @param posY L'autre coordonnée graphique
    * @return Les coordonnées du point désirer.
    */
-  public static Coord createCoord_graphical(int posX, int posY) {
+  public static Coord createCoord_graphical(int x, int y) {
     Coord coord = new Coord();
-    coord.setPosX(posX);
-    coord.setPosY(posY);
+    coord.setX(x);
+    coord.setY(y);
     return coord;
   }
 
@@ -45,8 +45,8 @@ class Coord {
    * @author PECHON Erwan
    * @return Une coordonnée graphique
    */
-  public int getPosX() {
-    return posL;
+  public int getX() {
+    return this.line;
   }
 
   /**
@@ -54,26 +54,26 @@ class Coord {
    * @author PECHON Erwan
    * @return L'autre coordonnée graphique
    */
-  public int getPosY() {
-    return posC;
+  public int getY() {
+    return this.column;
   }
 
   /**
    * Un accesseur sur une coordonnée graphique.
    * @author PECHON Erwan
-   * @param posX Une coordonnée graphique
+   * @param x Une coordonnée graphique
    */
-  protected void setPosX(int posX) {
-    this.posL = posX;
+  protected void setX(int x) {
+    this.line = x;
   }
 
   /**
    * Un accesseur sur une coordonnée graphique.
    * @author PECHON Erwan
-   * @param posY L'autre coordonnée graphique
+   * @param y L'autre coordonnée graphique
    */
-  protected void setPosY(int posY) {
-    this.posC = posY;
+  protected void setY(int y) {
+    this.column = y;
   }
 
 
@@ -81,14 +81,14 @@ class Coord {
   /**
    * Le constructeur des coordonnée pour une matrice.
    * @author PECHON Erwan
-   * @param posL L'indice de la ligne où se trouve la case recherché.
-   * @param posC L'indice de la colonne où se trouve la case recherché.
+   * @param line L'indice de la ligne où se trouve la case recherché.
+   * @param column L'indice de la colonne où se trouve la case recherché.
    * @return Les coordonnées du point désirer.
    */
-  public static Coord createCoord_matriciel(int posL, int posC) {
+  public static Coord createCoord_matriciel(int line, int column) {
     Coord coord = new Coord();
-    coord.setPosL(posL);
-    coord.setPosC(posC);
+    coord.setLine(line);
+    coord.setColumn(column);
     return coord;
   }
 
@@ -97,8 +97,8 @@ class Coord {
    * @author PECHON Erwan
    * @return L'indice de la ligne où se trouve la case.
    */
-  public int getPosL() {
-    return posL;
+  public int getLine() {
+    return this.line;
   }
 
   /**
@@ -106,25 +106,25 @@ class Coord {
    * @author PECHON Erwan
    * @return L'indice de la colonne où se trouve la case.
    */
-  public int getPosC() {
-    return posC;
+  public int getColumn() {
+    return this.column;
   }
 
   /**
    * Un accesseur sur une coordonnée matriciel.
    * @author PECHON Erwan
-   * @param posL L'indice de la ligne où se trouve la case.
+   * @param line L'indice de la ligne où se trouve la case.
    */
-  protected void setPosL(int posL) {
-    this.posL = posL;
+  protected void setLine(int line) {
+    this.line = line;
   }
 
   /**
    * Un accesseur sur une coordonnée matriciel.
    * @author PECHON Erwan
-   * @param posC L'indice de la colonne où se trouve la case.
+   * @param column L'indice de la colonne où se trouve la case.
    */
-  protected void setPosC(int posC) {
-    this.posC = posC;
+  protected void setColumn(int column) {
+    this.column = column;
   }
 }
