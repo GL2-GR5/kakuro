@@ -7,35 +7,36 @@ package fr.mcgcorp;
  */
 class MoveValue extends Move {
   /** Valeur modifié par le joueur. */
-  protected int value_old;
+  protected int valueOld;
   /** Nouvelle valeur saisie par le joueur. */
-  protected int value_new;
+  protected int valueNew;
 
   /**
    * Constructeur d'un mouvement modifiant une valeur.
    *
-   * @param value_old La valeur de la cellule, avant ce mouvement.
-   * @param value_new La valeur de la cellule, après ce mouvement.
+   * @param valueOld La valeur de la cellule, avant ce mouvement.
+   * @param valueNew La valeur de la cellule, après ce mouvement.
    */
-  MoveValue(int value_old, int value_new){
+  MoveValue(int valueOld, int valueNew) {
     super();
-    this.value_old = value_old;
-    this.value_new = value_new;
+    this.valueOld = valueOld;
+    this.valueNew = valueNew;
   }
 
   /**
    * Renvoie l'ancienne valeur de la case.
    * @return int
    */
-  public int getValue_old(){
-    return this.value_old;
+  public int getValueOld() {
+    return this.valueOld;
   }
+
   /**
    * Renvoie la nouvelle valeur de la case.
    * @return int
    */
-  public int getValue_new(){
-    return this.value_new;
+  public int getValueNew() {
+    return this.valueNew;
   }
 }
 
