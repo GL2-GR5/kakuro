@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="480.0" styleClass="tilted-pane" stylesheets="@../../../Downloads/Style%20(1).css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="201.0" layoutY="26.0" text="Type de saisie" />
+      <CheckBox layoutX="179.0" layoutY="70.0" mnemonicParsing="false" text="Clavier numérique" />
+      <MenuButton layoutX="173.0" layoutY="122.0" mnemonicParsing="false" text="Paramètre fenêtre">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Plein écran" />
+          <MenuItem mnemonicParsing="false" text="Fenêtré" />
+        </items>
+      </MenuButton>
+      <Label layoutX="199.0" layoutY="178.0" text="Volume sonore" />
+      <Slider layoutX="126.0" layoutY="210.0" prefHeight="17.0" prefWidth="226.0" />
+   </children>
+</Pane>
