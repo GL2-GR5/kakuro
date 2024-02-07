@@ -1,6 +1,6 @@
 package fr.mcgcorp;
 
-import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Cellule blanche, que le joueur doit modifier pour résoudre le puzzle.
@@ -9,11 +9,11 @@ import java.util.HashMap;
  */
 class WhiteCell extends Cell {
   /** Valeur Maximal authorisé. */
-  static public int final MAX_VALUE = 9;
+  public static final int MAX_VALUE = 9;
   /** Valeur Minimal authorisé. */
-  static public int final MIN_VALUE = 1;
+  public static final int MIN_VALUE = 1;
   /** Valeur null (aucune valeur). */
-  static public int final NULL_VALUE = WhiteCell.MIN_VALUE - 1;
+  public static final int NULL_VALUE = WhiteCell.MIN_VALUE - 1;
 
   /** Valeur de résultat de la case. */
   private int correctValue;
@@ -30,7 +30,7 @@ class WhiteCell extends Cell {
   public WhiteCell(int correctValue) {
     this.correctValue = correctValue;
     this.value = WhiteCell.NULL_VALUE;
-    this.notes = HashSet<Integer> notes;
+    this.notes = new HashSet<Integer>();
   }
 
   /**
