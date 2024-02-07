@@ -1,0 +1,64 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #e6e6e6); /* Dégradé de couleur pour le fond */
+}
+
+.container {
+    -fx-padding: 20px;
+    -fx-background-color: #F7F7FF; /* Couleur de fond pour le conteneur */
+    -fx-border-color: #BDD5EA; /* Couleur de la bordure */
+    -fx-border-width: 2px; /* Largeur de la bordure */
+    -fx-border-radius: 100px; /* Rayon de la bordure arrondie */
+}
+
+.button {
+    -fx-background-color: #9b9b9b; /* Couleur de fond du bouton */
+    -fx-text-fill: #000000; /* Couleur du texte du bouton */
+    -fx-font-size: 14px; /* Taille de la police du texte */
+    -fx-padding: 10px 15px; /* Marge intérieure du bouton */
+    -fx-border-radius: 15px; /* Rayon de la bordure arrondie du bouton */
+}
+
+.text-field{
+    -fx-alignment: center; /* Alignement du texte */
+    -fx-font: "Typo Round Bold Demo"; /* police */
+    -fx-text-fill: black; 
+    -fx-prompt-text-fill: gray;
+    -fx-highlight-fill: rgb(255, 255, 255);
+    -fx-highlight-text-fill: white;
+    -fx-display-caret: true;
+}
+
+.menu-button{
+    -fx-blend-mode: null; 
+    -fx-cursor: hand;
+    -fx-opacity: 1;
+    visibility: visible;
+
+}
+
+.scroll-pane{
+    -fx-fit-to-width: false;
+    -fx-fit-to-height: false;
+    -fx-pannable: false;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
+    -fx-skin: null;
+}
+
+.check-box{
+    -fx-text-alignment: center;
+    -fx-font: "Typo Round Bold Demo";
+    -fx-text-fill: #000000;
+}
+
+.tilted-pane{
+    -fx-text-alignment: center;
+    -fx-font: "Typo Round Bold Demo";
+    -fx-text-fill: #000000;
+}
+
+.label{
+    -fx-alignment: center;
+    -fx-font: "Typo Round Bold Demo";
+}
+
