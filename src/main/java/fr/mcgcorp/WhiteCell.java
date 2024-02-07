@@ -56,6 +56,11 @@ class WhiteCell extends Cell {
     }
   }
 
+  /**
+   * Vérifie si la valeur saisit par l'utilisateur est la bonne valeur.
+   *
+   * @return resultat
+   */
   public boolean isCorrect() {
     return (this.value == this.correctValue);
   }
@@ -109,7 +114,7 @@ class WhiteCell extends Cell {
   /**
    * Envoit le set de notes du joueur.
    *
-   * @param notes Le nouveau set de notes.
+   * @return La liste des notes séléctionnée.
    */
   public int[] getNotes() {
     int[] notes = new int[this.notes.size()];
