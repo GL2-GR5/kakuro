@@ -32,4 +32,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B clean install package javadoc:javadoc --file pom.xml
+      run: mvn -B clean install javadoc:javadoc --file pom.xml
