@@ -1,7 +1,6 @@
 package fr.mcgcorp;
 
 import java.util.ArrayDeque;
-package fr.mcgcorp;
 
 /*
 // Gestion de la sauvegarde
@@ -51,7 +50,7 @@ class Kakuro implements Serializable {
 	 * Cette méthode prends tout les paramètres nécéssaire pour lancer une partie de Kakuro et prépare le jeu en conséquence.
 	 */
 	public void initialize(int nbLine,int nbColumn){
-		this.grid = new Cell[nbLine][nbColumn]();
+		this.grid = new Cell[nbLine][nbColumn];
 		for( int i=0 ; i<nbLine ; i++ ){
 			for( int j=0 ; j<nbColumn ; j++ ){
 				if( i < j ){
@@ -123,7 +122,7 @@ class Kakuro implements Serializable {
 	private Cell getCell(Coord coord){
 		Cell cell = null;
 		try{
-			cell = this.grid[coord.getL()][coord.getC()]
+			cell = this.grid[coord.getL()][coord.getC()];
 		} catch(ArrayIndexOutOfBoundsException e){
 			return null;
 		}
