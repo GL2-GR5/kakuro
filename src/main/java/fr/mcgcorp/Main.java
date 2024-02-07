@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  * @see Application
  */
 public class Main extends Application {
-  
   /**
    * Méthode principale de l'application.
    * lance l'application.
@@ -38,5 +37,5 @@ public class Main extends Application {
     primaryStage.setScene(new Scene(root));
     primaryStage.show();
   }
-
 }
+

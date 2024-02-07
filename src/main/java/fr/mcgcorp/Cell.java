@@ -3,10 +3,9 @@ package fr.mcgcorp;
 /**
  * Cellule de base, qui peut être soit une case vide(noir), soit une case de résultat, soit une case a remplir.
  *
- * @author HOUGET Julien, PUREN Mewen, PECHON Erwan 
+ * @author HOUGET Julien, PUREN Mewen, PECHON Erwan
  */
 class Cell {
-  
 
   /**
    * Constructeur de la classe Cell.

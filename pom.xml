@@ -81,6 +81,29 @@
       </plugin>
 
       <plugin>
+        <!-- Verifie la conformité du code par raport au standar mis en place -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.3.1</version>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <configLocation>checkstyle.xml</configLocation>
+              <consoleOutput>true</consoleOutput>
+              <failOnViolation>true</failOnViolation>
+              <failsOnError>true</failsOnError>
+              <violationSeverity>warning</violationSeverity>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <!-- Creation de la doc -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -90,6 +113,8 @@
           <nohelp>true</nohelp>
           <reportOutputDirectory>${project.basedir}/doc</reportOutputDirectory>
           <destDir>javadoc</destDir>
+          <failsOnError>true</failsOnError>
+          <failOnWarnings>true</failOnWarnings>
         </configuration>
       </plugin>
 
