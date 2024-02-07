@@ -7,7 +7,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="480.0" styleClass="tilted-pane" stylesheets="@../../../Downloads/Style%20(1).css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="480.0" styleClass="tilted-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="201.0" layoutY="26.0" text="Type de saisie" />
       <CheckBox layoutX="179.0" layoutY="70.0" mnemonicParsing="false" text="Clavier numérique" />
