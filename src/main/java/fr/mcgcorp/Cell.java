@@ -6,7 +6,7 @@ package fr.mcgcorp;
  * @author HOUGET Julien, PUREN Mewen, PECHON Erwan 
  */
 class Cell {
-  
+
 
   /**
    * Constructeur de la classe Cell.

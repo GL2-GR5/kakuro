@@ -8,36 +8,36 @@ package fr.mcgcorp;
  *
  */
 abstract class Move {
-	/** Coordonée de la case où le mouvement à eu lieu. */
-	protected Coord coord;
+  /** Coordonée de la case où le mouvement à eu lieu. */
+  protected Coord coord;
 
-	/** Constructeur du mouvement
-	 * @author PECHON Erwan
-	 */
-	protected Move(){
-		this.coord = null;
-	}
+  /** Constructeur du mouvement
+   * @author PECHON Erwan
+   */
+  protected Move(){
+    this.coord = null;
+  }
 
-	/** Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
-	 * @author PECHON Erwan
-	 *
-	 * Permet au jeu de connaître la case associé à ce mouvement.
-	 *
-	 */
-	public Coord getCoord(){
-		return this.coord;
-	}
-	/** Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
-	 * @author PECHON Erwan
-	 *
-	 * Permet au jeu de définire la case associé à ce mouvement.
-	 * Cette méthode ne peut être appelé qu'une seul fois, toute appel supplémentaire sera simplement ignoré.
-	 *
-	 */
-	public void setCoord(Coord coord){
-		if( this.coord == null ){
-			this.coord = coord;
-		}
-	}
+  /** Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
+   * @author PECHON Erwan
+   *
+   * Permet au jeu de connaître la case associé à ce mouvement.
+   *
+   */
+  public Coord getCoord(){
+    return this.coord;
+  }
+  /** Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
+   * @author PECHON Erwan
+   *
+   * Permet au jeu de définire la case associé à ce mouvement.
+   * Cette méthode ne peut être appelé qu'une seul fois, toute appel supplémentaire sera simplement ignoré.
+   *
+   */
+  public void setCoord(Coord coord){
+    if( this.coord == null ){
+      this.coord = coord;
+    }
+  }
 }
 
