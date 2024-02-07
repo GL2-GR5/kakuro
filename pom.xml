@@ -117,6 +117,7 @@
           <windowtitle>${project.name}</windowtitle>
           <doctitle>Documentaion ${project.name}</doctitle>
           <title>${project.name} ${project.version}</title>
+          <testdoctitle>Documentation des tests ${project.name}</testdoctitle>
 
           <!-- Chemin de génération -->
           <reportOutputDirectory>${project.basedir}/doc</reportOutputDirectory>
