@@ -20,8 +20,8 @@ class Coord {
    * @author PECHON Erwan
    */
   private Coord() {
-    this.line = -1;
-    this.column = -1;
+    this.line = Kakuro.NULL_VALUE;
+    this.column = Kakuro.NULL_VALUE;
   }
 
 

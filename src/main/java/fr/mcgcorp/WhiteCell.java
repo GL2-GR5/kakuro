@@ -8,13 +8,6 @@ import java.util.HashSet;
  * @see Cell
  */
 class WhiteCell extends Cell {
-  /** Valeur Maximal authorisé. */
-  public static final int MAX_VALUE = 9;
-  /** Valeur Minimal authorisé. */
-  public static final int MIN_VALUE = 1;
-  /** Valeur null (aucune valeur). */
-  public static final int NULL_VALUE = WhiteCell.MIN_VALUE - 1;
-
   /** Valeur de résultat de la case. */
   private int correctValue;
   /** Valeur entrée par le joueur. */
@@ -29,7 +22,7 @@ class WhiteCell extends Cell {
    */
   public WhiteCell(int correctValue) {
     this.correctValue = correctValue;
-    this.value = WhiteCell.NULL_VALUE;
+    this.value = Kakuro.NULL_VALUE;
     this.notes = new HashSet<Integer>();
   }
 
@@ -57,7 +50,7 @@ class WhiteCell extends Cell {
    * @param valeurNote note à ajouter
    */
   public void addNote(int valeurNote) {
-    if ((WhiteCell.MIN_VALUE < valeurNote) && (valeurNote < WhiteCell.MAX_VALUE)) {
+    if ((Kakuro.MIN_VALUE < valeurNote) && (valeurNote < Kakuro.MAX_VALUE)) {
       this.notes.add(valeurNote);
     }
   }
@@ -68,7 +61,7 @@ class WhiteCell extends Cell {
    * @param valeurNote note à retirer
    */
   public void removeNote(int valeurNote) {
-    if ((WhiteCell.MIN_VALUE < valeurNote) && (valeurNote < WhiteCell.MAX_VALUE)) {
+    if ((Kakuro.MIN_VALUE < valeurNote) && (valeurNote < Kakuro.MAX_VALUE)) {
       this.notes.add(valeurNote);
     }
   }
@@ -77,7 +70,7 @@ class WhiteCell extends Cell {
    * Efface la valeur entrée par le joueur.
    */
   public void clear() {
-    this.value = WhiteCell.NULL_VALUE;
+    this.value = Kakuro.NULL_VALUE;
   }
 
   /**

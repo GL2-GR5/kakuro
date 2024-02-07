@@ -23,6 +23,13 @@ import java.util.HashSet;
  * @author PECHON Erwan
  */
 class Kakuro {
+  /** Valeur Maximal authorisé. */
+  public static final int MAX_VALUE = 9;
+  /** Valeur Minimal authorisé. */
+  public static final int MIN_VALUE = 1;
+  /** Valeur null (aucune valeur). */
+  public static final int NULL_VALUE = Kakuro.MIN_VALUE - 1;
+
   /** La pile des mouvement effectué par le joueur. */
   protected Deque<Move> lstMove;
   /** La pile des mouvement effectué par le joueur, puis annulé. */
