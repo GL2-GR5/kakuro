@@ -29,7 +29,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - run: mvn javadoc:javadoc --file pom.xml
+      - run: maVar=$(find / -type f -iname "pom.xml" 2>/dev/null); mvn javadoc:javadoc --file $maVar
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
