@@ -35,7 +35,7 @@ class Kakuro implements Serializable {
    * Ce constructeur sert à préparer les variables pour tout type de jeu.
    * Pour initialiser le jeu pour des paramètres spécifiques, il faut passer par la méthode @link Kakuro#initialize.
    */
-  Kakuro(){
+  Kakuro() {
     this.lstMove = new ArrayDeque<Move>();
     this.lstMove_cancel = new ArrayDeque<Move>();
     this.lastCorrectState = 1;
@@ -49,16 +49,16 @@ class Kakuro implements Serializable {
    *
    * Cette méthode prends tout les paramètres nécéssaire pour lancer une partie de Kakuro et prépare le jeu en conséquence.
    */
-  public void initialize(int nbLine,int nbColumn){
+  public void initialize(int nbLine,int nbColumn) {
     this.grid = new Cell[nbLine][nbColumn];
-    for( int i=0 ; i<nbLine ; i++ ){
-      for( int j=0 ; j<nbColumn ; j++ ){
-        if( i < j ){
+    for( int i=0 ; i<nbLine ; i++ ) {
+      for( int j=0 ; j<nbColumn ; j++ ) {
+        if( i < j ) {
           this.grid[i][j] = new Cell();
-        } else if( i==j ){
-          if( (i%3) == 0 ){
+        } else if( i==j ) {
+          if( (i%3) == 0 ) {
             this.grid[i][j] = new ResultCell(null,i);
-          } else if( (i%3) == 0 ){
+          } else if( (i%3) == 0 ) {
             this.grid[i][j] = new ResultCell(i,null);
           } else {
             this.grid[i][j] = new ResultCell(i,i*2);
@@ -76,10 +76,10 @@ class Kakuro implements Serializable {
    * Cette fonction permettra d'initialiser la grille du jeu du côté de l'interface graphique.
    *
    */
-  public String[][] getMatriceClasses(){
+  public String[][] getMatriceClasses() {
     String[][] matr = new String[this.grid.length][this.grid[0].length];
-    for( int i=0 ; i<this.grid.length ; i++ ){
-      for( int j=0 ; j<this.grid.length ; j++ ){
+    for( int i=0 ; i<this.grid.length ; i++ ) {
+      for( int j=0 ; j<this.grid.length ; j++ ) {
         matr[i][j] = this.grid[i][j].getClass().getName();
       }
     }
@@ -93,7 +93,7 @@ class Kakuro implements Serializable {
    * Afin de limiter les accès mémoire, la sauvegarde devra se faire dans un fichier binaire et il faudra que seul les éléments ayant était modifié depuis la dernière sauvegarde soit enregistrer (le reste l'est déjà et ne doit pas être écraser.)
    *
    */
-  public void save(){
+  public void save() {
   }
   /** Fonction à appelé pour quitter le jeu
    * @author
@@ -102,14 +102,14 @@ class Kakuro implements Serializable {
    * - Ferme le fichier de sauvegarde.
    *
    */
-  public void quit(){
+  public void quit() {
     this.save();
   }
 
   /** Qu'elle aide donnée au joueur ?
    * @author
    */
-  public void help(){
+  public void help() {
   }
 
   /** Permet d'obtenir une case.
@@ -119,11 +119,11 @@ class Kakuro implements Serializable {
    *
    * Permet de vérifier que les coordonnée soit correct.
    */
-  private Cell getCell(Coord coord){
+  private Cell getCell(Coord coord) {
     Cell cell = null;
     try{
       cell = this.grid[coord.getL()][coord.getC()];
-    } catch(ArrayIndexOutOfBoundsException e){
+    } catch(ArrayIndexOutOfBoundsException e) {
       return null;
     }
     return cell;
@@ -136,12 +136,12 @@ class Kakuro implements Serializable {
    *
    * Permet de vérifier que les coordonnée soit correct.
    */
-  private <T> T getCell(Coord coord, Class<T> classCell){
+  private <T> T getCell(Coord coord, Class<T> classCell) {
     Cell cell = this.getCell(coord);
-    if( cell == null ){
+    if( cell == null ) {
       return null;
     }
-    if( cell.isInstance(classCell) ){
+    if( cell.isInstance(classCell) ) {
       return classCell.cast( cell );
     }
     return null;
@@ -151,11 +151,11 @@ class Kakuro implements Serializable {
    * @param line La ligne à obtenire
    * @return La ligne demandé
    */
-  private Cell[] getRow(int line){
+  private Cell[] getRow(int line) {
     Cell[] row = null;
     try{
       row = this.grid[ line ];
-    } catch(ArrayIndexOutOfBoundsException e){
+    } catch(ArrayIndexOutOfBoundsException e) {
       return null;
     }
     return row;
@@ -165,12 +165,12 @@ class Kakuro implements Serializable {
    * @param column La colonne à obtenire
    * @return La colonne demandé
    */
-  private Cell[] getCol(int column){
-    if( (column < 0) || (this.grid[0].length <= column) ){
+  private Cell[] getCol(int column) {
+    if( (column < 0) || (this.grid[0].length <= column) ) {
       return null;
     }
     Cell[] col = new Cell[ this.grid[0].length ];
-    for( int i=0 ; i<this.grid.length ; i++ ){
+    for( int i=0 ; i<this.grid.length ; i++ ) {
       col[i] = this.grid[i][column];
     }
     return col;
@@ -182,9 +182,9 @@ class Kakuro implements Serializable {
    * @param coord Les coordonées de la case à interrogé
    * @return La valeur demandé
    */
-  public int getValue(Coord coord){
+  public int getValue(Coord coord) {
     ValueCell cell = this.getCell( coord , ValueCell.class );
-    if( cell == null ){
+    if( cell == null ) {
       return null;
     }
     return cell.getValue();
@@ -194,9 +194,9 @@ class Kakuro implements Serializable {
    * @param coord Les coordonées de la case à modifié
    * @param value La valeur à saisire
    */
-  public Coord setValue(Coord coord,int value){
+  public Coord setValue(Coord coord,int value) {
     ValueCell cell = this.getCell( coord , ValueCell.class );
-    if( cell == null ){
+    if( cell == null ) {
       return null;
     }
     cell.setValue(value);
@@ -208,9 +208,9 @@ class Kakuro implements Serializable {
    * @param coord Les coordonées de la case de consigne
    * @return La valeur demandé
    */
-  public int getResultRow(Coord coord){
+  public int getResultRow(Coord coord) {
     ResultCell cell = this.getCell( coord , ResultCell.class );
-    if( cell == null ){
+    if( cell == null ) {
       return null;
     }
     return cell.getRow();
@@ -220,9 +220,9 @@ class Kakuro implements Serializable {
    * @param coord Les coordonées de la case de consigne
    * @return La valeur demandé
    */
-  public int getResultColumn(Coord coord){
+  public int getResultColumn(Coord coord) {
     ResultCell cell = this.getCell( coord , ResultCell.class );
-    if( cell == null ){
+    if( cell == null ) {
       return null;
     }
     return cell.getColumn();
@@ -235,29 +235,29 @@ class Kakuro implements Serializable {
    * @param useOld Qu'elle méthode du mouvement faut-il utilisé ?
    * @return Les coordonnées de la case modifié
    */
-  private Coord swapDeque(Deque origin, Deque destination, boolean useOld){
-    if( origin.isEmpty() ){
+  private Coord swapDeque(Deque origin, Deque destination, boolean useOld) {
+    if( origin.isEmpty() ) {
       return null;
     }
     Move move = origin.pop();
 
     Coord coord = move.getCoord();
     ValueCell cell = this.getCell( coord , ValueCell );
-    if( cell == null ){
+    if( cell == null ) {
       return null;
     }
 
-    if( move instanceof MoveValue ){
+    if( move instanceof MoveValue ) {
       int value = -1;
-      if( useOld ){
+      if( useOld ) {
         value = move.getValue_old();
       } else {
         value = move.getValue_new();
       }
       cell.restoreValue( value );
-    } else if( move instanceof MoveNote ){
+    } else if( move instanceof MoveNote ) {
       HashSet<Integer> notes = null;
-      if( useOld ){
+      if( useOld ) {
         notes = move.getNotes_old();
       } else {
         notes = move.getNotes_new();
@@ -274,23 +274,23 @@ class Kakuro implements Serializable {
    * @author PECHON Erwan
    * @return Les coordonnées de la case modifié
    */
-  public Coord undo(){
+  public Coord undo() {
     return swapDeque(this.lstMove,this.lstMove_cancel,true);
   }
   /** Refaire le dernier mouvement annuler
    * @author PECHON Erwan
    * @return Les coordonnées de la case modifié
    */
-  public Coord redo(){
+  public Coord redo() {
     return swapDeque(this.lstMove_cancel,this.lstMove,false);
   }
   /** Retourner au dernier mouvement où le jeu n'avait pas d'erreurs
    * @author PECHON Erwan
    * @return Les coordonnées des cases modifiés
    */
-  public Coord[] backToLastCorrectState(){
+  public Coord[] backToLastCorrectState() {
     HashSet<Coord> setModification = new HashSet<>();
-    while( this.lastCorrectState < this.lstMove.size() ){
+    while( this.lastCorrectState < this.lstMove.size() ) {
       setModification.add( this.undo() );
     }
     return setModification.toArray();
@@ -303,10 +303,10 @@ class Kakuro implements Serializable {
    * @return Les deux tableaux fusionnée.
    */
   private static CellError[] concatArrays(CellError[] array1, CellError[] array2) {
-    if( array1 == null ){
+    if( array1 == null ) {
       return array2;
     }
-    if( array2 == null ){
+    if( array2 == null ) {
       return array1;
     }
     CellError[] result = Arrays.copyOf(array1, array1.length + array2.length);
@@ -317,20 +317,20 @@ class Kakuro implements Serializable {
    * @author PECHON Erwan
    * @return La liste des Erreurs découvertes
    */
-  public CellError[] check(){
+  public CellError[] check() {
     CellError[] lstError = null;
     Coord coord = null;
-    for( int i=0 ; i<this.grid.length ; i++ ){
-      for( int j=0 ; j<this.grid[i].length ; j++ ){
+    for( int i=0 ; i<this.grid.length ; i++ ) {
+      for( int j=0 ; j<this.grid[i].length ; j++ ) {
         coord = new createCoord_matriciel(i,j);
         lstError = this.concatArrays( lstError , this.check(coord) );
       }
     }
-    if( CellError == null ){
+    if( CellError == null ) {
       return null;
     }
-    if( CellError.length != 0 ){
-      if( this.lastCorrectState < 0 ){
+    if( CellError.length != 0 ) {
+      if( this.lastCorrectState < 0 ) {
         this.lastCorrectState = this.lstMove.size();
       }
     }
@@ -341,56 +341,56 @@ class Kakuro implements Serializable {
    * @param coord Les coordonées de la case à questionnée.
    * @return La liste des Erreurs découvertes
    */
-  public CellError[] check(Coord coord){
+  public CellError[] check(Coord coord) {
     Cell cell = this.getCell(coord);
-    if( cell == null ){
+    if( cell == null ) {
       return null;
     }
     Cell[] row = this.getRow();
     Cell[] col = this.getCol();
-    if( cell instanceof ValueCell ){
+    if( cell instanceof ValueCell ) {
       int value = ((ValueCell) cell).getValue();
-      if( value == ValueCell.NULL_VALUE ){
+      if( value == ValueCell.NULL_VALUE ) {
         return new CellError[0];
       }
       ArrayList<CellError> lstError = new ArrayList<>();
       Coord coordError = null;
-      for( int i=0 ; i<row.length ; i++ ){
-        if( i != coord.getC() ){
-          if( value == row[i].getValue() ){
+      for( int i=0 ; i<row.length ; i++ ) {
+        if( i != coord.getC() ) {
+          if( value == row[i].getValue() ) {
             coordError = new createCoord_matriciel( coord.getL() , i );
             lstError.add( new CellError(coordError,TypeError.DOUBLE) );
           }
         }
       }
-      for( int i=0 ; i<col.length ; i++ ){
-        if( i != coord.getL() ){
-          if( value == col[i].getValue() ){
+      for( int i=0 ; i<col.length ; i++ ) {
+        if( i != coord.getL() ) {
+          if( value == col[i].getValue() ) {
             coordError = new createCoord_matriciel( i , coord.getC() );
             lstError.add( new CellError(coordError,TypeError.DOUBLE) );
           }
         }
       }
-      if( ! ((ValueCell) cell).isCorrect() ){
+      if( ! ((ValueCell) cell).isCorrect() ) {
         lstError.add( new CellError(coord,TypeError.VALUE) );
       }
       return lstError.toArray();
-    } else if( cell instanceof ResultCell ){
+    } else if( cell instanceof ResultCell ) {
       int resultRow = ((ResultCell) cell).getRow();
       int resultCol = ((ResultCell) cell).getCol();
       ArrayList<CellError> lstError = new ArrayList<>();
       Coord coordError = null;
       int value = -1;
       int res = 0;
-      if( resultRow != null ){
-        for( int i=coord.getC()+1 ; i<row.length ; i++ ){
-          if( ! (row[i] instanceof ValueCell) ){
+      if( resultRow != null ) {
+        for( int i=coord.getC()+1 ; i<row.length ; i++ ) {
+          if( ! (row[i] instanceof ValueCell) ) {
             break;
           }
           value = row[i].getValue();
-          if( value != ValueCell.NULL_VALUE ){
+          if( value != ValueCell.NULL_VALUE ) {
             res+= value;
-            if( res > resultRow ){
+            if( res > resultRow ) {
               coordError = new createCoord_matriciel( coord.getL() , i );
               lstError.add( new CellError(coordError,TypeError.OVER_RESULT_ROW) );
               break;
@@ -398,15 +398,15 @@ class Kakuro implements Serializable {
           }
         }
       }
-      if( resultCol != null ){
-        for( int i=coord.getL()+1 ; i<col.length ; i++ ){
-          if( ! (col[i] instanceof ValueCell) ){
+      if( resultCol != null ) {
+        for( int i=coord.getL()+1 ; i<col.length ; i++ ) {
+          if( ! (col[i] instanceof ValueCell) ) {
             break;
           }
           value = col[i].getValue();
-          if( value != ValueCell.NULL_VALUE ){
+          if( value != ValueCell.NULL_VALUE ) {
             res+= value;
-            if( res > resultCol ){
+            if( res > resultCol ) {
               coordError = new createCoord_matriciel( i , coord.getC() );
               lstError.add( new CellError(coordError,TypeError.OVER_RESULT_LINE) );
               break;
@@ -424,13 +424,13 @@ class Kakuro implements Serializable {
    * @author PECHON Erwan
    * @return La liste des cases modifié
    */
-  public Coord[] clean(){
+  public Coord[] clean() {
     ArrayList<Coord> lstModif = new ArrayList<>();
     Coord coord = null;
-    for( int i=0 ; i<this.grid.length ; i++ ){
-      for( int j=0 ; j<this.grid[i].length ; j++ ){
+    for( int i=0 ; i<this.grid.length ; i++ ) {
+      for( int j=0 ; j<this.grid[i].length ; j++ ) {
         coord = createCoord_matriciel(i,j);
-        if( this.clean(coord) != null ){
+        if( this.clean(coord) != null ) {
           lstModif.add(coord);
         }
       }
@@ -442,9 +442,9 @@ class Kakuro implements Serializable {
    * @param coord Les coordonées de la case à modifié.
    * @return La cases modifié
    */
-  public Coord clean(Coord coord){
+  public Coord clean(Coord coord) {
     ValueCell cell = this.getCell( coord , ValueCell.class );
-    if( cell == null ){
+    if( cell == null ) {
       return null;
     }
     cell.clean();
@@ -454,13 +454,13 @@ class Kakuro implements Serializable {
    * @author PECHON Erwan
    * @return La liste des cases modifié
    */
-  public Coord[] cleanNotes(){
+  public Coord[] cleanNotes() {
     ArrayList<Coord> lstModif = new ArrayList<>();
     Coord coord = null;
-    for( int i=0 ; i<this.grid.length ; i++ ){
-      for( int j=0 ; j<this.grid[i].length ; j++ ){
+    for( int i=0 ; i<this.grid.length ; i++ ) {
+      for( int j=0 ; j<this.grid[i].length ; j++ ) {
         coord = createCoord_matriciel(i,j);
-        if( this.cleanNotes(coord) != null ){
+        if( this.cleanNotes(coord) != null ) {
           lstModif.add(coord);
         }
       }
@@ -472,9 +472,9 @@ class Kakuro implements Serializable {
    * @param coord Les coordonées de la case à modifié.
    * @return La cases modifié
    */
-  public Coord cleanNotes(Coord coord){
+  public Coord cleanNotes(Coord coord) {
     ValueCell cell = this.getCell( coord , ValueCell.class );
-    if( cell == null ){
+    if( cell == null ) {
       return null;
     }
     cell.cleanNotes();
@@ -485,9 +485,9 @@ class Kakuro implements Serializable {
    * @param coord Les coordonées de la case à questionnée.
    * @return La liste des notes inscrites
    */
-  public int[] getNotes(Coord coord){
+  public int[] getNotes(Coord coord) {
     ValueCell cell = this.getCell( coord , ValueCell.class );
-    if( cell == null ){
+    if( cell == null ) {
       return null;
     }
     return cell.getNotes();
@@ -498,9 +498,9 @@ class Kakuro implements Serializable {
    * @param notes La liste des notes inscrites
    * @return Les coordonées de la cellule modifié.
    */
-  public Coord setNotes(Coord coord,int[] notes){
+  public Coord setNotes(Coord coord,int[] notes) {
     ValueCell cell = this.getCell( coord , ValueCell.class );
-    if( cell == null ){
+    if( cell == null ) {
       return null;
     }
     cell.getNotes(notes);

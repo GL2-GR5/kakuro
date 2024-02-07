@@ -14,7 +14,7 @@ abstract class Move {
   /** Constructeur du mouvement
    * @author PECHON Erwan
    */
-  protected Move(){
+  protected Move() {
     this.coord = null;
   }
 
@@ -24,7 +24,7 @@ abstract class Move {
    * Permet au jeu de connaître la case associé à ce mouvement.
    *
    */
-  public Coord getCoord(){
+  public Coord getCoord() {
     return this.coord;
   }
   /** Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
@@ -34,8 +34,8 @@ abstract class Move {
    * Cette méthode ne peut être appelé qu'une seul fois, toute appel supplémentaire sera simplement ignoré.
    *
    */
-  public void setCoord(Coord coord){
-    if( this.coord == null ){
+  public void setCoord(Coord coord) {
+    if( this.coord == null ) {
       this.coord = coord;
     }
   }
