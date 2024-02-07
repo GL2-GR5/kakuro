@@ -10,20 +10,20 @@ import java.util.HashSet;
  */
 class MoveNote extends Move {
   /** Notes modifié par le joueur. */
-  protected HashSet<Integer> notes_old;
+  protected HashSet<Integer> notesOld;
   /** Nouvelle notes saisie par le joueur. */
-  protected HashSet<Integer> notes_new;
+  protected HashSet<Integer> notesNew;
 
   /**
    * Constructeur d'un mouvement modifiant les notes.
    *
-   * @param notes_old Les notes de la cellule, avant ce mouvement.
-   * @param notes_new Les notes de la cellule, après ce mouvement.
+   * @param notesOld Les notes de la cellule, avant ce mouvement.
+   * @param notesNew Les notes de la cellule, après ce mouvement.
    */
-  MoveNote(HashSet<Integer> notes_old, HashSet<Integer> notes_new) {
+  MoveNote(HashSet<Integer> notesOld, HashSet<Integer> notesNew) {
     super();
-    this.notes_old = notes_old;
-    this.notes_new = notes_new;
+    this.notesOld = notesOld;
+    this.notesNew = notesNew;
   }
 
   /**
@@ -31,8 +31,8 @@ class MoveNote extends Move {
    *
    * @return Le vieux set de notes
    */
-  public HashSet<Integer> getNotes_old() {
-    return this.notes_old;
+  public HashSet<Integer> getNotesOld() {
+    return this.notesOld;
   }
 
   /**
@@ -40,7 +40,7 @@ class MoveNote extends Move {
    *
    * @return Le nouveaux set de notes
    */
-  public HashSet<Integer> getNotes_new() {
-    return this.notes_new;
+  public HashSet<Integer> getNotesNew() {
+    return this.notesNew;
   }
 }
