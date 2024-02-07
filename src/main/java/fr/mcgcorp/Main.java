@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  * @see Application
  */
 public class Main extends Application {
-  
+
   /**
    * Méthode principale de l'application.
    * lance l'application.
