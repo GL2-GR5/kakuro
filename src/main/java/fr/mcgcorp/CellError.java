@@ -25,6 +25,8 @@ class CellError {
   /**
    * Accesseur sur les coordonnée de la case où l'erreur à eu lieu.
    * Permet au jeu de connaître la case associé à cette erreur.
+   *
+   * @return Les coordonnée de l'erreur.
    */
   public Coord getCoord() {
     return this.coord;
@@ -33,7 +35,8 @@ class CellError {
   /**
    * Accesseur sur le type d'erreur détecté.
    * Permet au jeu de connaître le type d'erreur ayant eu lieu.
-   * 
+   *
+   * @return Le type de l'erreur.
    */
   public TypeError getTypeError() {
     return this.error;

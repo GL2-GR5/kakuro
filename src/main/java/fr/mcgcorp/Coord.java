@@ -29,8 +29,8 @@ class Coord {
   /**
    * Le constructeur des coordonnée dans le millieu de l'interface graphique.
    * @author PECHON Erwan
-   * @param posX Une coordonnée graphique
-   * @param posY L'autre coordonnée graphique
+   * @param x Une coordonnée graphique
+   * @param y L'autre coordonnée graphique
    * @return Les coordonnées du point désirer.
    */
   public static Coord createCoord_graphical(int x, int y) {
