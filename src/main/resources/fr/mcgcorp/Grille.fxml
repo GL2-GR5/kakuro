@@ -34,17 +34,17 @@
       </GridPane>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="828.0" layoutY="35.0">
          <image>
-            <Image url="@../Icone%2017672.png" />
+            <Image url="@assets/star.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="870.0" layoutY="35.0">
          <image>
-            <Image url="@../Icone%2017672.png" />
+            <Image url="@assets/star.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="912.0" layoutY="35.0">
          <image>
-            <Image url="@../Icone%2017672.png" />
+            <Image url="@assets/star.png" />
          </image>
       </ImageView>
       <Label fx:id="niveau_display" layoutX="34.0" layoutY="16.0" prefHeight="28.0" prefWidth="222.0" style="-fx-border-color: BLACK;" />
