@@ -1,6 +1,6 @@
 package fr.mcgcorp;
 
-import java.util.HashSet
+import java.util.HashSet;
 
 /**
  * Représentation d'un mouvement modifiant les notes d'une case.
