@@ -271,7 +271,7 @@ class Kakuro {
     if (origin.isEmpty()) {
       return null;
     }
-    Move move = ((Move) origin.pop());
+    Move move = origin.pop();
 
     Coord coord = move.getCoord();
     WhiteCell cell = this.getCell(coord, WhiteCell.class);
@@ -373,7 +373,7 @@ class Kakuro {
     Coord coord = null;
     for (int i = 0; i < this.grid.length; i++) {
       for (int j = 0; j < this.grid[i].length; j++) {
-        coord = Coord.createCoord_matriciel(i, j);
+        coord = new Coord.createCoord_matriciel(i, j);
         lstError = this.concatArrays(lstError, this.check(coord));
       }
     }
@@ -411,7 +411,7 @@ class Kakuro {
       for (int i = 0; i < row.length; i++) {
         if (i != coord.getColumn()) {
           if ((row[i] instanceof WhiteCell) && (value == ((WhiteCell) row[i]).getValue())) {
-            coordError = Coord.createCoord_matriciel(coord.getLine(), i);
+            coordError = new Coord.createCoord_matriciel(coord.getLine(), i);
             lstError.add(new CellError(coordError, TypeError.DOUBLE));
           }
         }
@@ -419,7 +419,7 @@ class Kakuro {
       for (int i = 0; i < col.length; i++) {
         if (i != coord.getLine()) {
           if ((col[i] instanceof WhiteCell) && (value == ((WhiteCell) col[i]).getValue())) {
-            coordError = Coord.createCoord_matriciel(i, coord.getColumn());
+            coordError = new Coord.createCoord_matriciel(i, coord.getColumn());
             lstError.add(new CellError(coordError, TypeError.DOUBLE));
           }
         }
@@ -427,10 +427,10 @@ class Kakuro {
       if (!((WhiteCell) cell).isCorrect()) {
         lstError.add(new CellError(coord, TypeError.VALUE));
       }
-      return lstError.toArray(new CellError[lstError.size()]);
+      return lstError.toArray();
     } else if (cell instanceof ResultCell) {
       int resultRow = ((ResultCell) cell).getRow();
-      int resultCol = ((ResultCell) cell).getColumn();
+      int resultCol = ((ResultCell) cell).getCol();
       ArrayList<CellError> lstError = new ArrayList<>();
       Coord coordError = null;
       int value = Kakuro.NULL_VALUE;
@@ -440,11 +440,11 @@ class Kakuro {
           if (!(row[i] instanceof WhiteCell)) {
             break;
           }
-          value = ((WhiteCell) row[i]).getValue();
-          if (value != Kakuro.NULL_VALUE) {
+          value = row[i].getValue();
+          if (value != WhiteCell.NULL_VALUE) {
             res += value;
             if (res > resultRow) {
-              coordError = Coord.createCoord_matriciel(coord.getLine(), i);
+              coordError = new createCoord_matriciel(coord.getLine(), i);
               lstError.add(new CellError(coordError, TypeError.OVER_RESULT_ROW));
               break;
             }
@@ -460,7 +460,7 @@ class Kakuro {
           if (value != Kakuro.NULL_VALUE) {
             res += value;
             if (res > resultCol) {
-              coordError = Coord.createCoord_matriciel(i, coord.getColumn());
+              coordError = new createCoord_matriciel(i, coord.getColumn());
               lstError.add(new CellError(coordError, TypeError.OVER_RESULT_LINE));
               break;
             }
@@ -483,7 +483,7 @@ class Kakuro {
     Coord coord = null;
     for (int i = 0; i < this.grid.length; i++) {
       for (int j = 0; j < this.grid[i].length; j++) {
-        coord = Coord.createCoord_matriciel(i, j);
+        coord = createCoord_matriciel(i, j);
         if (this.clean(coord) != null) {
           lstModif.add(coord);
         }
@@ -504,7 +504,6 @@ class Kakuro {
       return null;
     }
     cell.clearAll();
-    return coord;
   }
 
   /**
@@ -538,7 +537,6 @@ class Kakuro {
       return null;
     }
     cell.clearNotes();
-    return coord;
   }
 
   /**

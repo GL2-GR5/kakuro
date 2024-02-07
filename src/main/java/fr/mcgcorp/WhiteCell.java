@@ -1,5 +1,6 @@
 package fr.mcgcorp;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 /**
@@ -22,8 +23,8 @@ class WhiteCell extends Cell {
    */
   public WhiteCell(int correctValue) {
     this.correctValue = correctValue;
-    this.value = Kakuro.NULL_VALUE;
     this.notes = new HashSet<Integer>();
+    this.clearAll();
   }
 
   /**
@@ -37,11 +38,26 @@ class WhiteCell extends Cell {
 
   /**
    * Renvoie la valeur entrée par le joueur.
-   * 
+   *
    * @return int
    */
   public int getValue() {
     return this.value;
+  }
+
+  /**
+   * Saisit la valeur entrée par le joueur.
+   *
+   * @param value La valeur donnée par le joueur.
+   */
+  public void setValue(int value) {
+    if ((Kakuro.MIN_VALUE <= value) && (value <= Kakuro.MAX_VALUE)) {
+      this.value = value;
+    }
+  }
+
+  public boolean isCorrect() {
+    return (this.value == this.correctValue);
   }
 
   /**
@@ -50,7 +66,7 @@ class WhiteCell extends Cell {
    * @param valeurNote note à ajouter
    */
   public void addNote(int valeurNote) {
-    if ((Kakuro.MIN_VALUE < valeurNote) && (valeurNote < Kakuro.MAX_VALUE)) {
+    if ((Kakuro.MIN_VALUE <= valeurNote) && (valeurNote <= Kakuro.MAX_VALUE)) {
       this.notes.add(valeurNote);
     }
   }
@@ -61,9 +77,48 @@ class WhiteCell extends Cell {
    * @param valeurNote note à retirer
    */
   public void removeNote(int valeurNote) {
-    if ((Kakuro.MIN_VALUE < valeurNote) && (valeurNote < Kakuro.MAX_VALUE)) {
-      this.notes.add(valeurNote);
+    if ((Kakuro.MIN_VALUE <= valeurNote) && (valeurNote <= Kakuro.MAX_VALUE)) {
+      this.notes.remove(valeurNote);
     }
+  }
+
+  /**
+   * Redéfinit le set de notes du joueur.
+   *
+   * @param notes Le nouveau set de notes.
+   */
+  public void setNotes(int[] notes) {
+    this.clearNotes();
+    for (int i : notes) {
+      this.addNote(i);
+    }
+  }
+
+  /**
+   * Redéfinit le set de notes du joueur.
+   *
+   * @param notes Le nouveau set de notes.
+   */
+  public void setNotes(HashSet<Integer> notes) {
+    this.clearNotes();
+    for (int i : notes) {
+      this.addNote(i);
+    }
+  }
+
+  /**
+   * Envoit le set de notes du joueur.
+   *
+   * @param notes Le nouveau set de notes.
+   */
+  public int[] getNotes() {
+    int[] notes = new int[this.notes.size()];
+    int i = 0;
+    for (int note : this.notes) {
+      notes[i] = note;
+    }
+    Arrays.sort(notes);
+    return notes;
   }
 
   /**
