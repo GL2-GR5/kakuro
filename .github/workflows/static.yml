@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: './docs/javadoc'
+          path: './doc/javadoc'
       
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
