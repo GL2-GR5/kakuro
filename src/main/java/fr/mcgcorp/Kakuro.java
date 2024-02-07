@@ -15,8 +15,6 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashSet;
 
-
-
 /**
  * La classe gérant tout le dérouler du jeu.
  * Cette classe gère le dérouler du jeu en fonction des messages envoyé par le
@@ -37,11 +35,9 @@ class Kakuro {
   /**
    * Le constructeur du jeu de Kakuro.
    * 
-   * @author PECHON Erwan
-   *
-   *         Ce constructeur sert à préparer les variables pour tout type de jeu.
-   *         Pour initialiser le jeu pour des paramètres spécifiques, il faut
-   *         passer par la méthode @link Kakuro#initialize.
+   * Ce constructeur sert à préparer les variables pour tout type de jeu.
+   * Pour initialiser le jeu pour des paramètres spécifiques, il faut
+   * passer par la méthode @link Kakuro#initialize.
    */
   Kakuro() {
     this.lstMove = new ArrayDeque<Move>();
@@ -52,13 +48,11 @@ class Kakuro {
 
   /**
    * Initialise une partie de Kakuro et la lance.
+   * Cette méthode prends tout les paramètres nécéssaire pour lancer une partie de
+   * Kakuro et prépare le jeu en conséquence.
    * 
-   * @author PECHON Erwan
    * @param nbLine   Le nombre de lignes que doit-avoir la grille de Kakuro.
    * @param nbColumn Le nombre de colonnes que doit-avoir la grille de Kakuro.
-   *
-   *                 Cette méthode prends tout les paramètres nécéssaire pour
-   *                 lancer une partie de Kakuro et prépare le jeu en conséquence.
    */
   public void initialize(int nbLine, int nbColumn) {
     this.grid = new Cell[nbLine][nbColumn];
@@ -83,14 +77,11 @@ class Kakuro {
 
   /**
    * Accesseur sur le type des cases du jeu.
-   * 
-   * @author PECHON Erwan
+   * Cette fonction permettra d'initialiser la grille du jeu du côté de
+   * l'interface graphique.
+   *
    * @return Une matrice comportement le nom de la classe de chaque cellule de la
    *         grille du jeu.
-   *
-   *         Cette fonction permettra d'initialiser la grille du jeu du côté de
-   *         l'interface graphique.
-   *
    */
   public String[][] getMatriceClasses() {
     String[][] matr = new String[this.grid.length][this.grid[0].length];
@@ -104,28 +95,22 @@ class Kakuro {
 
   /**
    * Gestion de la sauvegarde de l'état du jeu.
-   * 
-   * @author
    *
-   *         Cette fonction définit comment le jeu doit-être sauvegardé.
-   *         Elle devra être invoquer régulièrement (environ tous les 10 coups)
-   *         afin d'éviter la perte d'une partie du à une coupure de courant.
-   *         Afin de limiter les accès mémoire, la sauvegarde devra se faire dans
-   *         un fichier binaire et il faudra que seul les éléments ayant était
-   *         modifié depuis la dernière sauvegarde soit enregistrer (le reste
-   *         l'est déjà et ne doit pas être écraser.)
-   *
+   * Cette fonction définit comment le jeu doit-être sauvegardé.
+   * Elle devra être invoquer régulièrement (environ tous les 10 coups)
+   * afin d'éviter la perte d'une partie du à une coupure de courant.
+   * Afin de limiter les accès mémoire, la sauvegarde devra se faire dans
+   * un fichier binaire et il faudra que seul les éléments ayant était
+   * modifié depuis la dernière sauvegarde soit enregistrer (le reste
+   * l'est déjà et ne doit pas être écraser.)
    */
   public void save() {
   }
 
   /**
    * Fonction à appelé pour quitter le jeu.
-   * 
-   * @author
-   *
-   *         - Assure que le jeu soit bien sauvegardé.
-   *         - Ferme le fichier de sauvegarde.
+   * Assure que le jeu soit bien sauvegardé.
+   * Ferme le fichier de sauvegarde.
    *
    */
   public void quit() {
@@ -134,8 +119,6 @@ class Kakuro {
 
   /**
    * Qu'elle aide donnée au joueur.
-   * 
-   * @author
    */
   public void help() {
   }
@@ -143,7 +126,6 @@ class Kakuro {
   /**
    * Permet d'obtenir une case.
    * 
-   * @author PECHON Erwan
    * @param coord Les coordonnée de la case à obtenire.
    * @return La case demandé.
    *
@@ -161,13 +143,12 @@ class Kakuro {
 
   /**
    * Permet d'obtenir une case.
+   * Permet de vérifier que les coordonnée soit correct.
    * 
-   * @author PECHON Erwan
    * @param coord     Les coordonnée de la case à obtenire.
    * @param classCell La classe que la cellule doit avoir.
+   * @param <T>       La classe de la cellule demandé.
    * @return La case demandé caster dans sa classe.
-   *
-   *         Permet de vérifier que les coordonnée soit correct.
    */
   private <T> T getCell(Coord coord, Class<T> classCell) {
     Cell cell = this.getCell(coord);
@@ -183,7 +164,6 @@ class Kakuro {
   /**
    * Permet d'obtenir une ligne.
    * 
-   * @author PECHON Erwan
    * @param line La ligne à obtenire
    * @return La ligne demandé
    */
@@ -200,7 +180,6 @@ class Kakuro {
   /**
    * Permet d'obtenir une colonne.
    * 
-   * @author PECHON Erwan
    * @param column La colonne à obtenire
    * @return La colonne demandé
    */
@@ -217,8 +196,7 @@ class Kakuro {
 
   /**
    * Permet d'obtenir la valeur d'une case blanche.
-   * 
-   * @author PECHON Erwan
+   *
    * @param coord Les coordonées de la case à interrogé
    * @return La valeur demandé
    */
@@ -233,9 +211,10 @@ class Kakuro {
   /**
    * Permet de modifier la valeur d'une case blanche.
    * 
-   * @author PECHON Erwan
-   * @param coord Les coordonées de la case à modifié
-   * @param value La valeur à saisire
+
+   * @param coord Les coordonnées de la case à modifié
+   * @param value La valeur à saisie
+   * @return Les coordonnées de la case modifié
    */
   public Coord setValue(Coord coord, int value) {
     WhiteCell cell = this.getCell(coord, WhiteCell.class);
@@ -248,8 +227,7 @@ class Kakuro {
 
   /**
    * Permet d'obtenir le résultat attendu pour une ligne.
-   * 
-   * @author PECHON Erwan
+   *
    * @param coord Les coordonées de la case de consigne
    * @return La valeur demandé
    */
@@ -263,8 +241,7 @@ class Kakuro {
 
   /**
    * Permet d'obtenir le résultat attendu pour une colonne.
-   * 
-   * @author PECHON Erwan
+   *
    * @param coord Les coordonées de la case de consigne
    * @return La valeur demandé
    */
@@ -278,8 +255,7 @@ class Kakuro {
 
   /**
    * Permet de déplacer une action d'une pile à une autre.
-   * 
-   * @author PECHON Erwan
+   *
    * @param origin      La pile à dépiler
    * @param destination La pile à empiler
    * @param useOld      Qu'elle méthode du mouvement faut-il utilisé ?
@@ -325,8 +301,7 @@ class Kakuro {
 
   /**
    * Annuler le dernier mouvement.
-   * 
-   * @author PECHON Erwan
+   *
    * @return Les coordonnées de la case modifié
    */
   public Coord undo() {
@@ -335,8 +310,7 @@ class Kakuro {
 
   /**
    * Refaire le dernier mouvement annuler.
-   * 
-   * @author PECHON Erwan
+   *
    * @return Les coordonnées de la case modifié
    */
   public Coord redo() {
@@ -345,8 +319,7 @@ class Kakuro {
 
   /**
    * Retourner au dernier mouvement où le jeu n'avait pas d'erreurs.
-   * 
-   * @author PECHON Erwan
+   *
    * @return Les coordonnées des cases modifiés
    */
   public Coord[] backToLastCorrectState() {
@@ -359,8 +332,7 @@ class Kakuro {
 
   /**
    * Concatener deux tableau de cellule d'erreur.
-   * 
-   * @author PECHON Erwan
+   *
    * @param array1 Le tableau à mettre à l'avant du nouveau tableau
    * @param array2 Le tableau à mettre à l'arrière du nouveau tableau
    * @return Les deux tableaux fusionnée.
@@ -379,8 +351,7 @@ class Kakuro {
 
   /**
    * Fouille toute la grille à la recherche d'erreurs.
-   * 
-   * @author PECHON Erwan
+   *
    * @return La liste des Erreurs découvertes
    */
   public CellError[] check() {
@@ -405,8 +376,7 @@ class Kakuro {
 
   /**
    * Vérifie si une cellule est correct.
-   * 
-   * @author PECHON Erwan
+   *
    * @param coord Les coordonées de la case à questionnée.
    * @return La liste des Erreurs découvertes
    */
@@ -491,8 +461,7 @@ class Kakuro {
 
   /**
    * Ré-initialise le tableau.
-   * 
-   * @author PECHON Erwan
+   *
    * @return La liste des cases modifié
    */
   public Coord[] clean() {
@@ -511,8 +480,7 @@ class Kakuro {
 
   /**
    * Ré-initialise une cellule.
-   * 
-   * @author PECHON Erwan
+   *
    * @param coord Les coordonées de la case à modifié.
    * @return La cases modifié
    */
@@ -526,8 +494,7 @@ class Kakuro {
 
   /**
    * Ré-initialise les notes de toutes les cellules.
-   * 
-   * @author PECHON Erwan
+   *
    * @return La liste des cases modifié
    */
   public Coord[] cleanNotes() {
@@ -546,8 +513,7 @@ class Kakuro {
 
   /**
    * Ré-initialise les notes d'une cellule.
-   * 
-   * @author PECHON Erwan
+   *
    * @param coord Les coordonées de la case à modifié.
    * @return La cases modifié
    */
@@ -561,8 +527,7 @@ class Kakuro {
 
   /**
    * Obtient les notes inscrites sur une case.
-   * 
-   * @author PECHON Erwan
+   *
    * @param coord Les coordonées de la case à questionnée.
    * @return La liste des notes inscrites
    */
@@ -576,8 +541,7 @@ class Kakuro {
 
   /**
    * Obtient les notes inscrites sur une case.
-   * 
-   * @author PECHON Erwan
+   *
    * @param coord Les coordonées de la case à modifié.
    * @param notes La liste des notes inscrites
    * @return Les coordonées de la cellule modifié.

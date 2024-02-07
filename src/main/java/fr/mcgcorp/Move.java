@@ -15,20 +15,22 @@ abstract class Move {
     this.coord = null;
   }
 
-  /** Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
+  /** 
+   * Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
    * Permet au jeu de connaître la case associé à ce mouvement.
    *
-   * @author PECHON Erwan
+   * @return cette objet Coord.
    */
   public Coord getCoord() {
     return this.coord;
   }
 
-  /** Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
+  /** 
+   * Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
    * Permet au jeu de définire la case associé à ce mouvement.
    * Cette méthode ne peut être appelé qu'une seul fois, toute appel supplémentaire sera simplement ignoré.
    *
-   * @author PECHON Erwan
+   * @param coord la nouvelle coordonnée de la case associé à ce mouvement.
    */
   public void setCoord(Coord coord) {
     if (this.coord == null) {
