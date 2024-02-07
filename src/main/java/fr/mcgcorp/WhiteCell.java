@@ -8,14 +8,19 @@ import java.util.HashMap;
  * @see Cell
  */
 class WhiteCell extends Cell {
+  /** Valeur Maximal authorisé. */
+  static public int final MAX_VALUE = 9;
+  /** Valeur Minimal authorisé. */
+  static public int final MIN_VALUE = 1;
+  /** Valeur null (aucune valeur). */
+  static public int final NULL_VALUE = WhiteCell.MIN_VALUE - 1;
 
   /** Valeur de résultat de la case. */
   private int correctValue;
   /** Valeur entrée par le joueur. */
   private int value;
-
   /** Liste des notes de la case. */
-  private HashMap<Integer, Boolean> notes = new HashMap<Integer, Boolean>();
+  private HashSet<Integer> notes;
 
   /**
    * Constructeur d'une cellule blanche.
@@ -24,12 +29,10 @@ class WhiteCell extends Cell {
    */
   public WhiteCell(int correctValue) {
     this.correctValue = correctValue;
-    this.value = 0;
-    for (int i = 1; i <= 9; i++) {
-      notes.put(i, false);
-    }
+    this.value = WhiteCell.NULL_VALUE;
+    this.notes = HashSet<Integer> notes;
   }
-  
+
   /**
    * Renvoie la valeur correcte de la case. 
    *
@@ -54,7 +57,9 @@ class WhiteCell extends Cell {
    * @param valeurNote note à ajouter
    */
   public void addNote(int valeurNote) {
-    this.notes.put(valeurNote, true);
+    if ((WhiteCell.MIN_VALUE < valeurNote) && (valeurNote < WhiteCell.MAX_VALUE)) {
+      this.notes.add(valeurNote);
+    }
   }
 
   /**
@@ -63,26 +68,23 @@ class WhiteCell extends Cell {
    * @param valeurNote note à retirer
    */
   public void removeNote(int valeurNote) {
-    this.notes.put(valeurNote, false);
+    if ((WhiteCell.MIN_VALUE < valeurNote) && (valeurNote < WhiteCell.MAX_VALUE)) {
+      this.notes.add(valeurNote);
+    }
   }
 
   /**
    * Efface la valeur entrée par le joueur.
    */
   public void clear() {
-    this.value = 0;
-    for (int i : notes.keySet()) {
-      notes.put(i, false);
-    }
+    this.value = WhiteCell.NULL_VALUE;
   }
 
   /**
    * Efface les notes de la case.
    */
   public void clearNotes() {
-    for (int i : notes.keySet()) {
-      notes.put(i, false);
-    }
+    this.notes.clear();
   }
 
   /**
