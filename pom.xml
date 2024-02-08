@@ -113,7 +113,6 @@
           <nohelp>true</nohelp>
           <reportOutputDirectory>${project.basedir}/doc</reportOutputDirectory>
           <destDir>javadoc</destDir>
-          <failsOnError>true</failsOnError>
           <failOnWarnings>true</failOnWarnings>
         </configuration>
       </plugin>
