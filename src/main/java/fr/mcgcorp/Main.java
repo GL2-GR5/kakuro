@@ -1,5 +1,6 @@
 package fr.mcgcorp;
 
+import fr.mcgcorp.managers.SceneManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +21,9 @@ public class Main extends Application {
    * @param args les arguments de la ligne de commande
    */
   public static void main(String[] args) {
-    launch(args);
+
+    SceneManager.getInstance().getMenuScene();
+    //launch(args);
   }
 
   /**
