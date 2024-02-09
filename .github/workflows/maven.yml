@@ -7,7 +7,7 @@
 # documentation.
 
 name: validation
-run-name: Validation sur ${{ inputs.deploy_target }} par ${{ github.actor }}
+run-name: Validation sur ${{ github.event_name }} par ${{ github.actor }}
 
 on:
   push:
