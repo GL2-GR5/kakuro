@@ -2,7 +2,7 @@
 
 Le Kakuro est un jeu de logique qui se joue sur une grille de cases blanches et noires. Le but du jeu est de remplir les cases blanches avec des chiffres allant de 1 à 9 en respectant les sommes indiquées par les cases noires. Chaque chiffre ne peut apparaître qu'une seule fois par ligne et par colonne.
 
-### avancement
+### Avancement
 ![](https://img.shields.io/badge/State-In_production-brightgreen?style=for-the-badge)
 
 ![](https://img.shields.io/github/issues/GL2-GR5/kakuro?style=for-the-badge)
