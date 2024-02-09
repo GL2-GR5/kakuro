@@ -5,9 +5,9 @@ Le Kakuro est un jeu de logique qui se joue sur une grille de cases blanches et 
 ### avancement
 ![](https://img.shields.io/badge/State-In_production-brightgreen?style=for-the-badge)
 
-![](https://img.shields.io/github/issues/tower-defense-L2/projet-L2?style=for-the-badge)
+![](https://img.shields.io/github/issues/GL2-GR5/kakuro?style=for-the-badge)
 
-![](https://img.shields.io/github/issues-pr/tower-defense-L2/projet-L2?style=for-the-badge)
+![](https://img.shields.io/github/issues-pr/GL2-GR5/kakuro?style=for-the-badge)
 
 
 ## Installation
