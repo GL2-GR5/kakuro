@@ -7,7 +7,7 @@
 # documentation.
 
 name: validation
-run-name: Validation sur ${{ github.ref }} par ${{ github.actor }}
+run-name: Validation sur ${{ github.ref_name }} via ${{ github.event_name }} par ${{ github.actor }}
 
 on:
   push:
