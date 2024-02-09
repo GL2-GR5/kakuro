@@ -109,10 +109,23 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>3.6.2</version>
         <configuration>
+          <!-- paraètre de selection -->
           <show>private</show>
-          <nohelp>true</nohelp>
+
+          <!-- paramètre d'affichage -->
+          <use>true</use>
+          <windowtitle>${project.name}</windowtitle>
+          <doctitle>Documentaion ${project.name}</doctitle>
+          <title>${project.name} ${project.version}</title>
+          <testdoctitle>Documentation des tests ${project.name}</testdoctitle>
+
+          <!-- Chemin de génération -->
           <reportOutputDirectory>${project.basedir}/doc</reportOutputDirectory>
           <destDir>javadoc</destDir>
+          <docfilessubdirs>true</docfilessubdirs>
+
+          <!-- paramètre génération -->
+          <serialwarn>true</serialwarn>
           <failsOnError>true</failsOnError>
           <failOnWarnings>true</failOnWarnings>
         </configuration>

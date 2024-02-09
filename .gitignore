@@ -7,7 +7,7 @@
 ######
 # Fichiers produit par Maven
 target/
-doc/
+doc/javadoc/
 
 ######
 # Liste des dépendance de Mave
