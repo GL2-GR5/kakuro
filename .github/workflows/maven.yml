@@ -33,7 +33,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        cache-dependency-path: ~/.m2
     - name: check whith maven checkstyle
       run: mvn -B clean validate --file pom.xml
 
