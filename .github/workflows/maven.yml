@@ -6,7 +6,8 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: validation
+run-name: Validation sur ${{ inputs.deploy_target }} par ${{ github.actor }}
 
 on:
   push:
@@ -19,17 +20,125 @@ on:
       - develop
 
 jobs:
-  build:
+  check:
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v4
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+        cache-dependency-path: ~/.m2
+    - name: check whith maven checkstyle
+      run: mvn -B clean validate --file pom.xml
+
+  compile:
+
+    needs: check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+        cache-dependency-path: ~/.m2
     - name: Build with Maven
-      run: mvn -B clean install javadoc:javadoc --file pom.xml
+      run: mvn -B clean compile --file pom.xml
+
+  documentation:
+
+    needs: check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+        cache-dependency-path: ~/.m2
+    - name: Generate documentation
+      run: mvn -B clean javadoc:javadoc --file pom.xml
+
+  test_linux:
+
+    needs: compile
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+        cache-dependency-path: ~/.m2
+    - name: Test with Maven
+      run: mvn -B clean test --file pom.xml
+
+  test_windows:
+
+    needs: compile
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Test with Maven
+      run: mvn -B clean test --file pom.xml
+
+  test_macos:
+
+    needs: compile
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Test with Maven
+      run: mvn -B clean test --file pom.xml
+
+  package:
+
+    needs: [test_linux, test_windows, test_macos, documentation]
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+        cache-dependency-path: ~/.m2
+    - name: Package with Maven
+      run: mvn -B clean package --file pom.xml
