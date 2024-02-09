@@ -50,7 +50,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        cache-dependency-path: ~/.m2
     - name: Build with Maven
       run: mvn -B clean compile --file pom.xml
 
@@ -68,7 +67,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        cache-dependency-path: ~/.m2
     - name: Generate documentation
       run: mvn -B clean javadoc:javadoc --file pom.xml
 
@@ -86,7 +84,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        cache-dependency-path: ~/.m2
     - name: Test with Maven
       run: mvn -B clean test --file pom.xml
 
@@ -138,6 +135,5 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        cache-dependency-path: ~/.m2
     - name: Package with Maven
       run: mvn -B clean package --file pom.xml
