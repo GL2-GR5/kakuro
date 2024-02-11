@@ -1,8 +1,8 @@
 package fr.mcgcorp;
 
 import java.util.Arrays;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Cellule blanche, que le joueur doit modifier pour résoudre le puzzle.

@@ -8,13 +8,13 @@ package fr.mcgcorp;
 //import java.io.IOException;
 //import java.io.ObjectOutputStream;
 
-// Autres
-import java.util.List;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Set;
+import java.util.Deque;
 import java.util.HashSet;
-import java.util.Stack;
+import java.util.List;
+import java.util.Set;
 
 /**
  * La classe gérant tout le dérouler du jeu.
@@ -32,9 +32,9 @@ class Kakuro {
   public static final int NULL_VALUE = Kakuro.MIN_VALUE - 1;
 
   /** La pile des mouvement effectué par le joueur. */
-  protected Stack<Move> lstMove;
+  protected Deque<Move> lstMove;
   /** La pile des mouvement effectué par le joueur, puis annulé. */
-  protected Stack<Move> lstMoveCancel;
+  protected Deque<Move> lstMoveCancel;
   /** L'indice du dernier mouvement avant qu'il n'y est une erreur. */
   protected int lastCorrectState = -1;
   /** La grille du jeu de Kakuro. */
@@ -48,8 +48,8 @@ class Kakuro {
    * passer par la méthode @link Kakuro#initialize.
    */
   Kakuro() {
-    this.lstMove = new Stack<Move>();
-    this.lstMoveCancel = new Stack<Move>();
+    this.lstMove = new ArrayDeque<Move>();
+    this.lstMoveCancel = new ArrayDeque<Move>();
     this.lastCorrectState = -1;
     this.grid = null;
   }
@@ -269,11 +269,11 @@ class Kakuro {
    * @param useOld      Qu'elle méthode du mouvement faut-il utilisé ?
    * @return Les coordonnées de la case modifié
    */
-  private Coord swapStack(Stack origin, Stack destination, boolean useOld) {
+  private Coord swapDeque(Deque<Move> origin, Deque<Move> destination, boolean useOld) {
     if (origin.isEmpty()) {
       return null;
     }
-    Move move = ((Move) origin.pop());
+    Move move = origin.pop();
 
     Coord coord = move.getCoord();
     WhiteCell cell = this.getCell(coord, WhiteCell.class);
@@ -321,7 +321,7 @@ class Kakuro {
    * @return Les coordonnées de la case modifié
    */
   public Coord undo() {
-    return swapStack(this.lstMove, this.lstMoveCancel, true);
+    return swapDeque(this.lstMove, this.lstMoveCancel, true);
   }
 
   /**
@@ -330,7 +330,7 @@ class Kakuro {
    * @return Les coordonnées de la case modifié
    */
   public Coord redo() {
-    return swapStack(this.lstMoveCancel, this.lstMove, false);
+    return swapDeque(this.lstMoveCancel, this.lstMove, false);
   }
 
   /**
