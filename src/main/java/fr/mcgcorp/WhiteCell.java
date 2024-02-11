@@ -1,6 +1,7 @@
 package fr.mcgcorp;
 
 import java.util.Arrays;
+import java.util.Set;
 import java.util.HashSet;
 
 /**
@@ -14,7 +15,7 @@ class WhiteCell extends Cell {
   /** Valeur entrée par le joueur. */
   private int value;
   /** Liste des notes de la case. */
-  private HashSet<Integer> notes;
+  private Set<Integer> notes;
 
   /**
    * Constructeur d'une cellule blanche.
@@ -104,7 +105,7 @@ class WhiteCell extends Cell {
    *
    * @param notes Le nouveau set de notes.
    */
-  public void setNotes(HashSet<Integer> notes) {
+  public void setNotes(Set<Integer> notes) {
     this.clearNotes();
     for (int i : notes) {
       this.addNote(i);

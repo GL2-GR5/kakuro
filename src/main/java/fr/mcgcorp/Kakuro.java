@@ -9,8 +9,10 @@ package fr.mcgcorp;
 //import java.io.ObjectOutputStream;
 
 // Autres
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.HashSet;
 import java.util.Stack;
 
@@ -294,7 +296,7 @@ class Kakuro {
       }
     } else if (move instanceof MoveNote) {
       MoveNote moveNote = (MoveNote) move;
-      HashSet<Integer> notes = null;
+      Set<Integer> notes = null;
       if (useOld) {
         notes = moveNote.getNotesOld();
       } else {
@@ -337,11 +339,11 @@ class Kakuro {
    * @return Les coordonnées des cases modifiés
    */
   public Coord[] backToLastCorrectState() {
-    HashSet<Coord> setModification = new HashSet<>();
+    List<Coord> setModification = new ArrayList<Coord>();
     while (this.lastCorrectState < this.lstMove.size()) {
       setModification.add(this.undo());
     }
-    return setModification.toArray(new Coord[setModification.size()]);
+    return setModification.toArray(new Coord[0]);
   }
 
   /**
@@ -406,7 +408,7 @@ class Kakuro {
       if (value == Kakuro.NULL_VALUE) {
         return new CellError[0];
       }
-      ArrayList<CellError> lstError = new ArrayList<>();
+      List<CellError> lstError = new ArrayList<CellError>();
       Coord coordError = null;
       for (int i = 0; i < row.length; i++) {
         if (i != coord.getColumn()) {
@@ -431,7 +433,7 @@ class Kakuro {
     } else if (cell instanceof ResultCell) {
       int resultRow = ((ResultCell) cell).getRow();
       int resultCol = ((ResultCell) cell).getColumn();
-      ArrayList<CellError> lstError = new ArrayList<>();
+      List<CellError> lstError = new ArrayList<CellError>();
       Coord coordError = null;
       int value = Kakuro.NULL_VALUE;
       int res = 0;
@@ -479,7 +481,7 @@ class Kakuro {
    * @return La liste des cases modifié
    */
   public Coord[] clean() {
-    ArrayList<Coord> lstModif = new ArrayList<>();
+    List<Coord> lstModif = new ArrayList<Coord>();
     Coord coord = null;
     for (int i = 0; i < this.grid.length; i++) {
       for (int j = 0; j < this.grid[i].length; j++) {
@@ -513,7 +515,7 @@ class Kakuro {
    * @return La liste des cases modifié
    */
   public Coord[] cleanNotes() {
-    ArrayList<Coord> lstModif = new ArrayList<>();
+    List<Coord> lstModif = new ArrayList<Coord>();
     Coord coord = null;
     for (int i = 0; i < this.grid.length; i++) {
       for (int j = 0; j < this.grid[i].length; j++) {
