@@ -1,4 +1,4 @@
-package fr.mcgcorp.Grid;
+package fr.mcgcorp.Kakuro.Grid;
 
 /**
  * Définit les message qu'une cellule peut comprendre.

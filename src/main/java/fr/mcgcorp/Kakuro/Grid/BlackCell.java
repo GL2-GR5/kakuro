@@ -1,4 +1,4 @@
-package fr.mcgcorp.Grid;
+package fr.mcgcorp.Kakuro.Grid;
 
 /**
  * Cellule de base, qui peut être soit une case vide(noir), soit une case de résultat, soit une case a remplir.

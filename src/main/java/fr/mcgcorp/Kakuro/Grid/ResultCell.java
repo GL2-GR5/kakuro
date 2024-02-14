@@ -1,4 +1,4 @@
-package fr.mcgcorp.Grid;
+package fr.mcgcorp.Kakuro.Grid;
 
 /**
  * Contient le résultat demandé pour une ligne et/ou une colonne.

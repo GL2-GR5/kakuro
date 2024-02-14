@@ -1,4 +1,4 @@
-package fr.mcgcorp.Grid;
+package fr.mcgcorp.Kakuro.Grid;
 
 import java.util.Arrays;
 import java.util.HashSet;
