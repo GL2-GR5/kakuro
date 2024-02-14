@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * Classe principale de Test.
- * <img src="doc-files/Main.png" alt="Logo"/>
+ * @author Hôa Le Luët
  */
 @ExtendWith(VerifTest.class)
 public class TestMain {
