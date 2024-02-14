@@ -3,7 +3,13 @@ package fr.mcgcorp;
 /** Énumération représentant les types d'erreurs qu'un joueur peut commettre dans le jeu de Kakuro.
  * @author PECHON Erwan
  */
-public enum TypeError {
+public enum TypeEntryError {
+  /**
+   * Il n'y à pas d'erreur sur cette cellule.
+   * (si il y en avais une, elle peut-être désactivé)
+   */
+  NOERR,
+
   /**
    * Erreur lors de la saisie d'un nombre déjà présent sur la ligne ou la colonne.
    */
@@ -12,12 +18,12 @@ public enum TypeError {
   /**
    * Erreur lorsqu'une somme dans une ligne dépasse le résultat attendu.
    */
-  OVER_RESULT_ROW,
+  OVER_RESULT_LINE,
 
   /**
    * Erreur lorsqu'une somme dans une colonne dépasse le résultat attendu.
    */
-  OVER_RESULT_LINE,
+  OVER_RESULT_COLUMN,
 
   /**
    * La valeur saisie n'est pas la valeur voulut.
@@ -32,12 +38,14 @@ public enum TypeError {
    */
   public String toString() {
     switch (this) {
+      case NOERR:
+        return "No Error";
       case DOUBLE:
         return "Double";
-      case OVER_RESULT_ROW:
-        return "Over Result Row";
       case OVER_RESULT_LINE:
         return "Over Result Line";
+      case OVER_RESULT_COLUMN:
+        return "Over Result Column";
       case VALUE:
         return "Value";
       default:
