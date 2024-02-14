@@ -17,6 +17,7 @@ public class MenuController extends Controller {
     switch (((Node) event.getSource()).getId()) {
       case "playButton" -> stage.setScene(ControllerManager.getInstance().getModSelectorController().getScene());
       case "quitButton" -> stage.close();
+      default -> throw new RuntimeException("Bouton non reconnu");
     }
   }
 }
