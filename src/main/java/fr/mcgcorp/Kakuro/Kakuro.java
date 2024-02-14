@@ -294,13 +294,13 @@ class Kakuro {
       } else {
         cell.setValue(value);
       }
-    } else if (move instanceof MoveNote) {
-      MoveNote moveNote = (MoveNote) move;
+    } else if (move instanceof MoveNotes) {
+      MoveNotes moveNotes = (MoveNotes) move;
       Set<Integer> notes = null;
       if (useOld) {
-        notes = moveNote.getNotesOld();
+        notes = moveNotes.getNotesOld();
       } else {
-        notes = moveNote.getNotesNew();
+        notes = moveNotes.getNotesNew();
       }
       if (notes == null) {
         cell.clearNotes();

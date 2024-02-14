@@ -1,7 +1,7 @@
 package fr.mcgcorp;
 
 /**
- * Représentation d'un mouvement modifiant la valeur d'une cellule blance.
+ * Représentation d'un mouvement modifiant la valeur d'une cellule blanche.
  * @see Move
  * @author PECHON Erwan
  */
