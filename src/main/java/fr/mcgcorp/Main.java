@@ -1,10 +1,8 @@
 package fr.mcgcorp;
 
-import fr.mcgcorp.managers.SceneManager;
+import fr.mcgcorp.managers.ControllerManager;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
@@ -21,24 +19,18 @@ public class Main extends Application {
    * @param args les arguments de la ligne de commande
    */
   public static void main(String[] args) {
-
-    SceneManager.getInstance().getMenuScene();
-    //launch(args);
+    launch(args);
   }
 
   /**
    * Méthode de démarrage graphique de l'application.
-   * remplissage temporaire en attendant la création de l'interface graphique. #TODO
    *
    * @param primaryStage la fenêtre principale de l'application
-   * @throws Exception si une erreur survient
    */
   @Override
-  public void start(Stage primaryStage) throws Exception {
-    Parent root = FXMLLoader.load(getClass().getResource("app.fxml"));
+  public void start(Stage primaryStage) {
     primaryStage.setTitle("Kakuro");
-    primaryStage.setScene(new Scene(root));
+    primaryStage.setScene(ControllerManager.getInstance().getMenuController().getScene());
     primaryStage.show();
   }
 }
-
