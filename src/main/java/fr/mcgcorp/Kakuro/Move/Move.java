@@ -1,4 +1,6 @@
-package fr.mcgcorp;
+package fr.mcgcorp.Kakuro.Move;
+
+import fr.mcgcorp.Kakuro.Coord;
 
 /**
  * Représentation d'un mouvement fait par l'utilisateur.

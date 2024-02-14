@@ -1,4 +1,4 @@
-package fr.mcgcorp;
+package fr.mcgcorp.Kakuro.Move;
 
 /**
  * Représentation d'un mouvement modifiant la valeur d'une cellule blanche.

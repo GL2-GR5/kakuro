@@ -1,4 +1,4 @@
-package fr.mcgcorp;
+package fr.mcgcorp.Kakuro.Move;
 
 import java.util.HashSet;
 import java.util.Set;
