@@ -12,7 +12,7 @@
    <children>
       <Label layoutX="201.0" layoutY="26.0" text="Type de saisie" />
       <CheckBox fx:id="checkClavierNumerique" layoutX="179.0" layoutY="70.0" mnemonicParsing="false" text="Clavier numérique" />
-      <MenuButton fx:id="menuButton" layoutX="173.0" layoutY="122.0" mnemonicParsing="false" text="Paramètre fenêtre">
+      <MenuButton fx:id="menuScreenButton" layoutX="173.0" layoutY="122.0" mnemonicParsing="false" text="Fenêtré">
         <items>
           <MenuItem fx:id="pleinEcranItem" mnemonicParsing="false" text="Plein écran" />
           <MenuItem fx:id="fenetreItem" mnemonicParsing="false" text="Fenêtré" />

@@ -14,9 +14,14 @@ public class ModSelectorController extends Controller {
 
   public void onItemAction(ActionEvent event) {
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Stage ownerStage = (Stage) stage.getOwner();
     switch (((Node) event.getSource()).getId()) {
-      case "campagneButton":
-        stage.setScene(ControllerManager.getInstance().getModSelectorController().getScene());
+      case "campaignButton":
+        stage.close();
+        ownerStage.setTitle("Campagne");
+        ownerStage.setScene(ControllerManager.getInstance().getCampaignController().getScene());
+        ownerStage.setFullScreen(ControllerManager.getInstance().getFullScreen());
+        ownerStage.show();
         break;
       //case "classicButton" -> stage.setScene();
       //case "pixelButton" -> stage.setScene();

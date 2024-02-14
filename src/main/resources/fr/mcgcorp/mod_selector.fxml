@@ -5,7 +5,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="360.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="campagneButton" layoutX="88.0" layoutY="63.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Campagne" />
+      <Button fx:id="campaignButton" layoutX="88.0" layoutY="63.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Campagne" />
       <Button fx:id="classicButton" layoutX="88.0" layoutY="153.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Partie Classique" />
       <Button fx:id="pixelButton" layoutX="88.0" layoutY="243.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Pixel Art" />
       <Button fx:id="speedrunButton" layoutX="88.0" layoutY="333.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Speedrun" />

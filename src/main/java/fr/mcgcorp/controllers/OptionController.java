@@ -2,12 +2,16 @@ package fr.mcgcorp.controllers;
 
 import fr.mcgcorp.managers.ControllerManager;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.MenuButton;
 import javafx.stage.Stage;
 
 
 public class OptionController extends Controller {
 
+  @FXML
+  MenuButton menuScreenButton;
 
   @Override
   String getPathToFxml() {
@@ -19,10 +23,12 @@ public class OptionController extends Controller {
     switch (((Node) event.getSource()).getId()) {
       //case "checkClavierNumerique" -> ;
       case "pleinEcranItem":
-        stage.setFullScreen(true);
+        menuScreenButton.setText("Plein Ecran");
+        ControllerManager.getInstance().setFullScreen(true);
         break; // A modifier
       case "fenetreItem":
-        stage.setFullScreen(false);
+        menuScreenButton.setText("Fenêtré");
+        ControllerManager.getInstance().setFullScreen(false);
         break; // A modifier
       //case "sliderSon" ->
       case "leaveButton":
