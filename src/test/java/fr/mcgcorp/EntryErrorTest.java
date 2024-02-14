@@ -32,7 +32,7 @@ public class EntryErrorTest extends Tests {
      * Ce test vérifie que les variables sont nulles lors de l'initialisation du premier constructeur de EntryError.
      */
     @Test
-    void EntryErrorInitializeFirstConstructor_ShouldVariablesHaveNull() {
+    void InitializeBaseConstructor_ShouldVariablesHaveNull() {
         EntryError entryError = new EntryError();
         assertNull(entryError.coord);
         assertNull(entryError.error);
@@ -42,7 +42,7 @@ public class EntryErrorTest extends Tests {
      * Ce test vérifie que la coordonnée a une valeur lors de l'initialisation du deuxième constructeur de EntryError.
      */
     @Test
-    void EntryErrorInitializeSecondConstructor_ShouldCoordHaveValue() {
+    void InitializeConstructorCoord_ShouldCoordHaveValue() {
         Coord coord = Coord.createCoord_graphical(1, 1);
         EntryError entryError = new EntryError(coord);
         assertEquals(coord, entryError.coord);
@@ -53,7 +53,7 @@ public class EntryErrorTest extends Tests {
      * Ce test vérifie que l'erreur a une valeur lors de l'initialisation du troisième constructeur de EntryError.
      */
     @Test
-    void EntryErrorInitializeThirdConstructor_ShouldErrorHaveValue() {
+    void InitializeConstructorError_ShouldErrorHaveValue() {
         EntryError entryError = new EntryError(TypeEntryError.NOERR);
         assertNull(entryError.coord);
         assertEquals(TypeEntryError.NOERR, entryError.error);
@@ -63,7 +63,7 @@ public class EntryErrorTest extends Tests {
      * Ce test vérifie que la coordonnée et l'erreur ont une valeur lors de l'initialisation du quatrième constructeur de EntryError.
      */
     @Test
-    void EntryErrorInitializeFourthConstructor_ShouldCoordAndErrorHaveValue() {
+    void InitializeConstructorAll_ShouldCoordAndErrorHaveValue() {
         Coord coord = Coord.createCoord_graphical(1, 1);
         EntryError entryError = new EntryError(coord, TypeEntryError.NOERR);
         assertEquals(coord, entryError.coord);
@@ -74,7 +74,7 @@ public class EntryErrorTest extends Tests {
      * Ce test vérifie que la méthode getCoord retourne la bonne coordonnée.
      */
     @Test
-    void EntryErrorGetCoord_ShouldReturnCorrectCoord() {
+    void GetCoord_ShouldReturnCorrectCoord() {
         Coord coord = Coord.createCoord_graphical(1, 1);
         EntryError entryError = new EntryError(coord);
         assertEquals(coord, entryError.getCoord());
@@ -84,7 +84,7 @@ public class EntryErrorTest extends Tests {
      * Ce test vérifie que la méthode setCoord définit correctement la coordonnée.
      */
     @Test
-    void EntryErrorSetCoord_ShouldSetCoord() {
+    void SetCoord_ShouldSetCoord() {
         Coord coord = Coord.createCoord_graphical(1, 1);
         EntryError entryError = new EntryError();
         entryError.setCoord(coord);
@@ -95,7 +95,7 @@ public class EntryErrorTest extends Tests {
      * Ce test vérifie que la méthode getError retourne la bonne erreur.
      */
     @Test
-    void EntryErrorGetError_ShouldReturnCorrectError() {
+    void GetError_ShouldReturnCorrectError() {
         EntryError entryError = new EntryError(TypeEntryError.NOERR);
         assertEquals(TypeEntryError.NOERR, entryError.error);
     }
@@ -104,7 +104,7 @@ public class EntryErrorTest extends Tests {
      * Ce test vérifie que la méthode setError définit correctement l'erreur.
      */
     @Test
-    void EntryErrorSetError_ShouldSetError() {
+    void SetError_ShouldSetError() {
         EntryError entryError = new EntryError();
         entryError.setTypeEntryError(TypeEntryError.NOERR);
         assertEquals(TypeEntryError.NOERR, entryError.error);
