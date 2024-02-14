@@ -2,6 +2,7 @@ package fr.mcgcorp.managers;
 
 import fr.mcgcorp.controllers.MenuController;
 import fr.mcgcorp.controllers.ModSelectorController;
+import fr.mcgcorp.controllers.OptionController;
 
 public class ControllerManager {
 
@@ -16,10 +17,12 @@ public class ControllerManager {
 
   private final MenuController menuController;
   private final ModSelectorController modSelectorController;
+  private final OptionController optionController;
 
   private ControllerManager() {
     this.menuController = new MenuController();
     this.modSelectorController = new ModSelectorController();
+    this.optionController = new OptionController();
   }
 
   public MenuController getMenuController() {
@@ -29,4 +32,9 @@ public class ControllerManager {
   public ModSelectorController getModSelectorController() {
     return modSelectorController;
   }
+
+  public OptionController getOptionController() {
+    return optionController;
+  }
+
 }

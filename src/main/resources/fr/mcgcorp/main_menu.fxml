@@ -5,11 +5,11 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="400.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="145.0" layoutY="138.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="109.0" text="Jouer" />
-      <Button layoutX="145.0" layoutY="199.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="109.0" text="Tutoriel" />
+      <Button fx:id="playButton" layoutX="145.0" layoutY="138.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="109.0" text="Jouer" />
+      <Button fx:id="tutoButton" layoutX="145.0" layoutY="199.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="109.0" text="Tutoriel" />
       <Button layoutX="77.0" layoutY="266.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="245.0" text="Comment Jouer ?" />
-      <Button layoutX="145.0" layoutY="407.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="109.0" text="Quitter" />
+      <Button fx:id="quitButton" layoutX="145.0" layoutY="407.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="109.0" text="Quitter" />
       <Button layoutX="322.0" layoutY="21.0" mnemonicParsing="false" text="Profil" />
-      <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" text="Options" />
+      <Button fx:id="settingButton" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" text="Options" />
    </children>
 </AnchorPane>

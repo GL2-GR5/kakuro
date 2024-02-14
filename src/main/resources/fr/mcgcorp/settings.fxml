@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -10,14 +11,15 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="480.0" styleClass="tilted-pane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="201.0" layoutY="26.0" text="Type de saisie" />
-      <CheckBox layoutX="179.0" layoutY="70.0" mnemonicParsing="false" text="Clavier numérique" />
-      <MenuButton layoutX="173.0" layoutY="122.0" mnemonicParsing="false" text="Paramètre fenêtre">
+      <CheckBox fx:id="checkClavierNumerique" layoutX="179.0" layoutY="70.0" mnemonicParsing="false" text="Clavier numérique" />
+      <MenuButton fx:id="menuButton" layoutX="173.0" layoutY="122.0" mnemonicParsing="false" text="Paramètre fenêtre">
         <items>
-          <MenuItem mnemonicParsing="false" text="Plein écran" />
-          <MenuItem mnemonicParsing="false" text="Fenêtré" />
+          <MenuItem fx:id="pleinEcranItem" mnemonicParsing="false" text="Plein écran" />
+          <MenuItem fx:id="fenetreItem" mnemonicParsing="false" text="Fenêtré" />
         </items>
       </MenuButton>
       <Label layoutX="199.0" layoutY="178.0" text="Volume sonore" />
-      <Slider layoutX="126.0" layoutY="210.0" prefHeight="17.0" prefWidth="226.0" />
+      <Slider fx:id="sliderSon" layoutX="126.0" layoutY="210.0" prefHeight="17.0" prefWidth="226.0" />
+      <Button fx:id="leaveButton" layoutX="461.0" layoutY="9.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" />
    </children>
 </Pane>

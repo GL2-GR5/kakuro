@@ -3,12 +3,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="360.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="400.0" layoutY="50.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Campagne" />
-      <Button layoutX="400.0" layoutY="140.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Partie Classique" />
-      <Button layoutX="400.0" layoutY="230.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Pixel Art" />
-      <Button layoutX="400.0" layoutY="320.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Speedrun" />
+      <Button fx:id="campagneButton" layoutX="88.0" layoutY="63.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Campagne" />
+      <Button fx:id="classicButton" layoutX="88.0" layoutY="153.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Partie Classique" />
+      <Button fx:id="pixelButton" layoutX="88.0" layoutY="243.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Pixel Art" />
+      <Button fx:id="speedrunButton" layoutX="88.0" layoutY="333.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="184.0" text="Speedrun" />
+      <Button fx:id="quitButton" layoutX="340.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" text="Quit" />
    </children>
 </Pane>
