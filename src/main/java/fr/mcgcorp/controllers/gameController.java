@@ -10,7 +10,7 @@ public class gameController extends Controller{
     return "main_menu.fxml";
   }
 
-  public void onButtonClick(ActionEvent event) {
+  public void onItemAction(ActionEvent event) {
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 

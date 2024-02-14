@@ -12,7 +12,7 @@ public class ModSelectorController extends Controller {
     return "mod_selector.fxml";
   }
 
-  public void onButtonClick(ActionEvent event) {
+  public void onItemAction(ActionEvent event) {
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     switch (((Node) event.getSource()).getId()) {
       case "campagneButton":

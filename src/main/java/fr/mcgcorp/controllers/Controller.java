@@ -12,7 +12,7 @@ public abstract class Controller {
 
   public Controller() {
     this.load();
-    this.loadButtons();
+    this.loadItems();
   }
 
   private Scene scene;
@@ -38,15 +38,19 @@ public abstract class Controller {
     }
   }
 
-  private void loadButtons() {
-    for (Node node : this.scene.getRoot().lookupAll(".button")) {
-      if (node instanceof Button button) {
-        button.setOnAction(this::onButtonClick);
+  private final String[] itemTypes = new String[] { ".button", ".menu-item" };
+
+  private void loadItems() {
+    for (String item : this.itemTypes) {
+      for (Node node : this.scene.getRoot().lookupAll(item)) {
+        if (node instanceof Button button) {
+          button.setOnAction(this::onItemAction);
+        }
       }
     }
   }
 
-  abstract void onButtonClick(ActionEvent event);
+  abstract void onItemAction(ActionEvent event);
 }
 
 

@@ -14,7 +14,7 @@ public class OptionController extends Controller {
     return "settings.fxml";
   }
 
-  public void onButtonClick(ActionEvent event) throws RuntimeException {
+  public void onItemAction(ActionEvent event) throws RuntimeException {
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     switch (((Node) event.getSource()).getId()) {
       //case "checkClavierNumerique" -> ;
