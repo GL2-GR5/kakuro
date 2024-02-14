@@ -1,4 +1,6 @@
-package fr.mcgcorp;
+package fr.mcgcorp.Kakuro.EntryError;
+
+import fr.mcgcorp.Kakuro.Coord;
 
 /**
  * Détail l'erreur de saisie sur une cellule.

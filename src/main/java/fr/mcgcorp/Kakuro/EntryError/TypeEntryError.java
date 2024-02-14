@@ -1,4 +1,4 @@
-package fr.mcgcorp;
+package fr.mcgcorp.Kakuro.EntryError;
 
 /** Énumération représentant les types d'erreurs qu'un joueur peut commettre dans le jeu de Kakuro.
  * @author PECHON Erwan
@@ -8,7 +8,7 @@ public enum TypeEntryError {
    * Il n'y à pas d'erreur sur cette cellule.
    * (si il y en avais une, elle peut-être désactivé)
    */
-  NOERR,
+  NO_ERR,
 
   /**
    * Erreur lors de la saisie d'un nombre déjà présent sur la ligne ou la colonne.
@@ -38,7 +38,7 @@ public enum TypeEntryError {
    */
   public String toString() {
     switch (this) {
-      case NOERR:
+      case NO_ERR:
         return "No Error";
       case DOUBLE:
         return "Double";
