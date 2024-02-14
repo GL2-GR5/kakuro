@@ -22,6 +22,9 @@ public abstract class Controller {
     this.loadButtons();
   }
 
+  /**
+   * Scène associée au contrôleur.
+   */
   private Scene scene;
 
   /**

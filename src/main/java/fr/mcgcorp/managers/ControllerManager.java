@@ -8,6 +8,9 @@ import fr.mcgcorp.controllers.ModSelectorController;
  */
 public class ControllerManager {
 
+  /**
+   * Instance singleton de la classe.
+   */
   private static ControllerManager instance;
 
   /**
@@ -22,7 +25,14 @@ public class ControllerManager {
     return instance;
   }
 
+  /**
+   * Contrôleur du menu principal.
+   */
   private final MenuController menuController;
+
+  /**
+   * Contrôleur du sélecteur du mode de jeu.
+   */
   private final ModSelectorController modSelectorController;
 
   /**

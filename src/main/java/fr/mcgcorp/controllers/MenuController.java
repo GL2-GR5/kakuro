@@ -5,6 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
+/**
+ * Contrôleur du menu principal.
+ */
 public class MenuController extends Controller {
 
   @Override
