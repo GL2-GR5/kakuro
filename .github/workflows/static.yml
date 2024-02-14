@@ -1,10 +1,12 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy Doc to Pages
 
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["master"]
+    branches:
+      - master
+      - javadoc
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,7 +25,7 @@ concurrency:
 
 jobs:
   # Single deploy job since we're just deploying
-  deploy:
+  deploy_doc:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -53,7 +55,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
+          # Upload the Javadoc
           path: './doc/javadoc'
       
       # Deploy to GitHub Pages

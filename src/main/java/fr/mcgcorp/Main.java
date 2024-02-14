@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 /**
  * Classe principale de l'application.
- *
+ * <img src="doc-files/Main.png" alt="Logo"/>
  * @author GOUDET Lucas, HOUGET Julien, LAHMAR Marwan, LE LUET Hôa, PECHON Erwan, POURCEAU Luca, PUREN Mewen
  * @see Application
  */
