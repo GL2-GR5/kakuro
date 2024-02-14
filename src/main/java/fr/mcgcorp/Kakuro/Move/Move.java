@@ -8,7 +8,7 @@ import fr.mcgcorp.Kakuro.Coord;
  *
  * @author PECHON Erwan
  */
-abstract class Move {
+public abstract class Move {
   /** Coordonnée de la case où le mouvement à eu lieu. */
   protected Coord coord;
 
