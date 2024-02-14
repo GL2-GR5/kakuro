@@ -1,17 +1,17 @@
-package fr.mcgcorp;
+package fr.mcgcorp.Grid;
 
 /**
  * Contient le résultat demandé pour une ligne et/ou une colonne.
  *
  * @author HOUGET Julien, PUREN Mewen, PECHON Erwan
  */
-class ResultCell extends Cell {
+class ResultCell implements Cell {
   //
   // Attributs d'instance
   //
 
   /** Résultat attendu pour une ligne. */
-  private int row;
+  private int line;
   /** Résultat attendu pour une colonne. */
   private int column;
 
@@ -22,12 +22,12 @@ class ResultCell extends Cell {
   /**
    * Constructeur d'une cellule de résultat.
    *
-   * @param row    Le résultat attendu pour la ligne.
+   * @param line Le résultat attendu pour la ligne.
    * @param column Le résultat attendu pour la colonne.
    */
-  ResultCell(int row, int column) {
+  ResultCell(int line, int column) {
     super();
-    this.row = row;
+    this.line = line;
     this.column = column;
   }
 
@@ -40,14 +40,14 @@ class ResultCell extends Cell {
    *
    * @return Le résultat attendu pour la ligne.
    */
-  public int getRow() {
-    return this.row;
+  public int getLine() {
+    return this.line;
   }
 
   /**
    * Renvoie la somme attendu pour la colonne en dessous de cette cellule.
    *
-   * @return Le résultat attendu pour la ligne.
+   * @return Le résultat attendu pour la colonne.
    */
   public int getColumn() {
     return this.column;
@@ -64,6 +64,11 @@ class ResultCell extends Cell {
    */
   @Override
   public String toString() {
-    return this.column + "\\" + this.row;
+    return "" + this.column + "\\" + this.line;
+  }
+
+  @Override
+  public String serialize(){
+    return "" + this.column + ',' + this.line + "|";
   }
 }

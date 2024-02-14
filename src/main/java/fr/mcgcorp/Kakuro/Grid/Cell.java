@@ -1,26 +1,15 @@
-package fr.mcgcorp;
+package fr.mcgcorp.Grid;
 
 /**
- * Cellule de base, qui peut être soit une case vide(noir), soit une case de résultat, soit une case a remplir.
+ * Définit les message qu'une cellule peut comprendre.
  *
  * @author HOUGET Julien, PUREN Mewen, PECHON Erwan
  */
-class Cell {
-
+interface Cell {
   /**
-   * Constructeur de la classe Cell.
-   */
-  public Cell() {
-
-  }
-
-  /**
-   * Méthode qui retourne le contenu de la cellule.
+   * Méthode qui retourne la cellule, formater pour l'affichage.
    *
-   * @return le contenu de la cellule
+   * @return la cellule formater.
    */
-  @Override
-  public String toString() {
-    return "";
-  }
+  String serialize();
 }

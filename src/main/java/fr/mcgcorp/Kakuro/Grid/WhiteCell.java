@@ -1,4 +1,4 @@
-package fr.mcgcorp;
+package fr.mcgcorp.Grid;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -9,7 +9,7 @@ import java.util.Set;
  *
  * @see Cell
  */
-class WhiteCell extends Cell {
+class WhiteCell implements Cell {
   /** Valeur de résultat de la case. */
   private int correctValue;
   /** Valeur entrée par le joueur. */
@@ -29,9 +29,9 @@ class WhiteCell extends Cell {
   }
 
   /**
-   * Renvoie la valeur correcte de la case. 
+   * Renvoie la valeur correcte de la case.
    *
-   * @return int 
+   * @return La valeur que le joueur doit saisir pour avoir bon.
    */
   public int getCorrectValue() {
     return this.correctValue;
@@ -40,7 +40,7 @@ class WhiteCell extends Cell {
   /**
    * Renvoie la valeur entrée par le joueur.
    *
-   * @return int
+   * @return La valeur saisie par le joueur.
    */
   public int getValue() {
     return this.value;
@@ -52,7 +52,10 @@ class WhiteCell extends Cell {
    * @param value La valeur donnée par le joueur.
    */
   public void setValue(int value) {
-    if ((Kakuro.MIN_VALUE <= value) && (value <= Kakuro.MAX_VALUE)) {
+    if ((Kakuro.MIN_VALUE() <= value) && (value <= Kakuro.MAX_VALUE())) {
+      this.value = value;
+    }
+    if (value == Kakuro.NULL_VALUE()){
       this.value = value;
     }
   }
@@ -60,7 +63,7 @@ class WhiteCell extends Cell {
   /**
    * Vérifie si la valeur saisit par l'utilisateur est la bonne valeur.
    *
-   * @return resultat
+   * @return résultat
    */
   public boolean isCorrect() {
     return (this.value == this.correctValue);
@@ -72,6 +75,17 @@ class WhiteCell extends Cell {
    * @param valeurNote note à ajouter
    */
   public void addNote(int valeurNote) {
+    if ((Kakuro.MIN_VALUE <= valeurNote) && (valeurNote <= Kakuro.MAX_VALUE)) {
+      this.notes.add(valeurNote);
+    }
+  }
+
+  /**
+   * Ajoute une valeur en note à la case.
+   *
+   * @param valeurNote note à ajouter
+   */
+  public void addNote(Integer valeurNote) {
     if ((Kakuro.MIN_VALUE <= valeurNote) && (valeurNote <= Kakuro.MAX_VALUE)) {
       this.notes.add(valeurNote);
     }
@@ -95,8 +109,10 @@ class WhiteCell extends Cell {
    */
   public void setNotes(int[] notes) {
     this.clearNotes();
-    for (int i : notes) {
-      this.addNote(i);
+    if (notes != null) {
+      for (int note : notes){
+        this.addNote(note);
+      }
     }
   }
 
@@ -107,31 +123,27 @@ class WhiteCell extends Cell {
    */
   public void setNotes(Set<Integer> notes) {
     this.clearNotes();
-    for (int i : notes) {
-      this.addNote(i);
+    if (notes != null) {
+      for (Integer note : notes) {
+        this.addNote(note);
+      }
     }
   }
 
   /**
-   * Envoit le set de notes du joueur.
+   * Envoi le set de notes du joueur.
    *
-   * @return La liste des notes séléctionnée.
+   * @return La liste des notes sélectionnée.
    */
-  public int[] getNotes() {
-    int[] notes = new int[this.notes.size()];
-    int i = 0;
-    for (int note : this.notes) {
-      notes[i] = note;
-    }
-    Arrays.sort(notes);
-    return notes;
+  public Set<Integer> getNotes() {
+    return (new HashSet<Integer>(this.notes));
   }
 
   /**
    * Efface la valeur entrée par le joueur.
    */
   public void clear() {
-    this.value = Kakuro.NULL_VALUE;
+    this.value = Kakuro.NULL_VALUE();
   }
 
   /**
