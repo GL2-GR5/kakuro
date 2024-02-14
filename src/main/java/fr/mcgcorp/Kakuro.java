@@ -8,11 +8,13 @@ package fr.mcgcorp;
 //import java.io.IOException;
 //import java.io.ObjectOutputStream;
 
-// Autres
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashSet;
-import java.util.Stack;
+import java.util.List;
+import java.util.Set;
 
 /**
  * La classe gérant tout le dérouler du jeu.
@@ -30,9 +32,9 @@ class Kakuro {
   public static final int NULL_VALUE = Kakuro.MIN_VALUE - 1;
 
   /** La pile des mouvement effectué par le joueur. */
-  protected Stack<Move> lstMove;
+  protected Deque<Move> lstMove;
   /** La pile des mouvement effectué par le joueur, puis annulé. */
-  protected Stack<Move> lstMoveCancel;
+  protected Deque<Move> lstMoveCancel;
   /** L'indice du dernier mouvement avant qu'il n'y est une erreur. */
   protected int lastCorrectState = -1;
   /** La grille du jeu de Kakuro. */
@@ -46,8 +48,8 @@ class Kakuro {
    * passer par la méthode @link Kakuro#initialize.
    */
   Kakuro() {
-    this.lstMove = new Stack<Move>();
-    this.lstMoveCancel = new Stack<Move>();
+    this.lstMove = new ArrayDeque<Move>();
+    this.lstMoveCancel = new ArrayDeque<Move>();
     this.lastCorrectState = -1;
     this.grid = null;
   }
@@ -267,11 +269,11 @@ class Kakuro {
    * @param useOld      Qu'elle méthode du mouvement faut-il utilisé ?
    * @return Les coordonnées de la case modifié
    */
-  private Coord swapStack(Stack origin, Stack destination, boolean useOld) {
+  private Coord swapDeque(Deque<Move> origin, Deque<Move> destination, boolean useOld) {
     if (origin.isEmpty()) {
       return null;
     }
-    Move move = ((Move) origin.pop());
+    Move move = origin.pop();
 
     Coord coord = move.getCoord();
     WhiteCell cell = this.getCell(coord, WhiteCell.class);
@@ -294,7 +296,7 @@ class Kakuro {
       }
     } else if (move instanceof MoveNote) {
       MoveNote moveNote = (MoveNote) move;
-      HashSet<Integer> notes = null;
+      Set<Integer> notes = null;
       if (useOld) {
         notes = moveNote.getNotesOld();
       } else {
@@ -319,7 +321,7 @@ class Kakuro {
    * @return Les coordonnées de la case modifié
    */
   public Coord undo() {
-    return swapStack(this.lstMove, this.lstMoveCancel, true);
+    return swapDeque(this.lstMove, this.lstMoveCancel, true);
   }
 
   /**
@@ -328,7 +330,7 @@ class Kakuro {
    * @return Les coordonnées de la case modifié
    */
   public Coord redo() {
-    return swapStack(this.lstMoveCancel, this.lstMove, false);
+    return swapDeque(this.lstMoveCancel, this.lstMove, false);
   }
 
   /**
@@ -337,11 +339,11 @@ class Kakuro {
    * @return Les coordonnées des cases modifiés
    */
   public Coord[] backToLastCorrectState() {
-    HashSet<Coord> setModification = new HashSet<>();
+    List<Coord> setModification = new ArrayList<Coord>();
     while (this.lastCorrectState < this.lstMove.size()) {
       setModification.add(this.undo());
     }
-    return setModification.toArray(new Coord[setModification.size()]);
+    return setModification.toArray(new Coord[0]);
   }
 
   /**
@@ -351,14 +353,14 @@ class Kakuro {
    * @param array2 Le tableau à mettre à l'arrière du nouveau tableau
    * @return Les deux tableaux fusionnée.
    */
-  private static CellError[] concatArrays(CellError[] array1, CellError[] array2) {
+  private static EntryError[] concatArrays(EntryError[] array1, EntryError[] array2) {
     if (array1 == null) {
       return array2;
     }
     if (array2 == null) {
       return array1;
     }
-    CellError[] result = Arrays.copyOf(array1, array1.length + array2.length);
+    EntryError[] result = Arrays.copyOf(array1, array1.length + array2.length);
     System.arraycopy(array2, 0, result, array1.length, array2.length);
     return result;
   }
@@ -368,24 +370,24 @@ class Kakuro {
    *
    * @return La liste des Erreurs découvertes
    */
-  public CellError[] check() {
-    CellError[] lstError = null;
+  public EntryError[] check() {
+    EntryError[] lstEntryError = null;
     Coord coord = null;
     for (int i = 0; i < this.grid.length; i++) {
       for (int j = 0; j < this.grid[i].length; j++) {
         coord = Coord.createCoord_matriciel(i, j);
-        lstError = this.concatArrays(lstError, this.check(coord));
+        lstEntryError = this.concatArrays(lstEntryError, this.check(coord));
       }
     }
-    if (lstError == null) {
+    if (lstEntryError == null) {
       return null;
     }
-    if (lstError.length != 0) {
+    if (lstEntryError.length != 0) {
       if (this.lastCorrectState < 0) {
         this.lastCorrectState = this.lstMove.size();
       }
     }
-    return lstError;
+    return lstEntryError;
   }
 
   /**
@@ -394,7 +396,7 @@ class Kakuro {
    * @param coord Les coordonées de la case à questionnée.
    * @return La liste des Erreurs découvertes
    */
-  public CellError[] check(Coord coord) {
+  public EntryError[] check(Coord coord) {
     Cell cell = this.getCell(coord);
     if (cell == null) {
       return null;
@@ -404,35 +406,35 @@ class Kakuro {
     if (cell instanceof WhiteCell) {
       int value = ((WhiteCell) cell).getValue();
       if (value == Kakuro.NULL_VALUE) {
-        return new CellError[0];
+        return new EntryError[0];
       }
-      ArrayList<CellError> lstError = new ArrayList<>();
-      Coord coordError = null;
+      List<EntryError> lstEntryError = new ArrayList<EntryError>();
+      Coord coordEntryError = null;
       for (int i = 0; i < row.length; i++) {
         if (i != coord.getColumn()) {
           if ((row[i] instanceof WhiteCell) && (value == ((WhiteCell) row[i]).getValue())) {
-            coordError = Coord.createCoord_matriciel(coord.getLine(), i);
-            lstError.add(new CellError(coordError, TypeError.DOUBLE));
+            coordEntryError = Coord.createCoord_matriciel(coord.getLine(), i);
+            lstEntryError.add(new EntryError(coordEntryError, TypeEntryError.DOUBLE));
           }
         }
       }
       for (int i = 0; i < col.length; i++) {
         if (i != coord.getLine()) {
           if ((col[i] instanceof WhiteCell) && (value == ((WhiteCell) col[i]).getValue())) {
-            coordError = Coord.createCoord_matriciel(i, coord.getColumn());
-            lstError.add(new CellError(coordError, TypeError.DOUBLE));
+            coordEntryError = Coord.createCoord_matriciel(i, coord.getColumn());
+            lstEntryError.add(new EntryError(coordEntryError, TypeEntryError.DOUBLE));
           }
         }
       }
       if (!((WhiteCell) cell).isCorrect()) {
-        lstError.add(new CellError(coord, TypeError.VALUE));
+        lstEntryError.add(new EntryError(coord, TypeEntryError.VALUE));
       }
-      return lstError.toArray(new CellError[lstError.size()]);
+      return lstEntryError.toArray(new EntryError[lstEntryError.size()]);
     } else if (cell instanceof ResultCell) {
       int resultRow = ((ResultCell) cell).getRow();
       int resultCol = ((ResultCell) cell).getColumn();
-      ArrayList<CellError> lstError = new ArrayList<>();
-      Coord coordError = null;
+      List<EntryError> lstEntryError = new ArrayList<EntryError>();
+      Coord coordEntryError = null;
       int value = Kakuro.NULL_VALUE;
       int res = 0;
       if (resultRow != Kakuro.NULL_VALUE) {
@@ -444,8 +446,8 @@ class Kakuro {
           if (value != Kakuro.NULL_VALUE) {
             res += value;
             if (res > resultRow) {
-              coordError = Coord.createCoord_matriciel(coord.getLine(), i);
-              lstError.add(new CellError(coordError, TypeError.OVER_RESULT_ROW));
+              coordEntryError = Coord.createCoord_matriciel(coord.getLine(), i);
+              lstEntryError.add(new EntryError(coordEntryError, TypeEntryError.OVER_RESULT_LINE));
               break;
             }
           }
@@ -460,16 +462,16 @@ class Kakuro {
           if (value != Kakuro.NULL_VALUE) {
             res += value;
             if (res > resultCol) {
-              coordError = Coord.createCoord_matriciel(i, coord.getColumn());
-              lstError.add(new CellError(coordError, TypeError.OVER_RESULT_LINE));
+              coordEntryError = Coord.createCoord_matriciel(i, coord.getColumn());
+              lstEntryError.add(new EntryError(coordEntryError, TypeEntryError.OVER_RESULT_COLUMN));
               break;
             }
           }
         }
       }
-      return lstError.toArray(new CellError[lstError.size()]);
+      return lstEntryError.toArray(new EntryError[lstEntryError.size()]);
     } else {
-      return new CellError[0];
+      return new EntryError[0];
     }
   }
 
@@ -479,7 +481,7 @@ class Kakuro {
    * @return La liste des cases modifié
    */
   public Coord[] clean() {
-    ArrayList<Coord> lstModif = new ArrayList<>();
+    List<Coord> lstModif = new ArrayList<Coord>();
     Coord coord = null;
     for (int i = 0; i < this.grid.length; i++) {
       for (int j = 0; j < this.grid[i].length; j++) {
@@ -513,7 +515,7 @@ class Kakuro {
    * @return La liste des cases modifié
    */
   public Coord[] cleanNotes() {
-    ArrayList<Coord> lstModif = new ArrayList<>();
+    List<Coord> lstModif = new ArrayList<Coord>();
     Coord coord = null;
     for (int i = 0; i < this.grid.length; i++) {
       for (int j = 0; j < this.grid[i].length; j++) {
