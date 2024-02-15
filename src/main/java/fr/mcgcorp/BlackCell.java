@@ -1,4 +1,4 @@
-package fr.mcgcorp.Kakuro.Grid;
+package fr.mcgcorp;
 
 /**
  * Cellule de base, qui peut être soit une case vide(noir), soit une case de résultat, soit une case a remplir.
@@ -12,8 +12,8 @@ class BlackCell implements Cell {
    * @return la cellule formater.
    */
   @Override
-  public String serialize(){
-    return "|";
+  public String serialize() {
+    return "";
   }
 
   @Override

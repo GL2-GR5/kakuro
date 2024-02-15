@@ -1,4 +1,4 @@
-package fr.mcgcorp.Kakuro.Grid;
+package fr.mcgcorp;
 
 /**
  * Contient le résultat demandé pour une ligne et/ou une colonne.
@@ -40,7 +40,7 @@ class ResultCell implements Cell {
    *
    * @return Le résultat attendu pour la ligne.
    */
-  public int getLine() {
+  int getLine() {
     return this.line;
   }
 
@@ -49,7 +49,7 @@ class ResultCell implements Cell {
    *
    * @return Le résultat attendu pour la colonne.
    */
-  public int getColumn() {
+  int getColumn() {
     return this.column;
   }
 
@@ -68,7 +68,7 @@ class ResultCell implements Cell {
   }
 
   @Override
-  public String serialize(){
-    return "" + this.column + ',' + this.line + "|";
+  public String serialize() {
+    return "" + this.column + ',' + this.line;
   }
 }

@@ -1,6 +1,4 @@
-package fr.mcgcorp.Kakuro.Move;
-
-import fr.mcgcorp.Kakuro.Coord;
+package fr.mcgcorp;
 
 /**
  * Représentation d'un mouvement fait par l'utilisateur.
@@ -8,7 +6,7 @@ import fr.mcgcorp.Kakuro.Coord;
  *
  * @author PECHON Erwan
  */
-public abstract class Move {
+abstract class Move {
   /** Coordonnée de la case où le mouvement à eu lieu. */
   protected Coord coord;
 
@@ -17,7 +15,11 @@ public abstract class Move {
     this.coord = null;
   }
 
-  /** Constructeur du mouvement. */
+  /**
+   * Constructeur du mouvement.
+   *
+   * @param coord Les coordonnées de la case où le mouvement c'est joué.
+   */
   protected Move(Coord coord) {
     this.coord = coord;
   }
@@ -28,21 +30,35 @@ public abstract class Move {
    *
    * @return cette objet Coord.
    */
-  public Coord getCoord() {
+  Coord getCoord() {
     return this.coord;
   }
 
-  /** 
+  /**
    * Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
    * Permet au jeu de définir la case associé à ce mouvement.
    * Cette méthode ne peut être appelé qu'une seul fois, toute appel supplémentaire sera simplement ignoré.
    *
    * @param coord la nouvelle coordonnée de la case associé à ce mouvement.
    */
-  public void setCoord(Coord coord) {
+  void setCoord(Coord coord) {
     if (this.coord == null) {
       this.coord = coord;
     }
   }
+
+  /**
+   * Accesseur sur l'ancien contenu de la cellule.
+   *
+   * @return L'ancien contenu de la cellule.
+   */
+  abstract Object getOld();
+
+  /**
+   * Accesseur sur le nouveau contenu de la cellule.
+   *
+   * @return Le nouveau contenu de la cellule.
+   */
+  abstract Object getNew();
 }
 

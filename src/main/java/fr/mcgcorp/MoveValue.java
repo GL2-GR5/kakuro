@@ -1,4 +1,4 @@
-package fr.mcgcorp.Kakuro.Move;
+package fr.mcgcorp;
 
 /**
  * Représentation d'un mouvement modifiant la valeur d'une cellule blanche.
@@ -23,19 +23,13 @@ class MoveValue extends Move {
     this.valueNew = valueNew;
   }
 
-  /**
-   * Renvoie l'ancienne valeur de la case.
-   * @return int
-   */
-  public int getValueOld() {
+  @Override
+  Object getOld() {
     return this.valueOld;
   }
 
-  /**
-   * Renvoie la nouvelle valeur de la case.
-   * @return int
-   */
-  public int getValueNew() {
+  @Override
+  Object getNew() {
     return this.valueNew;
   }
 }

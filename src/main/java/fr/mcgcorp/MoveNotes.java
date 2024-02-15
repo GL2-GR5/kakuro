@@ -1,4 +1,4 @@
-package fr.mcgcorp.Kakuro.Move;
+package fr.mcgcorp;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,25 +23,17 @@ class MoveNotes extends Move {
    */
   MoveNotes(Set<Integer> notesOld, Set<Integer> notesNew) {
     super();
-    this.notesOld = new HashSet<Integer>(notesOld);
-    this.notesNew = new HashSet<Integer>(notesNew);
+    this.notesOld = notesOld;
+    this.notesNew = notesNew;
   }
 
-  /**
-   * Renvoie les anciennes notes de la case.
-   *
-   * @return Le vieux set de notes
-   */
-  public Set<Integer> getNotesOld() {
+  @Override
+  Object getOld() {
     return this.notesOld;
   }
 
-  /**
-   * Renvoie les nouvelles notes de la case.
-   *
-   * @return Le nouveaux set de notes
-   */
-  public Set<Integer> getNotesNew() {
+  @Override
+  Object getNew() {
     return this.notesNew;
   }
 }

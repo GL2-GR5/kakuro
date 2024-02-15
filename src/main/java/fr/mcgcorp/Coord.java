@@ -1,4 +1,4 @@
-package fr.mcgcorp.Kakuro;
+package fr.mcgcorp;
 
 import java.util.function.Supplier;
 
@@ -19,7 +19,7 @@ public class Coord implements Comparable<Coord> {
    * Le constructeur de coordonnée de base.
    * Pointe la première cellule de la matrice de jeu.
    */
-  Coord() {
+  public Coord() {
     this.numCell = 0;
   }
 
@@ -29,10 +29,10 @@ public class Coord implements Comparable<Coord> {
    *
    * @param id L'id de la case à ciblé.
    */
-  Coord(String id) {
-    String idSplit[] = id.split("_");
-    this.numCell = Integer.parseInt(idSplit[0]) * Kakuro.LAST_COORD().getColumn();
-    this.numCell+= Integer.parseInt(idSplit[1]);
+  public Coord(String id) {
+    String[] idSplit = id.split("_");
+    this.numCell = Integer.parseInt(idSplit[0]) * Kakuro.getLastCoord().getColumn();
+    this.numCell += Integer.parseInt(idSplit[1]);
   }
 
   /**
@@ -43,9 +43,9 @@ public class Coord implements Comparable<Coord> {
    * @param line Le numéro de ligne de la cellule visé.
    * @param column Le numéro de colonne de la cellule visé.
    */
-  Coord(int line, int column) {
-    this.numCell = line * Kakuro.LAST_COORD().getColumn();
-    this.numCell+= column;
+  public Coord(int line, int column) {
+    this.numCell = line * Kakuro.getLastCoord().getColumn();
+    this.numCell += column;
   }
 
   /**
@@ -54,7 +54,7 @@ public class Coord implements Comparable<Coord> {
    *
    * @param indice L'indice de la cellule à ciblé.
    */
-  Coord(int indice) {
+  public Coord(int indice) {
     this.numCell = indice;
   }
 
@@ -79,7 +79,7 @@ public class Coord implements Comparable<Coord> {
    * @return L'indice de la ligne où se trouve la case.
    */
   public int getLine() {
-    return this.numCell / Kakuro.LAST_COORD().getColumn();
+    return this.numCell / Kakuro.getLastCoord().getColumn();
   }
 
   /**
@@ -88,7 +88,7 @@ public class Coord implements Comparable<Coord> {
    * @return L'indice de la colonne où se trouve la case.
    */
   public int getColumn() {
-    return this.numCell % Kakuro.LAST_COORD().getColumn();
+    return this.numCell % Kakuro.getLastCoord().getColumn();
   }
 
 
@@ -121,8 +121,8 @@ public class Coord implements Comparable<Coord> {
    * @return Est-on passé à une nouvelle ligne ?
    */
   public boolean nextCell() {
-    this.numCell+= 1;
-    return (this.numCell % Kakuro.LAST_COORD().getColumn()) == 0;
+    this.numCell += 1;
+    return (this.numCell % Kakuro.getLastCoord().getColumn()) == 0;
   }
 
   /**
@@ -131,8 +131,8 @@ public class Coord implements Comparable<Coord> {
    * @return Est-on passé à la ligne précédente ?
    */
   public boolean previousCell() {
-    boolean restart = (this.numCell % Kakuro.LAST_COORD().getColumn()) == 0;
-    this.numCell-= 1;
+    boolean restart = (this.numCell % Kakuro.getLastCoord().getColumn()) == 0;
+    this.numCell -= 1;
     return restart;
   }
 
@@ -142,11 +142,11 @@ public class Coord implements Comparable<Coord> {
    * @return Est-on passé à une nouvelle colonne ?
    */
   public boolean nextLine() {
-    Coord lim = Kakuro.LAST_COORD();
+    Coord lim = Kakuro.getLastCoord();
     if (this.getLine() == lim.getLine()) {
       this.newColumn();
     }
-    this.numCell+= lim.getColumn();
+    this.numCell += lim.getColumn();
     return false;
   }
 
@@ -159,7 +159,7 @@ public class Coord implements Comparable<Coord> {
     if (this.getLine() == 0) {
       return this.oldColumn();
     }
-    this.numCell-= Kakuro.LAST_COORD().getColumn();
+    this.numCell -= Kakuro.getLastCoord().getColumn();
     return false;
   }
 
@@ -206,13 +206,14 @@ public class Coord implements Comparable<Coord> {
   /**
    * Fait plusieurs mouvement dans la direction demandé..
    *
-   * @param i;
-   * @return Combien de fois le bout de la matrice à était atteint ?
+   * @param method Comment le pointeur sur la grille doit-être déplacé.
+   * @param nbRep Le nombre de fois où **method** doit-être exécuté.
+   * @return Combien de fois le bout de la matrice à était atteint ?.
    */
   public int moveCoord(Supplier<Boolean> method, int nbRep) {
     int nbTrue = 0;
-    for( int i=0 ; i<nbRep ; i++ ){
-      if( method.get() ){
+    for (int i = 0; i < nbRep; i++) {
+      if (method.get()) {
         nbTrue++;
       }
     }
@@ -227,11 +228,11 @@ public class Coord implements Comparable<Coord> {
    *
    * @return **true** si la case ciblé fait bien partie de la grille du jeu.
    */
-  public boolean exist(){
-    if( this.numCell < 0 ){
+  public boolean exist() {
+    if (this.numCell < 0) {
       return false;
     }
-    if( Kakuro.LAST_COORD().getIndice() < 0 ){
+    if (Kakuro.getLastCoord().getIndice() < 0) {
       return false;
     }
     return true;
@@ -240,11 +241,11 @@ public class Coord implements Comparable<Coord> {
   /**
    * Test si cette objet est égale à un autre.
    *
-   * @param o L'objet avec lequel ce comparer.
+   * @param obj L'objet avec lequel ce comparer.
    * @return **true** si les deux coordonnées ciblent la même cellules.
    */
   @Override
-  public boolean equals(Object obj){
+  public boolean equals(Object obj) {
     // Vérifie si l'objet est null
     if (obj == null) {
       return false;
@@ -271,7 +272,7 @@ public class Coord implements Comparable<Coord> {
    * @return le nombre de case d'écart entre les deux coordonnée.
    */
   @Override
-  public int compareTo(Coord coord){
+  public int compareTo(Coord coord) {
     return this.getIndice() - coord.getIndice();
   }
 

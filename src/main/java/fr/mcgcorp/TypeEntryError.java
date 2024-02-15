@@ -1,4 +1,4 @@
-package fr.mcgcorp.Kakuro.EntryError;
+package fr.mcgcorp;
 
 /** Énumération représentant les types d'erreurs qu'un joueur peut commettre dans le jeu de Kakuro.
  * @author PECHON Erwan
