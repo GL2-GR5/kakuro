@@ -5,7 +5,7 @@ package fr.mcgcorp;
  *
  * @author PECHON Erwan
  */
-class EntryError {
+public class EntryError {
   /** Coordonnée de la case où l'erreur à eu lieu. */
   protected Coord coord = null;
   /** L'erreur détecté sur cette cellule. */
