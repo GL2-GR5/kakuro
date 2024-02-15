@@ -15,6 +15,10 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.IntBinaryOperator;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * La classe gérant tout le dérouler du jeu.
@@ -23,22 +27,26 @@ import java.util.Set;
  *
  * @author PECHON Erwan
  */
-class Kakuro {
-  /** Valeur Maximal authorisé. */
-  public static final int MAX_VALUE = 9;
-  /** Valeur Minimal authorisé. */
-  public static final int MIN_VALUE = 1;
-  /** Valeur null (aucune valeur). */
-  public static final int NULL_VALUE = Kakuro.MIN_VALUE - 1;
+public final class Kakuro {
+  /** L'instance du Kakuro actuellement utilisé. */
+  protected static Kakuro kakuro = null;
 
+  /** La plus grande valeur pouvant ce trouver dans une WhiteCell. */
+  protected int cstMaxValue = 9;
+  /** La plus petite valeur pouvant ce trouver dans une WhiteCell. */
+  protected int cstMinValue = 1;
   /** La pile des mouvement effectué par le joueur. */
   protected Deque<Move> lstMove;
   /** La pile des mouvement effectué par le joueur, puis annulé. */
   protected Deque<Move> lstMoveCancel;
+  /** La liste des erreurs connue. */
+  protected List<EntryError> lstEntryErrors;
   /** L'indice du dernier mouvement avant qu'il n'y est une erreur. */
-  protected int lastCorrectState = -1;
+  protected int correctState = -1;
   /** La grille du jeu de Kakuro. */
-  protected Cell[][] grid = null;
+  protected Grid grid = null;
+  /** L'opérateur à appliquer afin d'obtenir le résultat d'une zone. */
+  protected IntBinaryOperator function = (res, val) -> res + val;
 
   /**
    * Le constructeur du jeu de Kakuro.
@@ -47,58 +55,153 @@ class Kakuro {
    * Pour initialiser le jeu pour des paramètres spécifiques, il faut
    * passer par la méthode @link Kakuro#initialize.
    */
-  Kakuro() {
+  private Kakuro() {
     this.lstMove = new ArrayDeque<Move>();
     this.lstMoveCancel = new ArrayDeque<Move>();
-    this.lastCorrectState = -1;
+    this.correctState = -1;
     this.grid = null;
   }
 
   /**
-   * Initialise une partie de Kakuro et la lance.
-   * Cette méthode prends tout les paramètres nécéssaire pour lancer une partie de
+   * Crée, initialise et lance une partie de Kakuro.
+   * Cette méthode prends tout les paramètres nécessaire pour lancer une partie de
    * Kakuro et prépare le jeu en conséquence.
    * 
    * @param nbLine   Le nombre de lignes que doit-avoir la grille de Kakuro.
    * @param nbColumn Le nombre de colonnes que doit-avoir la grille de Kakuro.
+   * @return **true** Si la nouvelle partie à put être créer.
    */
-  public void initialize(int nbLine, int nbColumn) {
-    this.grid = new Cell[nbLine][nbColumn];
-    for (int i = 0; i < nbLine; i++) {
-      for (int j = 0; j < nbColumn; j++) {
-        if (i < j) {
-          this.grid[i][j] = new Cell();
-        } else if (i == j) {
-          if ((i % 3) == 0) {
-            this.grid[i][j] = new ResultCell(-1, i);
-          } else if ((i % 3) == 0) {
-            this.grid[i][j] = new ResultCell(i, -1);
-          } else {
-            this.grid[i][j] = new ResultCell(i, i * 2);
-          }
-        } else {
-          this.grid[i][j] = new WhiteCell(i);
-        }
-      }
+  public boolean createGame(int nbLine, int nbColumn) {
+    if (Kakuro.kakuro != null) {
+      return false;
+    }
+    Kakuro kakuro = new Kakuro();
+    this.grid = new Grid(nbLine, nbColumn);
+    Kakuro.kakuro = kakuro;
+    return true;
+  }
+
+  /**
+   * Charge et lance une partie sauvegardé de Kakuro.
+   * Cette méthode prends tout les paramètres nécessaire pour recharger une partie de
+   * Kakuro et prépare le jeu en conséquence.
+   *
+   * @param nomF le nom du fichier de sauvegarde.
+   * @return **true** Si la nouvelle partie à put être créer.
+   */
+  public boolean chargeGame(String nomF) {
+    if (Kakuro.kakuro != null) {
+      return false;
+    }
+    Kakuro kakuro = new Kakuro();
+    this.grid = new Grid(5, 6);
+    Kakuro.kakuro = kakuro;
+    return true;
+  }
+
+  /**
+   * Obtient la valeur maximal d'une case blanche.
+   *
+   * @return la valeur maximal d'une case blanche.
+   */
+  public static int getMaxValue() {
+    if (Kakuro.kakuro == null) {
+      return 0;
+    }
+    return Kakuro.kakuro.cstMaxValue;
+  }
+
+  /**
+   * Obtient la valeur minimal d'une case blanche.
+   *
+   * @return la valeur minimal d'une case blanche.
+   */
+  public static int getMinValue() {
+    if (Kakuro.kakuro == null) {
+      return 0;
+    }
+    return Kakuro.kakuro.cstMinValue;
+  }
+
+  /**
+   * Obtient la valeur sauvegardé dans une case blanche, lorsque cette dernière
+   * n'à pas de valeur.
+   *
+   * @return la valeur null d'une case blanche.
+   */
+  public static int getNullValue() {
+    if (Kakuro.kakuro == null) {
+      return 0;
+    }
+    int minValue = Kakuro.kakuro.cstMinValue;
+    if (minValue > 0) {
+      minValue = 0;
+    }
+    return minValue - 1;
+  }
+
+  /**
+   * Obtient les coordonnées de la dernière case de la grille de kakuro.
+   *
+   * @return Les coordonnées de la dernière case de la grille de Kakuro.
+   */
+  public static Coord getLastCoord() {
+    if (Kakuro.kakuro == null) {
+      return null;
+    }
+    return Kakuro.kakuro.grid.getLastCoord();
+  }
+
+  /**
+   * Obtient l'instance actuel du Kakuro.
+   *
+   * @return La partie de kakuro en cours.
+   */
+  public static Kakuro getInstance() {
+    return Kakuro.kakuro;
+  }
+
+
+
+
+  /**
+   * Obtient les erreurs demandé.
+   *
+   * @param predicate Comment choisir les erreurs.
+   * @return La liste des erreurs de la zone demandé.
+   */
+  public List<EntryError> getEntryErrors(Predicate<EntryError> predicate) {
+    return this.lstEntryErrors.stream().filter(predicate).collect(Collectors.toList());
+  }
+
+  /**
+   * Mets à jour l'affichage de toutes les cellules.
+   *
+   * @param consumer La donnée de la cellule à mettre à jour (Contenu/Erreur)
+   */
+  public void update(Consumer<Coord> consumer) {
+    Grid.GridIterator it = this.grid.iterator();
+    while (it.hasNext()) {
+      consumer.accept(it.getCoord());
     }
   }
 
   /**
-   * Accesseur sur le type des cases du jeu.
-   * Cette fonction permettra d'initialiser la grille du jeu du côté de
-   * l'interface graphique.
+   * Mets à jour l'affichage d'une seule cellule.
    *
-   * @return Une matrice comportement le nom de la classe de chaque cellule de la
-   *         grille du jeu.
+   * @param coord Les coordonnées de la cellule à mettre à jour.
    */
-  public String[][] getMatriceClasses() {
-    String[][] matr = new String[this.grid.length][this.grid[0].length];
-    for (int i = 0; i < this.grid.length; i++) {
-      for (int j = 0; j < this.grid.length; j++) {
-        matr[i][j] = this.grid[i][j].getClass().getName();
-      }
-    }
-    return matr;
+  public void updateCell(Coord coord) {
+    String s = this.grid.getCell(coord).serialize();
+    // Dire au controller d'afficher s en coord.
+  }
+
+  /**
+   * Mets à jour l'affichage de l'erreur d'une seule cellule.
+   *
+   * @param coord Les coordonnées de la cellule à mettre à jour.
+   */
+  public void updateErr(Coord coord){
   }
 
   /**
@@ -113,6 +216,8 @@ class Kakuro {
    * l'est déjà et ne doit pas être écraser.)
    */
   public void save() {
+    // Sauvegarder uniquement les actions réaliser depuis la dernière
+    // sauvegarde.
   }
 
   /**
@@ -122,7 +227,9 @@ class Kakuro {
    *
    */
   public void quit() {
-    this.save();
+    this.save(); // Sauvegardé le jeu avant de perdre le jeu.
+    Kakuro.kakuro = null; // Perdre le kakuro afin de pouvoir en créer un
+    //                    // nouveau.
   }
 
   /**
@@ -132,141 +239,90 @@ class Kakuro {
   }
 
   /**
-   * Permet d'obtenir une case.
-   * 
-   * @param coord Les coordonnée de la case à obtenire.
-   * @return La case demandé.
+   * Permet de saisir une valeur dans une case.
    *
-   *         Permet de vérifier que les coordonnée soit correct.
+   * @param coord Les coordonnées de la case à modifier.
+   * @param value La valeur à saisir.
    */
-  private Cell getCell(Coord coord) {
-    Cell cell = null;
-    try {
-      cell = this.grid[coord.getLine()][coord.getColumn()];
-    } catch (ArrayIndexOutOfBoundsException e) {
-      return null;
+  public void set(Coord coord, int value) {
+    Cell cell = this.grid.getCell(coord);
+    if ((cell != null) && (cell instanceof WhiteCell)) {
+      Move move = ((WhiteCell) cell).setValue(value);
+      if (move != null) {
+        move.setCoord(coord);
+        lstMove.add(move);
+      }
     }
-    return cell;
   }
 
   /**
-   * Permet d'obtenir une case.
-   * Permet de vérifier que les coordonnée soit correct.
-   * 
-   * @param coord     Les coordonnée de la case à obtenire.
-   * @param classCell La classe que la cellule doit avoir.
-   * @param <T>       La classe de la cellule demandé.
-   * @return La case demandé caster dans sa classe.
+   * Permet de saisir une valeur dans une case.
+   *
+   * @param coord Les coordonnées de la case à modifier.
+   * @param notes Les notes à saisir.
    */
-  private <T> T getCell(Coord coord, Class<T> classCell) {
-    Cell cell = this.getCell(coord);
+  public void set(Coord coord, Set<Integer> notes) {
+    Cell cell = this.grid.getCell(coord);
+    if ((cell != null) && (cell instanceof WhiteCell)) {
+      Move move = ((WhiteCell) cell).setNotes(notes);
+      if (move != null) {
+        move.setCoord(coord);
+        lstMove.add(move);
+      }
+    }
+  }
+
+  /**
+   * Permet d'obtenir le contenu d'une case.
+   *
+   * @param coord Les coordonnées de la case à interrogé
+   * @return La case formater pour transmission.
+   */
+  public String getCell(Coord coord) {
+    Cell cell = this.grid.getCell(coord);
     if (cell == null) {
       return null;
     }
-    if (classCell.isInstance(cell)) {
-      return classCell.cast(cell);
+    return cell.serialize();
+  }
+
+  /**
+   * Permet d'obtenir le contenu d'une case.
+   *
+   * @param coord Les coordonnées de la case à interrogé
+   * @return La case formater pour affichage.
+   */
+  public String affCell(Coord coord) {
+    Cell cell = this.grid.getCell(coord);
+    if (cell == null) {
+      return null;
+    }
+    return cell.toString();
+  }
+
+  /**
+   * Permet d'obtenir les notes d'une cellule.
+   *
+   * @param coord Les coordonnées de la case à interrogé
+   * @return Une copie du set de note de la cellule.
+   */
+  public Set<Integer> getNotes(Coord coord) {
+    Cell cell = this.grid.getCell(coord);
+    if ((cell != null) && (cell instanceof WhiteCell)) {
+      Set<Integer> notes = ((WhiteCell) cell).getNotes();
+      if (notes != null) {
+        return notes;
+      }
     }
     return null;
   }
 
   /**
-   * Permet d'obtenir une ligne.
-   * 
-   * @param line La ligne à obtenire
-   * @return La ligne demandé
-   */
-  private Cell[] getRow(int line) {
-    Cell[] row = null;
-    try {
-      row = this.grid[line];
-    } catch (ArrayIndexOutOfBoundsException e) {
-      return null;
-    }
-    return row;
-  }
-
-  /**
-   * Permet d'obtenir une colonne.
-   * 
-   * @param column La colonne à obtenire
-   * @return La colonne demandé
-   */
-  private Cell[] getCol(int column) {
-    if ((column < 0) || (this.grid[0].length <= column)) {
-      return null;
-    }
-    Cell[] col = new Cell[this.grid[0].length];
-    for (int i = 0; i < this.grid.length; i++) {
-      col[i] = this.grid[i][column];
-    }
-    return col;
-  }
-
-  /**
-   * Permet d'obtenir la valeur d'une case blanche.
-   *
-   * @param coord Les coordonées de la case à interrogé
-   * @return La valeur demandé
-   */
-  public int getValue(Coord coord) {
-    WhiteCell cell = this.getCell(coord, WhiteCell.class);
-    if (cell == null) {
-      return -1;
-    }
-    return cell.getValue();
-  }
-
-  /**
-   * Permet de modifier la valeur d'une case blanche.
-   * 
-
-   * @param coord Les coordonnées de la case à modifié
-   * @param value La valeur à saisie
-   * @return Les coordonnées de la case modifié
-   */
-  public Coord setValue(Coord coord, int value) {
-    WhiteCell cell = this.getCell(coord, WhiteCell.class);
-    if (cell == null) {
-      return null;
-    }
-    cell.setValue(value);
-    return coord;
-  }
-
-  /**
-   * Permet d'obtenir le résultat attendu pour une ligne.
-   *
-   * @param coord Les coordonées de la case de consigne
-   * @return La valeur demandé
-   */
-  public int getResultRow(Coord coord) {
-    ResultCell cell = this.getCell(coord, ResultCell.class);
-    if (cell == null) {
-      return -1;
-    }
-    return cell.getRow();
-  }
-
-  /**
-   * Permet d'obtenir le résultat attendu pour une colonne.
-   *
-   * @param coord Les coordonées de la case de consigne
-   * @return La valeur demandé
-   */
-  public int getResultColumn(Coord coord) {
-    ResultCell cell = this.getCell(coord, ResultCell.class);
-    if (cell == null) {
-      return -1;
-    }
-    return cell.getColumn();
-  }
-
-  /**
    * Permet de déplacer une action d'une pile à une autre.
    *
-   * @param origin      La pile à dépiler
+   * @param origin La pile à dépiler
    * @param destination La pile à empiler
-   * @param useOld      Qu'elle méthode du mouvement faut-il utilisé ?
+   * @param useOld Qu'elle méthode du mouvement faut-il utilisé ?
    * @return Les coordonnées de la case modifié
    */
   private Coord swapDeque(Deque<Move> origin, Deque<Move> destination, boolean useOld) {
@@ -276,40 +332,15 @@ class Kakuro {
     Move move = origin.pop();
 
     Coord coord = move.getCoord();
-    WhiteCell cell = this.getCell(coord, WhiteCell.class);
+    Cell cell = this.grid.getCell(coord);
     if (cell == null) {
       return null;
     }
-
-    if (move instanceof MoveValue) {
-      MoveValue moveValue = (MoveValue) move;
-      int value = -1;
-      if (useOld) {
-        value = moveValue.getValueOld();
-      } else {
-        value = moveValue.getValueNew();
-      }
-      if (value == Kakuro.NULL_VALUE) {
-        cell.clear();
-      } else {
-        cell.setValue(value);
-      }
-    } else if (move instanceof MoveNote) {
-      MoveNote moveNote = (MoveNote) move;
-      Set<Integer> notes = null;
-      if (useOld) {
-        notes = moveNote.getNotesOld();
-      } else {
-        notes = moveNote.getNotesNew();
-      }
-      if (notes == null) {
-        cell.clearNotes();
-      } else {
-        cell.setNotes(notes);
-      }
-    } else {
+    if (!(cell instanceof WhiteCell)) {
       return null;
     }
+
+    ((WhiteCell) cell).traiteMove(move, useOld);
 
     destination.push(move);
     return move.getCoord();
@@ -340,236 +371,157 @@ class Kakuro {
    */
   public Coord[] backToLastCorrectState() {
     List<Coord> setModification = new ArrayList<Coord>();
-    while (this.lastCorrectState < this.lstMove.size()) {
+    while (this.correctState < this.lstMove.size()) {
       setModification.add(this.undo());
     }
     return setModification.toArray(new Coord[0]);
   }
 
   /**
-   * Concatener deux tableau de cellule d'erreur.
-   *
-   * @param array1 Le tableau à mettre à l'avant du nouveau tableau
-   * @param array2 Le tableau à mettre à l'arrière du nouveau tableau
-   * @return Les deux tableaux fusionnée.
-   */
-  private static EntryError[] concatArrays(EntryError[] array1, EntryError[] array2) {
-    if (array1 == null) {
-      return array2;
-    }
-    if (array2 == null) {
-      return array1;
-    }
-    EntryError[] result = Arrays.copyOf(array1, array1.length + array2.length);
-    System.arraycopy(array2, 0, result, array1.length, array2.length);
-    return result;
-  }
-
-  /**
    * Fouille toute la grille à la recherche d'erreurs.
-   *
-   * @return La liste des Erreurs découvertes
    */
-  public EntryError[] check() {
-    EntryError[] lstEntryError = null;
-    Coord coord = null;
-    for (int i = 0; i < this.grid.length; i++) {
-      for (int j = 0; j < this.grid[i].length; j++) {
-        coord = Coord.createCoord_matriciel(i, j);
-        lstEntryError = this.concatArrays(lstEntryError, this.check(coord));
-      }
+  public void check() {
+    lstEntryErrors.clear();
+    int lim = 0;
+    // Checker les zones horizontal.
+    Grid.GridIterator[] lstArea = this.grid.getLineAreas();
+    for (Grid.GridIterator area : lstArea) {
+      this.check(area, true); // Checker toute la zone.
     }
-    if (lstEntryError == null) {
-      return null;
+    // Checker les zones verticale.
+    lstArea = this.grid.getColumnAreas();
+    for (Grid.GridIterator area : lstArea) {
+      this.check(area, false); // Checker toute la zone.
     }
-    if (lstEntryError.length != 0) {
-      if (this.lastCorrectState < 0) {
-        this.lastCorrectState = this.lstMove.size();
-      }
-    }
-    return lstEntryError;
+    // Vérifier si il n'y à aucune erreur.
+    this.checkCorrectState();
   }
 
   /**
-   * Vérifie si une cellule est correct.
+   * Vérifie si les deux zones d'une cellule sont correct.
    *
-   * @param coord Les coordonées de la case à questionnée.
-   * @return La liste des Erreurs découvertes
+   * @param coord Les coordonnées de la case à questionnée.
    */
-  public EntryError[] check(Coord coord) {
-    Cell cell = this.getCell(coord);
-    if (cell == null) {
-      return null;
+  public void check(Coord coord) {
+    int lim = 0;
+    Grid.GridIterator[] areas = this.grid.getAreas(coord);
+    // Checker les zones horizontal.
+    this.check(areas[0], true); // Checker toute la zone.
+    // Checker les zones vertical.
+    this.check(areas[1], false); // Checker toute la zone.
+    // Vérifier si il n'y à aucune erreur.
+    this.checkCorrectState();
+  }
+
+  /**
+   * Vérifier si une zone de cellule est correct.
+   *
+   * @param it L'itérateur sur la zone de cellule blanche.
+   * @param checkLine Checker la ligne ? Ou la colonne ?
+   * @return Est-ce que la fonction c'est terminé ?
+   */
+  private boolean check(Grid.GridIterator it, boolean checkLine) {
+    if (!(it.hasNext())) {
+      return false;
     }
-    Cell[] row = this.getRow(coord.getLine());
-    Cell[] col = this.getCol(coord.getColumn());
-    if (cell instanceof WhiteCell) {
-      int value = ((WhiteCell) cell).getValue();
-      if (value == Kakuro.NULL_VALUE) {
-        return new EntryError[0];
+    // Obtenir les constante.
+    int minVal = Kakuro.getMinValue();
+    int nbVal = Kakuro.getMaxValue() - minVal;
+    // Préparer les accumulateurs.
+    Coord[] lstDoublons = new Coord[nbVal];
+    int res = 0;
+    // Obtenir la limite de zone.
+    int lim = 0;
+    Cell cell = it.next(); // Obtenir la cellule de résultat.
+    TypeEntryError typeArea = TypeEntryError.NO_ERR;
+    if (cell instanceof ResultCell) {
+      if (checkLine) {
+        lim = ((ResultCell) cell).getLine();
+        typeArea = TypeEntryError.OVER_RESULT_LINE;
+      } else {
+        lim = ((ResultCell) cell).getColumn();
+        typeArea = TypeEntryError.OVER_RESULT_COLUMN;
       }
-      List<EntryError> lstEntryError = new ArrayList<EntryError>();
-      Coord coordEntryError = null;
-      for (int i = 0; i < row.length; i++) {
-        if (i != coord.getColumn()) {
-          if ((row[i] instanceof WhiteCell) && (value == ((WhiteCell) row[i]).getValue())) {
-            coordEntryError = Coord.createCoord_matriciel(coord.getLine(), i);
-            lstEntryError.add(new EntryError(coordEntryError, TypeEntryError.DOUBLE));
-          }
-        }
-      }
-      for (int i = 0; i < col.length; i++) {
-        if (i != coord.getLine()) {
-          if ((col[i] instanceof WhiteCell) && (value == ((WhiteCell) col[i]).getValue())) {
-            coordEntryError = Coord.createCoord_matriciel(i, coord.getColumn());
-            lstEntryError.add(new EntryError(coordEntryError, TypeEntryError.DOUBLE));
-          }
-        }
-      }
-      if (!((WhiteCell) cell).isCorrect()) {
-        lstEntryError.add(new EntryError(coord, TypeEntryError.VALUE));
-      }
-      return lstEntryError.toArray(new EntryError[lstEntryError.size()]);
-    } else if (cell instanceof ResultCell) {
-      int resultRow = ((ResultCell) cell).getRow();
-      int resultCol = ((ResultCell) cell).getColumn();
-      List<EntryError> lstEntryError = new ArrayList<EntryError>();
-      Coord coordEntryError = null;
-      int value = Kakuro.NULL_VALUE;
-      int res = 0;
-      if (resultRow != Kakuro.NULL_VALUE) {
-        for (int i = coord.getColumn() + 1; i < row.length; i++) {
-          if (!(row[i] instanceof WhiteCell)) {
-            break;
-          }
-          value = ((WhiteCell) row[i]).getValue();
-          if (value != Kakuro.NULL_VALUE) {
-            res += value;
-            if (res > resultRow) {
-              coordEntryError = Coord.createCoord_matriciel(coord.getLine(), i);
-              lstEntryError.add(new EntryError(coordEntryError, TypeEntryError.OVER_RESULT_LINE));
-              break;
-            }
-          }
-        }
-      }
-      if (resultCol != Kakuro.NULL_VALUE) {
-        for (int i = coord.getLine() + 1; i < col.length; i++) {
-          if (!(col[i] instanceof WhiteCell)) {
-            break;
-          }
-          value = ((WhiteCell) col[i]).getValue();
-          if (value != Kakuro.NULL_VALUE) {
-            res += value;
-            if (res > resultCol) {
-              coordEntryError = Coord.createCoord_matriciel(i, coord.getColumn());
-              lstEntryError.add(new EntryError(coordEntryError, TypeEntryError.OVER_RESULT_COLUMN));
-              break;
-            }
-          }
-        }
-      }
-      return lstEntryError.toArray(new EntryError[lstEntryError.size()]);
     } else {
-      return new EntryError[0];
+      return false;
     }
+    Coord coordResult = it.getCoord();
+    Coord coord;
+    // Traversé toute la zone à checker.
+    while (it.hasNext()) {
+      // Obtenir la nouvelle cellule à checker.
+      cell = it.next();
+      coord = it.getCoord();
+      if (!(cell instanceof WhiteCell)) {
+        if (res > lim) {
+          this.addError(new EntryError(coordResult, typeArea));
+        }
+        return false;
+      }
+      // Transformé la cellule en cellule blanche
+      WhiteCell whiteCell = ((WhiteCell) cell);
+      // Obtenir la valeur de la cellule.
+      int valCell = whiteCell.getValue();
+      // Vérifier.
+      if (! whiteCell.badValue()) {
+        this.addError(new EntryError(coord, TypeEntryError.VALUE));
+      }
+      if (lstDoublons[valCell - minVal] == null) {
+        lstDoublons[valCell - minVal] = coord;
+      } else {
+        this.addError(new EntryError(lstDoublons[valCell - minVal], TypeEntryError.DOUBLE));
+        this.addError(new EntryError(coord, TypeEntryError.DOUBLE));
+      }
+      res = this.function.applyAsInt(res, valCell);
+    }
+    if (res > lim) {
+      this.addError(new EntryError(coordResult, typeArea));
+    }
+    return true;
   }
 
   /**
-   * Ré-initialise le tableau.
-   *
-   * @return La liste des cases modifié
+   * Vérifie si la grille est dans un état sans erreur de saisie.
    */
-  public Coord[] clean() {
-    List<Coord> lstModif = new ArrayList<Coord>();
-    Coord coord = null;
-    for (int i = 0; i < this.grid.length; i++) {
-      for (int j = 0; j < this.grid[i].length; j++) {
-        coord = Coord.createCoord_matriciel(i, j);
-        if (this.clean(coord) != null) {
-          lstModif.add(coord);
-        }
+  public void checkCorrectState() {
+    // Si l'on est actuellement dans un état correct
+    if (this.correctState < 0) {
+      // Et si il y à des erreurs
+      if (this.lstEntryErrors.size() != 0) {
+        // On sauvegarde l'indice de l'état avant l'apparition des
+        // erreurs.
+        this.correctState = lstEntryErrors.size() - 2;
+      }
+    } else {
+      // Si l'on est dans un état incorrect
+      // Et si il n'y à pas d'erreur
+      if (this.lstEntryErrors.size() == 0) {
+        // On retourne dans un état correct
+        this.correctState = -1;
       }
     }
-    return lstModif.toArray(new Coord[lstModif.size()]);
   }
 
   /**
-   * Ré-initialise une cellule.
+   * Ajouter une erreur dans la liste des erreurs, si elle n'y existe pas.
+   * Cherche dans la liste si il y à déjà cette erreur.
+   * Si elle n'y est pas encore, il faut l'y ajouter.
    *
-   * @param coord Les coordonées de la case à modifié.
-   * @return La cases modifié
+   * @param e L'erreur à ajouter.
    */
-  public Coord clean(Coord coord) {
-    WhiteCell cell = this.getCell(coord, WhiteCell.class);
-    if (cell == null) {
-      return null;
+  private void addError(EntryError e) {
+    if (!(this.lstEntryErrors.contains(e))) {
+      this.lstEntryErrors.add(e);
     }
-    cell.clearAll();
-    return coord;
   }
 
-  /**
-   * Ré-initialise les notes de toutes les cellules.
-   *
-   * @return La liste des cases modifié
-   */
-  public Coord[] cleanNotes() {
-    List<Coord> lstModif = new ArrayList<Coord>();
-    Coord coord = null;
-    for (int i = 0; i < this.grid.length; i++) {
-      for (int j = 0; j < this.grid[i].length; j++) {
-        coord = Coord.createCoord_matriciel(i, j);
-        if (this.cleanNotes(coord) != null) {
-          lstModif.add(coord);
-        }
-      }
-    }
-    return lstModif.toArray(new Coord[lstModif.size()]);
-  }
 
   /**
-   * Ré-initialise les notes d'une cellule.
+   * Formate le jeu pour transmission.
    *
-   * @param coord Les coordonées de la case à modifié.
-   * @return La cases modifié
+   * @return la grille du jeu formater pour être transmise.
    */
-  public Coord cleanNotes(Coord coord) {
-    WhiteCell cell = this.getCell(coord, WhiteCell.class);
-    if (cell == null) {
-      return null;
-    }
-    cell.clearNotes();
-    return coord;
-  }
-
-  /**
-   * Obtient les notes inscrites sur une case.
-   *
-   * @param coord Les coordonées de la case à questionnée.
-   * @return La liste des notes inscrites
-   */
-  public int[] getNotes(Coord coord) {
-    WhiteCell cell = this.getCell(coord, WhiteCell.class);
-    if (cell == null) {
-      return null;
-    }
-    return cell.getNotes();
-  }
-
-  /**
-   * Obtient les notes inscrites sur une case.
-   *
-   * @param coord Les coordonées de la case à modifié.
-   * @param notes La liste des notes inscrites
-   * @return Les coordonées de la cellule modifié.
-   */
-  public Coord setNotes(Coord coord, int[] notes) {
-    WhiteCell cell = this.getCell(coord, WhiteCell.class);
-    if (cell == null) {
-      return null;
-    }
-    cell.setNotes(notes);
-    return coord;
+  public String serializeGrid() {
+    return this.grid.serialize();
   }
 }
