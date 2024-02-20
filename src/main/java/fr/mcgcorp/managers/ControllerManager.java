@@ -1,7 +1,9 @@
 package fr.mcgcorp.managers;
 
+import fr.mcgcorp.controllers.CampaignController;
 import fr.mcgcorp.controllers.MenuController;
 import fr.mcgcorp.controllers.ModSelectorController;
+import fr.mcgcorp.controllers.OptionController;
 
 /**
  * Classe singleton qui gère les différents contrôleurs de l'application.
@@ -25,6 +27,8 @@ public class ControllerManager {
     return instance;
   }
 
+  private boolean fullScreen;
+
   /**
    * Contrôleur du menu principal.
    */
@@ -34,6 +38,8 @@ public class ControllerManager {
    * Contrôleur du sélecteur du mode de jeu.
    */
   private final ModSelectorController modSelectorController;
+  private final OptionController optionController;
+  private final CampaignController campaignController;
 
   /**
    * Constructeur de la classe ControllerManager.
@@ -42,6 +48,9 @@ public class ControllerManager {
   private ControllerManager() {
     this.menuController = new MenuController();
     this.modSelectorController = new ModSelectorController();
+    this.optionController = new OptionController();
+    this.campaignController = new CampaignController();
+    this.fullScreen = false;
   }
 
   /**
@@ -61,4 +70,21 @@ public class ControllerManager {
   public ModSelectorController getModSelectorController() {
     return modSelectorController;
   }
+
+  public OptionController getOptionController() {
+    return optionController;
+  }
+
+  public CampaignController getCampaignController() {
+    return campaignController;
+  }
+
+  public boolean getFullScreen() {
+    return fullScreen;
+  }
+
+  public void setFullScreen(boolean b) {
+    this.fullScreen = b;
+  }
+
 }
