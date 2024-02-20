@@ -15,12 +15,12 @@ public abstract class Tests {
 
 
     public static void printNameAtStart(Class<? extends Tests> T){
-        System.out.println("\033[31;1m================================ DÉBUT " + T.getSimpleName() + " ================================\033[0m");
+        System.out.println("\033[31;1m================================ \033[36;1mDÉBUT " + T.getSimpleName() + " \033[31;1m================================\033[0m");
     }
 
 
     public static void printNameAtEnd(Class<? extends Tests> T){
-        System.out.println("\033[31;1m================================  FIN " + T.getSimpleName() + "  ================================\033[0m");
+        System.out.println("\033[31;1m================================  \033[36;1mFIN " + T.getSimpleName() + "  \033[31;1m================================\033[0m");
     }
     
 }
