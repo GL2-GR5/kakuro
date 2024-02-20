@@ -1,1 +1,0 @@
-package fr.mcgcorp.game.error4game;

@@ -1,4 +1,4 @@
-package fr.mcgcorp.game.error4game;
+package fr.mcgcorp.game.error;
 
 //package interne
 import fr.mcgcorp.game.Coord;
