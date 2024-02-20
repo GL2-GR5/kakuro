@@ -8,6 +8,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * Contrôleur du menu principal.
+ */
 public class MenuController extends Controller {
 
 

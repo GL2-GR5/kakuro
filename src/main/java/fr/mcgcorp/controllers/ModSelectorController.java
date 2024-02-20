@@ -5,6 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
+/**
+ * Contrôleur du sélecteur du mode de jeu.
+ */
 public class ModSelectorController extends Controller {
 
   @Override

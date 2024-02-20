@@ -8,21 +8,44 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
+
+/**
+ * Classe abstraite représentant un contrôleur.
+ */
 public abstract class Controller {
 
+  /**
+   * Constructeur par défaut.
+   */
   public Controller() {
     this.load();
     this.loadItems();
   }
 
+  /**
+   * Scène associée au contrôleur.
+   */
   private Scene scene;
 
+  /**
+   * Getter de la scène associée au contrôleur.
+   *
+   * @return Scene la scène associée au contrôleur
+   */
   public Scene getScene() {
     return scene;
   }
 
+  /**
+   * Méthode abstraite permettant de spécifier le chemin vers le fichier FXML pour chaque contrôleur.
+   *
+   * @return String le chemin vers le fichier FXML associé au contrôleur
+   */
   abstract String getPathToFxml();
 
+  /**
+   * Charge le fichier FXML associé au contrôleur.
+   */
   public void load() {
     URL url = Main.class.getResource(this.getPathToFxml());
     if (url == null) {
@@ -52,5 +75,3 @@ public abstract class Controller {
 
   abstract void onItemAction(ActionEvent event);
 }
-
-

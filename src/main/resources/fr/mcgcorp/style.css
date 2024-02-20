@@ -1,5 +1,7 @@
 .root {
-    -fx-background-color: linear-gradient(to bottom, #ffffff, #e6e6e6); /* Dégradé de couleur pour le fond */
+/*
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #e6e6e6); Dégradé de couleur pour le fond */
+    -fx-background-color: #E9FFFF; /* Couleur de fond */
 }
 
 .container {
@@ -11,11 +13,13 @@
 }
 
 .button {
-    -fx-background-color: #9b9b9b; /* Couleur de fond du bouton */
+    -fx-background-color: #FFE9FF; /* Couleur de fond du bouton */
+    -fx-border-width: 1px; /* Taille de la bordure du bouton */
+    -fx-border-color: #000000; /* Couleur de la bordure du bouton */
     -fx-text-fill: #000000; /* Couleur du texte du bouton */
     -fx-font-size: 14px; /* Taille de la police du texte */
     -fx-padding: 10px 15px; /* Marge intérieure du bouton */
-    -fx-border-radius: 15px; /* Rayon de la bordure arrondie du bouton */
+    -fx-border-radius: 5px; /* Rayon de la bordure arrondie du bouton */
 }
 
 .text-field{
