@@ -1,6 +1,7 @@
 package fr.mcgcorp;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Représentation d'un mouvement modifiant les notes d'une case.
@@ -8,11 +9,11 @@ import java.util.HashSet;
  * @see Move
  * @author PECHON Erwan
  */
-class MoveNote extends Move {
+class MoveNotes extends Move {
   /** Notes modifié par le joueur. */
-  protected HashSet<Integer> notesOld;
+  protected Set<Integer> notesOld;
   /** Nouvelle notes saisie par le joueur. */
-  protected HashSet<Integer> notesNew;
+  protected Set<Integer> notesNew;
 
   /**
    * Constructeur d'un mouvement modifiant les notes.
@@ -20,27 +21,19 @@ class MoveNote extends Move {
    * @param notesOld Les notes de la cellule, avant ce mouvement.
    * @param notesNew Les notes de la cellule, après ce mouvement.
    */
-  MoveNote(HashSet<Integer> notesOld, HashSet<Integer> notesNew) {
+  MoveNotes(Set<Integer> notesOld, Set<Integer> notesNew) {
     super();
     this.notesOld = notesOld;
     this.notesNew = notesNew;
   }
 
-  /**
-   * Renvoie les anciennes notes de la case.
-   *
-   * @return Le vieux set de notes
-   */
-  public HashSet<Integer> getNotesOld() {
+  @Override
+  Object getOld() {
     return this.notesOld;
   }
 
-  /**
-   * Renvoie les nouvelles notes de la case.
-   *
-   * @return Le nouveaux set de notes
-   */
-  public HashSet<Integer> getNotesNew() {
+  @Override
+  Object getNew() {
     return this.notesNew;
   }
 }
