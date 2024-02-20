@@ -2,6 +2,9 @@ package fr.mcgcorp;
 
 import org.junit.jupiter.api.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -53,7 +56,7 @@ public class WhiteCellTest extends Tests{
     @Test
     void InitializeWhiteCell_ShouldNotesHaveNull() {
         WhiteCell whiteCell = new WhiteCell(1);
-        assertEquals(0, whiteCell.getNotes().length);
+        assertEquals(0, whiteCell.getNotes().size());
     }
 
     /**
@@ -64,8 +67,8 @@ public class WhiteCellTest extends Tests{
         WhiteCell whiteCell = new WhiteCell(1);
         whiteCell.setValue(1);
         assertEquals(1, whiteCell.getValue());
-        whiteCell.setValue(Kakuro.MAX_VALUE + 1);
-        assertNotEquals(Kakuro.MAX_VALUE + 1, whiteCell.getValue());
+        whiteCell.setValue(Kakuro.getMaxValue() + 1);
+        assertNotEquals(Kakuro.getMaxValue() + 1, whiteCell.getValue());
     }
 
     /**
@@ -85,10 +88,10 @@ public class WhiteCellTest extends Tests{
     void ClearAll_ShouldValueAndNotesHaveNull() {
         WhiteCell whiteCell = new WhiteCell(1);
         whiteCell.setValue(1);
-        whiteCell.setNotes(new int[]{1, 2, 3});
-        whiteCell.clearAll();
+        whiteCell.setNotes(new HashSet<Integer>(Arrays.asList(1, 2, 3)));
+        //whiteCell.;
         assertEquals(0, whiteCell.getValue());
-        assertEquals(0, whiteCell.getNotes().length);
+        assertEquals(0, whiteCell.getNotes().size());
     }
 
     /**
