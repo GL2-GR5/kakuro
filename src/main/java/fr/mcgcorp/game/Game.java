@@ -9,9 +9,8 @@ package fr.mcgcorp.game;
 //import java.io.ObjectOutputStream;
 
 //package interne
-import fr.mcgcorp.game.Coord;
-import fr.mcgcorp.game.error4game.EntryError;
-import fr.mcgcorp.game.error4game.TypeEntryError;
+import fr.mcgcorp.game.error.EntryError;
+import fr.mcgcorp.game.error.TypeEntryError;
 import fr.mcgcorp.game.grid.Cell;
 import fr.mcgcorp.game.grid.Grid;
 import fr.mcgcorp.game.grid.ResultCell;
@@ -20,9 +19,7 @@ import fr.mcgcorp.game.move.Move;
 //package externe
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Deque;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -199,7 +196,7 @@ public final class Game {
   /**
    * Mets à jour l'affichage d'une seule cellule.
    *
-   * @param coord Les coordonnées de la cellule à mettre à jour.
+   * @param coord Les coordonnées de la cellule à mettre à jour. #TODO
    */
   public void updateCell(Coord coord) {
     String s = this.grid.getCell(coord).serialize();
@@ -392,7 +389,6 @@ public final class Game {
    */
   public void check() {
     lstEntryErrors.clear();
-    int lim = 0;
     // Checker les zones horizontal.
     Grid.GridIterator[] lstArea = this.grid.getLineAreas();
     for (Grid.GridIterator area : lstArea) {
@@ -413,7 +409,6 @@ public final class Game {
    * @param coord Les coordonnées de la case à questionnée.
    */
   public void check(Coord coord) {
-    int lim = 0;
     Grid.GridIterator[] areas = this.grid.getAreas(coord);
     // Checker les zones horizontal.
     this.check(areas[0], true); // Checker toute la zone.

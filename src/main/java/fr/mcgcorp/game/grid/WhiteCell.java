@@ -6,7 +6,6 @@ import fr.mcgcorp.game.move.Move;
 import fr.mcgcorp.game.move.MoveNotes;
 import fr.mcgcorp.game.move.MoveValue;
 //package externe
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 

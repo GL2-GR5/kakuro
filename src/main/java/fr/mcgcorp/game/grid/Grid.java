@@ -3,7 +3,6 @@ package fr.mcgcorp.game.grid;
 //package interne
 import fr.mcgcorp.game.Coord;
 import fr.mcgcorp.game.Game;
-import fr.mcgcorp.game.grid.BlackCell;
 //package externe
 import java.lang.Iterable;
 import java.lang.StringBuilder;
@@ -147,7 +146,7 @@ public class Grid implements Iterable<Cell> {
       if ((this.start.getLine() <= line) && (line <= this.end.getLine())) {
         // Tester si la cellule est entre la colonne de début et celle de fin.
         int col = this.cell.getColumn();
-        if ((this.start.getColumn() <= line) && (line <= this.end.getColumn())) {
+        if ((this.start.getColumn() <= col) && (col <= this.end.getColumn())) {
           return true;
         }
       }

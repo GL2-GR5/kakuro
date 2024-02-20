@@ -1,7 +1,6 @@
 package fr.mcgcorp.game.move;
 
 //package externe
-import java.util.HashSet;
 import java.util.Set;
 
 /**
