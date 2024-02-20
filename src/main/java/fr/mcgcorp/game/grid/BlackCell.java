@@ -1,4 +1,7 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.grid;
+
+//package interne
+import fr.mcgcorp.game.grid.Cell;
 
 /**
  * Cellule de base, qui peut être soit une case vide(noir), soit une case de résultat, soit une case a remplir.

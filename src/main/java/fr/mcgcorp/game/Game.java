@@ -1,4 +1,4 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game;
 
 /*
  * import non utiliser pour le moment.
@@ -8,6 +8,16 @@ package fr.mcgcorp;
 //import java.io.IOException;
 //import java.io.ObjectOutputStream;
 
+//package interne
+import fr.mcgcorp.game.Coord;
+import fr.mcgcorp.game.error4game.EntryError;
+import fr.mcgcorp.game.error4game.TypeEntryError;
+import fr.mcgcorp.game.grid.Cell;
+import fr.mcgcorp.game.grid.Grid;
+import fr.mcgcorp.game.grid.ResultCell;
+import fr.mcgcorp.game.grid.WhiteCell;
+import fr.mcgcorp.game.move.Move;
+//package externe
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,9 +37,9 @@ import java.util.stream.Collectors;
  *
  * @author PECHON Erwan
  */
-public final class Kakuro {
+public final class Game {
   /** L'instance du Kakuro actuellement utilisé. */
-  protected static Kakuro kakuro = null;
+  protected static Game kakuro = null;
 
   /** La plus grande valeur pouvant ce trouver dans une WhiteCell. */
   protected int cstMaxValue = 9;
@@ -55,7 +65,7 @@ public final class Kakuro {
    * Pour initialiser le jeu pour des paramètres spécifiques, il faut
    * passer par la méthode @link Kakuro#initialize.
    */
-  private Kakuro() {
+  private Game() {
     this.lstMove = new ArrayDeque<Move>();
     this.lstMoveCancel = new ArrayDeque<Move>();
     this.correctState = -1;
@@ -72,12 +82,12 @@ public final class Kakuro {
    * @return **true** Si la nouvelle partie à put être créer.
    */
   public boolean createGame(int nbLine, int nbColumn) {
-    if (Kakuro.kakuro != null) {
+    if (Game.kakuro != null) {
       return false;
     }
-    Kakuro kakuro = new Kakuro();
+    Game kakuro = new Game();
     this.grid = new Grid(nbLine, nbColumn);
-    Kakuro.kakuro = kakuro;
+    Game.kakuro = kakuro;
     return true;
   }
 
@@ -90,12 +100,12 @@ public final class Kakuro {
    * @return **true** Si la nouvelle partie à put être créer.
    */
   public boolean chargeGame(String nomF) {
-    if (Kakuro.kakuro != null) {
+    if (Game.kakuro != null) {
       return false;
     }
-    Kakuro kakuro = new Kakuro();
+    Game kakuro = new Game();
     this.grid = new Grid(5, 6);
-    Kakuro.kakuro = kakuro;
+    Game.kakuro = kakuro;
     return true;
   }
 
@@ -105,10 +115,10 @@ public final class Kakuro {
    * @return la valeur maximal d'une case blanche.
    */
   public static int getMaxValue() {
-    if (Kakuro.kakuro == null) {
+    if (Game.kakuro == null) {
       return 0;
     }
-    return Kakuro.kakuro.cstMaxValue;
+    return Game.kakuro.cstMaxValue;
   }
 
   /**
@@ -117,10 +127,10 @@ public final class Kakuro {
    * @return la valeur minimal d'une case blanche.
    */
   public static int getMinValue() {
-    if (Kakuro.kakuro == null) {
+    if (Game.kakuro == null) {
       return 0;
     }
-    return Kakuro.kakuro.cstMinValue;
+    return Game.kakuro.cstMinValue;
   }
 
   /**
@@ -130,10 +140,10 @@ public final class Kakuro {
    * @return la valeur null d'une case blanche.
    */
   public static int getNullValue() {
-    if (Kakuro.kakuro == null) {
+    if (Game.kakuro == null) {
       return 0;
     }
-    int minValue = Kakuro.kakuro.cstMinValue;
+    int minValue = Game.kakuro.cstMinValue;
     if (minValue > 0) {
       minValue = 0;
     }
@@ -146,10 +156,10 @@ public final class Kakuro {
    * @return Les coordonnées de la dernière case de la grille de Kakuro.
    */
   public static Coord getLastCoord() {
-    if (Kakuro.kakuro == null) {
+    if (Game.kakuro == null) {
       return null;
     }
-    return Kakuro.kakuro.grid.getLastCoord();
+    return Game.kakuro.grid.getLastCoord();
   }
 
   /**
@@ -157,8 +167,8 @@ public final class Kakuro {
    *
    * @return La partie de kakuro en cours.
    */
-  public static Kakuro getInstance() {
-    return Kakuro.kakuro;
+  public static Game getInstance() {
+    return Game.kakuro;
   }
 
 
@@ -228,7 +238,7 @@ public final class Kakuro {
    */
   public void quit() {
     this.save(); // Sauvegardé le jeu avant de perdre le jeu.
-    Kakuro.kakuro = null; // Perdre le kakuro afin de pouvoir en créer un
+    Game.kakuro = null; // Perdre le kakuro afin de pouvoir en créer un
     //                    // nouveau.
   }
 
@@ -425,8 +435,8 @@ public final class Kakuro {
       return false;
     }
     // Obtenir les constante.
-    int minVal = Kakuro.getMinValue();
-    int nbVal = Kakuro.getMaxValue() - minVal;
+    int minVal = Game.getMinValue();
+    int nbVal = Game.getMaxValue() - minVal;
     // Préparer les accumulateurs.
     Coord[] lstDoublons = new Coord[nbVal];
     int res = 0;

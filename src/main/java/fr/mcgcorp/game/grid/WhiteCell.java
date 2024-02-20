@@ -1,5 +1,11 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.grid;
 
+//package interne
+import fr.mcgcorp.game.Game;
+import fr.mcgcorp.game.move.Move;
+import fr.mcgcorp.game.move.MoveNotes;
+import fr.mcgcorp.game.move.MoveValue;
+//package externe
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +15,7 @@ import java.util.Set;
  *
  * @see Cell
  */
-class WhiteCell implements Cell {
+public class WhiteCell implements Cell {
   /** Valeur de résultat de la case. */
   private int correctValue;
   /** Valeur entrée par le joueur. */
@@ -25,7 +31,7 @@ class WhiteCell implements Cell {
   WhiteCell(int correctValue) {
     this.correctValue = correctValue;
     this.notes = new HashSet<Integer>();
-    this.value = Kakuro.getNullValue();
+    this.value = Game.getNullValue();
   }
 
   /**
@@ -42,7 +48,7 @@ class WhiteCell implements Cell {
    *
    * @return La valeur saisie par le joueur.
    */
-  int getValue() {
+  public int getValue() {
     return this.value;
   }
 
@@ -60,8 +66,8 @@ class WhiteCell implements Cell {
    *
    * @return résultat
    */
-  boolean badValue() {
-    if (this.value == Kakuro.getNullValue()) {
+  public boolean badValue() {
+    if (this.value == Game.getNullValue()) {
       return false;
     }
     return ! this.isCorrect();
@@ -73,8 +79,8 @@ class WhiteCell implements Cell {
    * @param value La valeur donnée par le joueur.
    * @return Le movement qui à était réaliser sur la cellule.
    */
-  Move setValue(int value) {
-    if (((Kakuro.getMinValue() <= value) && (value <= Kakuro.getMaxValue())) || (value == Kakuro.getNullValue())) {
+  public Move setValue(int value) {
+    if (((Game.getMinValue() <= value) && (value <= Game.getMaxValue())) || (value == Game.getNullValue())) {
       if (this.value != value) {
         Move move = new MoveValue(this.value, value);
         this.value = value;
@@ -90,7 +96,7 @@ class WhiteCell implements Cell {
    * @param notes Le nouveau set de notes.
    * @return Le movement qui à était réaliser sur la cellule.
    */
-  Move setNotes(Set<Integer> notes) {
+  public Move setNotes(Set<Integer> notes) {
     // Vérifier si il va y avoir une modification.
     if (notes == null) {
       if (this.notes.isEmpty()) {
@@ -109,7 +115,7 @@ class WhiteCell implements Cell {
     if (notes != null) {
       boolean modified = false;
       for (Integer note : notes) {
-        if ((Kakuro.getMinValue() <= note) || (note <= Kakuro.getMaxValue())) {
+        if ((Game.getMinValue() <= note) || (note <= Game.getMaxValue())) {
           this.notes.add(note);
           modified = true;
         } else {
@@ -128,7 +134,7 @@ class WhiteCell implements Cell {
    *
    * @return La liste des notes sélectionnée.
    */
-  Set<Integer> getNotes() {
+  public Set<Integer> getNotes() {
     return (new HashSet<Integer>(this.notes));
   }
 
@@ -170,7 +176,7 @@ class WhiteCell implements Cell {
    */
   @Override
   public String serialize() {
-    if (this.value != Kakuro.getNullValue()) {
+    if (this.value != Game.getNullValue()) {
       return "" + value;
     }
     if ((this.notes == null) || this.notes.isEmpty()) {
@@ -196,7 +202,7 @@ class WhiteCell implements Cell {
    */
   @Override
   public String toString() {
-    if (this.value != Kakuro.getNullValue()) {
+    if (this.value != Game.getNullValue()) {
       return "" + value;
     }
     if ((this.notes == null) || this.notes.isEmpty()) {
