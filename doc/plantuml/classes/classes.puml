@@ -4,7 +4,7 @@ title Diagramme de classe
 
 !includesub classes_legend.puml!legend
 
-package Game {
+package game {
 	!$with_cell="true"
 	!includesub classes_grid.puml!grid
 
@@ -18,7 +18,8 @@ package Game {
 }
 
 Legend -[hidden]down- Game : zev
+Coord -[hidden]down- Move : zev
 
-center footer Prend en compte l'organisation des packages
+center footer "Prend en compte l'organisation des packages"
 
 @enduml
