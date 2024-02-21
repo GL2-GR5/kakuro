@@ -199,7 +199,7 @@ public final class Game {
    * @param coord Les coordonnées de la cellule à mettre à jour. #TODO
    */
   public void updateCell(Coord coord) {
-    String s = this.grid.getCell(coord).serialize();
+    // String s = this.grid.getCell(coord).serialize();
     // Dire au controller d'afficher s en coord.
   }
 
@@ -235,8 +235,7 @@ public final class Game {
    */
   public void quit() {
     this.save(); // Sauvegardé le jeu avant de perdre le jeu.
-    Game.kakuro = null; // Perdre le kakuro afin de pouvoir en créer un
-    //                    // nouveau.
+    Game.kakuro = null; // Perdre le kakuro afin de pouvoir en créer un nouveau.
   }
 
   /**

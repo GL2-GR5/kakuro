@@ -26,7 +26,6 @@ public class ResultCell implements Cell {
    * @param column Le résultat attendu pour la colonne.
    */
   ResultCell(int line, int column) {
-    super();
     this.line = line;
     this.column = column;
   }
