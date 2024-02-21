@@ -1,0 +1,89 @@
+@startuml
+
+title diagramme des classes responsable des règles du jeu
+
+!includesub classes_legend.puml!legend
+
+!startsub game
+class "Game" AS Game << (S,#FF7700) Jeu chargé >> {
+	.. Constantes ..
+	{field} {static} - game : Game
+	{field} - cstMaxValue : <color green>final</color> int
+	{field} - cstMinValue : <color green>final</color> int
+	.. Variables ..
+	{field} - Deque<Move> lstMoves
+	{field} - Deque<Move> lstMovesCancel
+	{field} - List<EntryError> lstEntryErrors
+	{field} - int correctState
+	{field} - Grid grid
+	{field} - IntBinaryOperation function
+	==
+	.. Constructeur ..
+	{method} {static} - new Game() : Game
+	{method} {static} + createGame(/*lstParam*/) : boolean
+	{method} {static} + chargeGame(/*lstParam*/) : boolean
+	.. Accesseur sur les Constantes ..
+	{method} {static} + getMaxValue(void) : int
+	{method} {static} + getMinValue(void) : int
+	{method} {static} + getNullValue(void) : int
+	{method} {static} + getLastCoord(void) : Coord
+	{method} {static} + getInstance() : Game
+	.. Accesseur ..
+	{method} + getEntryErrors(Predicate<EntryError>) : List<EntryError>
+	{method} + getCell(Coord) : String
+	{method} + affCell(Coord) : String
+	{method} + getNotes(Coord) : Set<Integer>
+	.. Affichage ..
+	{method} + update(Consumer<Coord>) : void
+	{method} + updateCell(Coord) : void
+	{method} + updateErr(Coord) : void
+	.. Modification ..
+	{method} + set(Coord,int) : void
+	{method} + set(Coord,Set<Integer>) : void
+	{method} + undo(void) : Coord
+	{method} + redo(void) : Coord
+	{method} + backToLastCorrect(void) : Coord[]
+	{method} - swapDeque(Deque<Move>,Deque<Move>,boolean) : Coord
+	.. Check ..
+	{method} + check(void) : void
+	{method} + check(Coord) : void
+	{method} + check(Grid.GridIterator,boolean) : boolean
+	{method} - checkCorrectState(void) : void
+	{method} - addError(EntryErro) : void
+	.. Autres ..
+	{method} + save() : void
+	{method} + quit() : void
+	{method} + help() : void
+	{method} + serialize() : String
+}
+note right of Game::createGame
+Crée une instance de la classe Game
+et supprime l'ancienne instance, si il
+y en avait une.
+	end note
+	note right of Game::update
+	Appel les méthodes d'affichage du contrôleur.
+end note
+note right of Game::set
+Les méthode modifiant le jeu,
+ordonne au controleur d'afficher
+leur nouvelle état, après avoir actualiser
+la liste des erreurs.
+	end note
+	note right of Game::check
+	Actualise la liste des erreurs
+end note
+note right of Game::serialize()
+Renvoit la liste des cellule :
+- Noire : "|"
+- Blanche : "<value>"
+- Resultat : "<line>,<column>|"
+- nouvelle ligne : "\\n"
+Exemple : "|B|B|W(5)|\\n|R(7,n)|W(n)|R(4,1)"
+Devient : "||5|\\n7,n|3|4,1|\\n"
+	end note
+!endsub
+
+center footer Chaques classe est responsable des règles de son mode de jeu
+
+@enduml

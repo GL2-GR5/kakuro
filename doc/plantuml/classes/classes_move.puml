@@ -1,0 +1,36 @@
+@startuml
+
+title diagramme des classes stockant les actions du joueur
+
+!startsub move
+package "Move" #lightgrey {
+	abstract class "MoveCoord" AS Move {
+		{field} - coord : Coord
+		{method} {static} + new Move() : Move
+		{method} {static} + new Move(Coord) : Move
+		{method} + getCoord(void) : Coord #
+		{method} + setCoord(Coord) : void #
+		{method} + getNew(void) : Object
+		{method} + getOld(void) : Object
+	}
+	class "MoveValue" AS MoveV {
+		{field} - valueOld : int
+		{field} - valueNew : int
+		{method} {static} + new MoveValue(int,int) : MoveValue
+		{method} + @getOld(void) : Object
+		{method} + @getNew(void) : Object
+	}
+	class MoveV extends Move
+	class "MoveNotes" AS MoveN {
+		{field} - notesOld : Set<Integer>
+		{field} - notesNew : Set<Integer>
+		{method} {static} + new MoveNotes(Set<Integer>,Set<Integer>) : MoveNotes
+		{method} + @getOld(void) : Object
+		{method} + @getNew(void) : Object
+	}
+	class MoveN extends Move
+}
+!endsub
+
+center footer Les classes stockant les actions du joueur afin de pouvoir les restituer.
+@enduml

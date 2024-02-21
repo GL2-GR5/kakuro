@@ -1,0 +1,76 @@
+@startuml
+
+title diagramme de classes de la grille du jeu
+
+!includesub classes_legend.puml!legend
+
+!startsub grid
+package "Grid" #lightgrey {
+	!if ($with_cell=="true")
+	!includesub classes_cell.puml!cell
+	!endif
+
+	class "Grid.GridIterator" AS GridIt {
+		{field} - cell : Coord # null
+		{field} - start : Coord # new Coord()
+		{field} - end : Coord # Kakuro.getLastCoord()
+		{field} - moveMethod : Function<Coord,Boolean> # c->(c.nextCell())
+		{field} block : boolean # false
+		{field} nbReturn : int
+		{method} {static} ~ GridIterator(void) : GridIterator
+		{method} {static} ~ GridIterator(C,C,B,F<C,B>) : GridIterator
+		{method} + @hasNext(void) : boolean
+		{method} + @next(void) : Cell
+		{method} - inBlock(void) : boolean
+		{method} + getCoord(void) : Coord
+	}
+	note right of GridIt::getCoord
+		Coordonnées de la
+		dernière Cell envoyé.
+	end note
+	java.util.Iterator ().. GridIt
+
+	class "Grid" AS Grid{
+		{field} - grid : Cell[][]
+		{field} - lstCoordResCell : List<Coord>
+		==
+		.. Constructeur ..
+		{method} + new Grid(/*lstParam*/) : Grid
+		.. Obtenire une cellule ..
+		{method} + getCell(Coord) : Cell
+		{method} + getCell(GridIterator,Predicate<T>) : Cell
+		{method} + getCoord(GridIterator,Predicate<T>) : Coord
+		{method} + getLastCoord(void) : Coord
+		.. Parcourire la grille ..
+		{method} + @iterator(void) : GridIterator
+		{method} + iterator(C,C,B,F<C,B>) : GridIterator
+		{method} + getAreas(Coord) : GridIterator[2]
+		{method} + getLineAreas(void) : GridIterator
+		{method} + getColumnAreas(void) : GridIterator
+		.. Autres ..
+		{method} + serialize() : String
+	}
+	note left of Grid::getCell
+		Cherche une cellule matchant le predicat,
+		en se déplacant suivant la fonction (une
+		méthode de Grid.GridIterator).
+	end note
+	note left of Grid::iterator
+		Crée un itérateur sur la grille allant
+		du début(0,0) à la fin(Kakuro.LAST_COORD()).
+		Le mode block est désactivé
+		et le parcours est dans le sens par défault.
+	end note
+	note left of Grid::serialize
+		Renvoit la liste des cellule, séparer par des '|'.
+		Les lignes sont séparer par des '\n'.
+		> Exemple : "|B|B|W(5)|\\n|R(7,n)|W(n)|R(4,1)"
+		> Devient : "||5|\\n7,n|3|4,1|\\n"
+	end note
+	java.lang.Iterable ()-- Grid
+	Grid --* GridIt
+}
+!endsub
+
+center footer La classes stockant les cellules du jeu et les parcourant
+@enduml

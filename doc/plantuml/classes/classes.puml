@@ -1,0 +1,24 @@
+@startuml
+
+title Diagramme de classe
+
+!includesub classes_legend.puml!legend
+
+package Game {
+	!$with_cell="true"
+	!includesub classes_grid.puml!grid
+
+	!includesub classes_error.puml!error
+
+	!includesub classes_move.puml!move
+
+	!includesub classes_coord.puml!coord
+
+	!includesub classes_game.puml!game
+}
+
+Legend -[hidden]down- Game : zev
+
+center footer Prend en compte l'organisation des packages
+
+@enduml

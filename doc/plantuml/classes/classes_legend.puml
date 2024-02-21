@@ -1,0 +1,67 @@
+@startuml
+
+title Legend des diagramme de classes
+
+!startsub legend
+package Legend #lightblue {
+	interface "Interface" AS I {
+		.. Seul type d'attribut authorisé ..
+		{field} {static} + CONST_PUBLIC : <color green>final</color> type
+		==
+		.. Methodes de l'interface ..
+		{method} + methodePublic(typeParams) : typeRetour # retourDefault
+		.. Methodes static de l'interface ..
+		{method} {static} + methodePublicStatic(typeParams) : typeRetour # retourDefault
+	}
+	abstract class "abstractClasse" AS A {
+		.. Constante ..
+		{field} {static} - CONST_PRIVEE : type
+		.. Attributs ..
+		{field} - attributPrivee : type
+		{field} # attributProtege : type
+		{field} ~ attributPackage : type
+		{field} + attributPublic : type
+		==
+		.. Methodes ..
+		{method} - methodePrive2(typeParams) : typeRetour # retourDefault
+		{method} # methodeProtege(typeParams) : typeRetour # retourDefault
+		{method} ~ methodePackage(typeParams) : typeRetour # retourDefault
+		{method} + methodePublic(typeParams) : typeRetour # retourDefault
+		.. Methodes Override ..
+		{method} - @methodePrive(typeParams) : typeRetour # retourDefault
+		.. Methodes abstraites ..
+		{method} {abstract} - methodePriveAbstract(typeParams) : typeRetour # retourDefault
+		.. Methodes statiques ..
+		{method} {static} - methodePriveStatic(typeParams) : typeRetour # retourDefault
+	}
+	abstract class A implements I
+	note on link : implements
+	class "Classe" AS C {
+		.. Constante ..
+		{field} {static} - CONST_PRIVEE : type
+		.. Attributs ..
+		{field} - attributPrivee : type
+		{field} # attributProtege : type
+		{field} ~ attributPackage : type
+		{field} + attributPublic : type
+		==
+		.. Methodes ..
+		{method} - methodePrive3(typeParams) : typeRetour # retourDefault
+		{method} # methodeProtege2(typeParams) : typeRetour # retourDefault
+		{method} ~ methodePackage2(typeParams) : typeRetour # retourDefault
+		{method} + methodePublic2(typeParams) : typeRetour # retourDefault
+		.. Methodes Override ..
+		{method} - @methodePrive2(typeParams) : typeRetour # retourDefault
+		.. Methodes statiques ..
+		{method} {static} - methodePriveStatic2(typeParams) : typeRetour # retourDefault
+	}
+	class C extends A
+	note on link : extends
+
+	I -[hidden]right- A
+	A -[hidden]right- C
+}
+!endsub
+
+center footer La legende commune à tout les diagrammes de classes
+@enduml
