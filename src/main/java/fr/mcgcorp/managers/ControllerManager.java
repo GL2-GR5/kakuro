@@ -3,7 +3,7 @@ package fr.mcgcorp.managers;
 import fr.mcgcorp.controllers.CampaignController;
 import fr.mcgcorp.controllers.MenuController;
 import fr.mcgcorp.controllers.ModSelectorController;
-import fr.mcgcorp.controllers.OptionController;
+import fr.mcgcorp.controllers.SettingsController;
 
 /**
  * Classe singleton qui gère les différents contrôleurs de l'application.
@@ -38,7 +38,7 @@ public class ControllerManager {
    * Contrôleur du sélecteur du mode de jeu.
    */
   private final ModSelectorController modSelectorController;
-  private final OptionController optionController;
+  private final SettingsController settingsController;
   private final CampaignController campaignController;
 
   /**
@@ -48,7 +48,7 @@ public class ControllerManager {
   private ControllerManager() {
     this.menuController = new MenuController();
     this.modSelectorController = new ModSelectorController();
-    this.optionController = new OptionController();
+    this.settingsController = new SettingsController();
     this.campaignController = new CampaignController();
     this.fullScreen = false;
   }
@@ -71,8 +71,8 @@ public class ControllerManager {
     return modSelectorController;
   }
 
-  public OptionController getOptionController() {
-    return optionController;
+  public SettingsController getSettingsController() {
+    return settingsController;
   }
 
   public CampaignController getCampaignController() {

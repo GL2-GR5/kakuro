@@ -29,9 +29,6 @@ public class Main extends Application {
    */
   @Override
   public void start(Stage primaryStage) {
-    primaryStage.setTitle("Kakuro");
-    primaryStage.setScene(ControllerManager.getInstance().getMenuController().getScene());
-    primaryStage.setFullScreen(ControllerManager.getInstance().getFullScreen());
-    primaryStage.show();
+    ControllerManager.getInstance().getMenuController().show();
   }
 }
