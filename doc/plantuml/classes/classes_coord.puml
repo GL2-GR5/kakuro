@@ -1,4 +1,4 @@
-@startuml
+@startuml classes_coord
 
 title diagramme de la classe gérant les coordonnées
 

@@ -1,16 +1,16 @@
-@startuml
+@startuml classes_legend
 
 title Legend des diagramme de classes
 
 !startsub legend
-package Legend #lightblue {
+package "Legend" #lightblue {
 	interface "Interface" AS I {
-		.. Seul type d'attribut authorisé ..
+		.. "Seul type d'attribut authorisé" ..
 		{field} {static} + CONST_PUBLIC : <color green>final</color> type
 		==
-		.. Methodes de l'interface ..
+		.. "Methodes de l'interface" ..
 		{method} + methodePublic(typeParams) : typeRetour # retourDefault
-		.. Methodes static de l'interface ..
+		.. "Methodes static de l'interface" ..
 		{method} {static} + methodePublicStatic(typeParams) : typeRetour # retourDefault
 	}
 	abstract class "abstractClasse" AS A {
