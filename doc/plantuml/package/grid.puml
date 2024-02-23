@@ -1,6 +1,6 @@
 @startuml grid
 
-title "diagramme de classes de la grille du jeu"
+title "Diagramme de classes de la grille du jeu"
 
 !$class=1
 !$method=1

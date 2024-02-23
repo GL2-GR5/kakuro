@@ -1,6 +1,6 @@
 @startuml move
 
-title "diagramme des classes stockant les actions du joueur"
+title "Diagramme des classes stockant les actions du joueur"
 
 !$extends=1
 !$method=1

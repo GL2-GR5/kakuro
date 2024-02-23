@@ -1,6 +1,6 @@
 @startuml error
 
-title "diagramme de classes des erreurs du jeu"
+title "Diagramme de classes des erreurs du jeu"
 
 !$method=1
 !$enum=1

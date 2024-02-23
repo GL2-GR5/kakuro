@@ -1,6 +1,6 @@
 @startuml Coord
 
-title "diagramme de la classe gérant les coordonnées"
+title "Diagramme de la classe gérant les coordonnées"
 
 !$method=1
 !includesub ../legend.puml!legend

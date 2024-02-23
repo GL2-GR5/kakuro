@@ -1,6 +1,6 @@
 @startuml Game
 
-title "diagramme des classes responsable des règles du jeu"
+title "Diagramme des classes responsable des règles du jeu"
 
 !$singleton=1
 !$method=1
