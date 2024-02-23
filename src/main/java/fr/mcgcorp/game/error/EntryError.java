@@ -1,4 +1,7 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.error;
+
+//package interne
+import fr.mcgcorp.game.Coord;
 
 /**
  * Détail l'erreur de saisie sur une cellule.
@@ -14,7 +17,7 @@ public class EntryError {
   /**
    * Constructeur de base du rapport d'erreur.
    */
-  EntryError() {
+  public EntryError() {
   }
 
   /**
@@ -22,7 +25,7 @@ public class EntryError {
    *
    * @param coord Les coordonnées de la cellule où une erreur à était détecté.
    */
-  EntryError(Coord coord) {
+  public EntryError(Coord coord) {
     this.coord = coord;
   }
 
@@ -31,7 +34,7 @@ public class EntryError {
    *
    * @param error Le type d'erreur détecté.
    */
-  EntryError(TypeEntryError error) {
+  public EntryError(TypeEntryError error) {
     this.error = error;
   }
 
@@ -41,7 +44,7 @@ public class EntryError {
    * @param coord Les coordonnées de la cellule où une erreur à était détecté.
    * @param error Le type d'erreur détecté.
    */
-  EntryError(Coord coord, TypeEntryError error) {
+  public EntryError(Coord coord, TypeEntryError error) {
     this.coord = coord;
     this.error = error;
   }

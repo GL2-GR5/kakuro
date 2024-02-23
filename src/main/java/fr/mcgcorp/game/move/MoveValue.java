@@ -1,11 +1,11 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.move;
 
 /**
  * Représentation d'un mouvement modifiant la valeur d'une cellule blanche.
  * @see Move
  * @author PECHON Erwan
  */
-class MoveValue extends Move {
+public class MoveValue extends Move {
   /** Valeur modifié par le joueur. */
   protected int valueOld;
   /** Nouvelle valeur saisie par le joueur. */
@@ -17,19 +17,19 @@ class MoveValue extends Move {
    * @param valueOld La valeur de la cellule, avant ce mouvement.
    * @param valueNew La valeur de la cellule, après ce mouvement.
    */
-  MoveValue(int valueOld, int valueNew) {
+  public MoveValue(int valueOld, int valueNew) {
     super();
     this.valueOld = valueOld;
     this.valueNew = valueNew;
   }
 
   @Override
-  Object getOld() {
+  public Object getOld() {
     return this.valueOld;
   }
 
   @Override
-  Object getNew() {
+  public Object getNew() {
     return this.valueNew;
   }
 }

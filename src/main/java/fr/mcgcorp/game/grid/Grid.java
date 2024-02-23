@@ -1,5 +1,9 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.grid;
 
+//package interne
+import fr.mcgcorp.game.Coord;
+import fr.mcgcorp.game.Game;
+//package externe
 import java.lang.Iterable;
 import java.lang.StringBuilder;
 import java.util.ArrayList;
@@ -15,19 +19,19 @@ import java.util.function.Predicate;
  *
  * @author PECHON Erwan
  */
-class Grid implements Iterable<Cell> {
+public class Grid implements Iterable<Cell> {
   /**
    * L'itérateur sur la grille de jeu.
    *
    * @author PECHON Erwan
    */
-  class GridIterator implements Iterator<Cell> {
+  public class GridIterator implements Iterator<Cell> {
     /** La dernière cellule renvoyé. */
     Coord cell = null;
     /** La première cellule accessible. */
     Coord start = new Coord();
     /** La dernière cellule accessible. */
-    Coord end = Kakuro.getLastCoord();
+    Coord end = Game.getLastCoord();
     /** Comment doit-on ce déplacer ? (méthode de déplacement de Coord). */
     Function<Coord, Boolean> moveMethod = (c) -> c.nextCell();
     /** Est-ce que la vue est un block ou une liste ?. */
@@ -142,7 +146,7 @@ class Grid implements Iterable<Cell> {
       if ((this.start.getLine() <= line) && (line <= this.end.getLine())) {
         // Tester si la cellule est entre la colonne de début et celle de fin.
         int col = this.cell.getColumn();
-        if ((this.start.getColumn() <= line) && (line <= this.end.getColumn())) {
+        if ((this.start.getColumn() <= col) && (col <= this.end.getColumn())) {
           return true;
         }
       }
@@ -154,7 +158,7 @@ class Grid implements Iterable<Cell> {
      *
      * @return Les coordonnées de la dernière cellule envoyé.
      */
-    Coord getCoord() {
+    public Coord getCoord() {
       return this.cell;
     }
   }
@@ -170,7 +174,7 @@ class Grid implements Iterable<Cell> {
    * @param nbLine   Le nombre de lignes que doit-avoir la grille de Kakuro.
    * @param nbColumn Le nombre de colonnes que doit-avoir la grille de Kakuro.
    */
-  Grid(int nbLine, int nbColumn) {
+  public Grid(int nbLine, int nbColumn) {
     this.lstCoordResCell = new ArrayList<Coord>();
     this.grid = new Cell[nbLine][nbColumn];
     for (int i = 0; i < nbLine; i++) {
@@ -199,7 +203,7 @@ class Grid implements Iterable<Cell> {
    * @param coord Les coordonnées de la cellule demandé.
    * @return La cellule.
    */
-  Cell getCell(Coord coord) {
+  public Cell getCell(Coord coord) {
     if (! coord.exist()) {
       return null;
     }
@@ -271,7 +275,7 @@ class Grid implements Iterable<Cell> {
    * @param coord La cellule dont on veut récupérer les zones.
    * @return 0:La zone horizontal | 1:La zone vertical
    */
-  GridIterator[] getAreas(Coord coord) {
+  public GridIterator[] getAreas(Coord coord) {
     // Créer l'objet à renvoyer
     GridIterator[] areas = new GridIterator[2];
     areas[0] = null;
@@ -290,11 +294,11 @@ class Grid implements Iterable<Cell> {
     it = null;
 
     // Obtenir la dernière cellule blanche de la zone horizontal
-    end = new Coord(coord.getLine(), Kakuro.getLastCoord().getColumn());
+    end = new Coord(coord.getLine(), Game.getLastCoord().getColumn());
     it = this.iterator(coord.copy(), end, false, null);
     end = this.getCoord(it, (c) -> (!(c instanceof WhiteCell)));
     if (end == null) {
-      end = new Coord(coord.getLine(), Kakuro.getLastCoord().getColumn());
+      end = new Coord(coord.getLine(), Game.getLastCoord().getColumn());
     } else {
       end.previousCell();
     }
@@ -322,11 +326,11 @@ class Grid implements Iterable<Cell> {
     it = null;
 
     // Obtenir la dernière cellule blanche de la zone vertical
-    end = new Coord(Kakuro.getLastCoord().getLine(), coord.getColumn());
+    end = new Coord(Game.getLastCoord().getLine(), coord.getColumn());
     it = this.iterator(coord.copy(), end, false, (c) -> (c.previousLine()));
     end = this.getCoord(it, (c) -> (!(c instanceof WhiteCell)));
     if (end == null) {
-      end = new Coord(coord.getLine(), Kakuro.getLastCoord().getColumn());
+      end = new Coord(coord.getLine(), Game.getLastCoord().getColumn());
     } else {
       end.previousCell();
     }
@@ -357,16 +361,16 @@ class Grid implements Iterable<Cell> {
    *
    * @return La liste de toutes les zones horizontales.
    */
-  GridIterator[] getLineAreas() {
+  public GridIterator[] getLineAreas() {
     GridIterator[] lstArea = new GridIterator[this.lstCoordResCell.size()];
     for (int i = 0; i < lstArea.length; i++) {
       Coord coord = this.lstCoordResCell.get(i);
       // Obtenir la dernière cellule blanche de la zone horizontal
-      Coord end = new Coord(coord.getLine(), Kakuro.getLastCoord().getColumn());
+      Coord end = new Coord(coord.getLine(), Game.getLastCoord().getColumn());
       GridIterator it = this.iterator(coord.copy(), end, false, null);
       end = this.getCoord(it, (c) -> (!(c instanceof WhiteCell)));
       if (end == null) {
-        end = new Coord(coord.getLine(), Kakuro.getLastCoord().getColumn());
+        end = new Coord(coord.getLine(), Game.getLastCoord().getColumn());
       } else {
         end.previousCell();
       }
@@ -395,16 +399,16 @@ class Grid implements Iterable<Cell> {
    *
    * @return La liste de toutes les zones verticales.
    */
-  GridIterator[] getColumnAreas() {
+  public GridIterator[] getColumnAreas() {
     GridIterator[] lstArea = new GridIterator[this.lstCoordResCell.size()];
     for (int i = 0; i < lstArea.length; i++) {
       Coord coord = this.lstCoordResCell.get(i);
       // Obtenir la dernière cellule blanche de la zone horizontal
-      Coord end = new Coord(Kakuro.getLastCoord().getLine(), coord.getColumn());
+      Coord end = new Coord(Game.getLastCoord().getLine(), coord.getColumn());
       GridIterator it = this.iterator(coord.copy(), end, false, (c) -> (c.nextLine()));
       end = this.getCoord(it, (c) -> (!(c instanceof WhiteCell)));
       if (end == null) {
-        end = new Coord(coord.getLine(), Kakuro.getLastCoord().getColumn());
+        end = new Coord(coord.getLine(), Game.getLastCoord().getColumn());
       } else {
         end.previousLine();
       }
@@ -428,7 +432,7 @@ class Grid implements Iterable<Cell> {
    *
    * @return La grille du jeu formater pour la transmission.
    */
-  String serialize() {
+  public String serialize() {
     StringBuilder s = new StringBuilder();
     for (Cell cell : this) {
       if (cell == null) {
@@ -445,7 +449,7 @@ class Grid implements Iterable<Cell> {
    *
    * @return Les coordonnées de la dernière case.
    */
-  Coord getLastCoord() {
+  public Coord getLastCoord() {
     return new Coord((this.grid.length - 1), (this.grid[0].length - 1));
   }
 }

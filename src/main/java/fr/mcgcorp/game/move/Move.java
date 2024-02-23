@@ -1,4 +1,7 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.move;
+
+//package interne
+import fr.mcgcorp.game.Coord;
 
 /**
  * Représentation d'un mouvement fait par l'utilisateur.
@@ -6,7 +9,7 @@ package fr.mcgcorp;
  *
  * @author PECHON Erwan
  */
-abstract class Move {
+public abstract class Move {
   /** Coordonnée de la case où le mouvement à eu lieu. */
   protected Coord coord;
 
@@ -30,7 +33,7 @@ abstract class Move {
    *
    * @return cette objet Coord.
    */
-  Coord getCoord() {
+  public Coord getCoord() {
     return this.coord;
   }
 
@@ -41,7 +44,7 @@ abstract class Move {
    *
    * @param coord la nouvelle coordonnée de la case associé à ce mouvement.
    */
-  void setCoord(Coord coord) {
+  public void setCoord(Coord coord) {
     if (this.coord == null) {
       this.coord = coord;
     }
@@ -52,13 +55,13 @@ abstract class Move {
    *
    * @return L'ancien contenu de la cellule.
    */
-  abstract Object getOld();
+  public abstract Object getOld();
 
   /**
    * Accesseur sur le nouveau contenu de la cellule.
    *
    * @return Le nouveau contenu de la cellule.
    */
-  abstract Object getNew();
+  public abstract Object getNew();
 }
 
