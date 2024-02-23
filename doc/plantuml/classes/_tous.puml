@@ -2,19 +2,19 @@
 
 title Diagramme de classe
 
-!includesub classes_legend.puml!legend
+!includesub legend.puml!legend
 
 package game {
 	!$with_cell="true"
-	!includesub classes_grid.puml!grid
+	!includesub grid.puml!grid
 
-	!includesub classes_error.puml!error
+	!includesub error.puml!error
 
-	!includesub classes_move.puml!move
+	!includesub move.puml!move
 
-	!includesub classes_coord.puml!coord
+	!includesub coord.puml!coord
 
-	!includesub classes_game.puml!game
+	!includesub game.puml!game
 }
 
 Legend -[hidden]down- Game : zev

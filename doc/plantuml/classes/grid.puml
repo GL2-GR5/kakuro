@@ -2,12 +2,12 @@
 
 title diagramme de classes de la grille du jeu
 
-!includesub classes_legend.puml!legend
+!includesub legend.puml!legend
 
 !startsub grid
 package "Grid" #lightgrey {
 	!if ($with_cell=="true")
-	!includesub classes_cell.puml!cell
+	!includesub cell.puml!cell
 	!endif
 
 	class "Grid.GridIterator" AS GridIt {

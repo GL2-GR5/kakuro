@@ -2,7 +2,7 @@
 
 title diagramme de classes des erreurs du jeu
 
-!includesub classes_legend.puml!legend
+!includesub legend.puml!legend
 
 !startsub error
 package "error" #lightgrey {

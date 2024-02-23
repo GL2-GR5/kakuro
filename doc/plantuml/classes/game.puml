@@ -2,7 +2,7 @@
 
 title diagramme des classes responsable des règles du jeu
 
-!includesub classes_legend.puml!legend
+!includesub legend.puml!legend
 
 !startsub game
 class "Game" AS Game << (S,#FF7700) Jeu chargé >> {
@@ -57,31 +57,31 @@ class "Game" AS Game << (S,#FF7700) Jeu chargé >> {
 	{method} + serialize() : String
 }
 note right of Game::createGame
-Crée une instance de la classe Game
-et supprime l'ancienne instance, si il
-y en avait une.
-	end note
-	note right of Game::update
-	Appel les méthodes d'affichage du contrôleur.
+  Crée une instance de la classe Game
+  et supprime l'ancienne instance, si il
+  y en avait une.
+end note
+note right of Game::update
+  Appel les méthodes d'affichage du contrôleur.
 end note
 note right of Game::set
-Les méthode modifiant le jeu,
-ordonne au controleur d'afficher
-leur nouvelle état, après avoir actualiser
-la liste des erreurs.
-	end note
-	note right of Game::check
-	Actualise la liste des erreurs
+  Les méthode modifiant le jeu,
+  ordonne au controleur d'afficher
+  leur nouvelle état, après avoir actualiser
+  la liste des erreurs.
+end note
+note right of Game::check
+  Actualise la liste des erreurs
 end note
 note right of Game::serialize()
-Renvoit la liste des cellule :
-- Noire : "|"
-- Blanche : "<value>"
-- Resultat : "<line>,<column>|"
-- nouvelle ligne : "\\n"
-Exemple : "|B|B|W(5)|\\n|R(7,n)|W(n)|R(4,1)"
-Devient : "||5|\\n7,n|3|4,1|\\n"
-	end note
+  Renvoit la liste des cellule :
+  - Noire : "|"
+  - Blanche : "<value>"
+  - Resultat : "<line>,<column>|"
+  - nouvelle ligne : "\\n"
+  Exemple : "|B|B|W(5)|\\n|R(7,n)|W(n)|R(4,1)"
+  Devient : "||5|\\n7,n|3|4,1|\\n"
+end note
 !endsub
 
 center footer Chaques classe est responsable des règles de son mode de jeu

@@ -2,7 +2,7 @@
 
 title diagramme des classes de cellules
 
-!includesub classes_legend.puml!legend
+!includesub legend.puml!legend
 
 !startsub cell
 interface "Cell" AS IC {

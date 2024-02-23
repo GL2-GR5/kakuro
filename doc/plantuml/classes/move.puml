@@ -2,6 +2,8 @@
 
 title diagramme des classes stockant les actions du joueur
 
+!includesub legend.puml!legend
+
 !startsub move
 package "Move" #lightgrey {
 	abstract class "MoveCoord" AS Move {

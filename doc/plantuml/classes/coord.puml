@@ -2,7 +2,7 @@
 
 title diagramme de la classe gérant les coordonnées
 
-!includesub classes_legend.puml!legend
+!includesub legend.puml!legend
 
 !startsub coord
 class "Coord" AS Coord {
