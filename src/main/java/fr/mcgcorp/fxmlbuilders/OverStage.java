@@ -50,7 +50,9 @@ public class OverStage implements InterfaceStage {
   }
 
   public void show(Stage ownerStage) {
-    stage.initOwner(ownerStage);
+    if (stage.getOwner() == null) {
+      stage.initOwner(ownerStage);
+    }
     this.owner = ownerStage;
     this.show();
     onOpen();
