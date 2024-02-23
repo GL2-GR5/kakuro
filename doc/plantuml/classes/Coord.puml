@@ -1,11 +1,11 @@
-@startuml coord
+@startuml Coord
 
 title diagramme de la classe gérant les coordonnées
 
 !$method=1
-!includesub legend.puml!legend
+!includesub ../legend.puml!legend
 
-!startsub coord
+!startsub Coord
 class "Coord" AS Coord {
 	{field} - numCell : int
 	==

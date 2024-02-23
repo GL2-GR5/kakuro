@@ -1,0 +1,26 @@
+@startuml game
+
+title Diagramme de classe
+
+!$all=1
+!includesub ../legend.puml!legend
+
+package game {
+	!$with_cell="true"
+	!includesub ./grid.puml!grid
+
+	!includesub ./error.puml!error
+
+	!includesub ./move.puml!move
+
+	!includesub ../classes/Coord.puml!Coord
+
+	!includesub ../classes/Game.puml!Game
+}
+
+G -[hidden]down- Game
+Coord -[hidden]down- Move
+
+center footer "Prend en compte l'organisation des packages"
+
+@enduml

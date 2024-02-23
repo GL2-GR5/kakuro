@@ -1,13 +1,13 @@
-@startuml game
+@startuml Game
 
 title diagramme des classes responsable des règles du jeu
 
 !$singleton=1
 !$method=1
 !$const=1
-!includesub legend.puml!legend
+!includesub ../legend.puml!legend
 
-!startsub game
+!startsub Game
 class "Game" AS Game << (S,#FF7700) Jeu chargé >> {
 	.. Constantes ..
 	{field} {static} - game : Game

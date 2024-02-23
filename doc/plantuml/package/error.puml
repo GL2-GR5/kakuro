@@ -4,7 +4,7 @@ title diagramme de classes des erreurs du jeu
 
 !$method=1
 !$enum=1
-!includesub legend.puml!legend
+!includesub ../legend.puml!legend
 
 !startsub error
 package "error" #lightgrey {
