@@ -1,6 +1,6 @@
 @startuml Coord
 
-title diagramme de la classe gérant les coordonnées
+title "diagramme de la classe gérant les coordonnées"
 
 !$method=1
 !includesub ../legend.puml!legend
@@ -41,14 +41,14 @@ class "Coord" AS Coord {
 	{method} + exist(void) : boolean
 }
 note left of Coord::getId
-	id : Coordonnée d'une case,
-	pour le controleur de l'interface graphique.
-	end note
-	note left of Coord::getLine
-	line & column : Coordonnée d'une case,
-	pour le moteur de jeu (la classe gérant la matrice de jeu).
+	id : "Coordonnée d'une case,
+	pour le controleur de l'interface graphique. "
+end note
+note left of Coord::getLine
+	line & column : "Coordonnée d'une case,
+	pour le moteur de jeu (la classe gérant la matrice de jeu)."
 end note
 !endsub
 
-center footer Sert d'interface entre plusieurs modules n'utilisant pas le même système de coordonnées.
+center footer "Sert d'interface entre plusieurs modules n'utilisant pas le même système de coordonnées."
 @enduml

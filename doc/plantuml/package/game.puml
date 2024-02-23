@@ -1,6 +1,6 @@
 @startuml game
 
-title Diagramme de classe
+title "Diagramme de classe"
 
 !$all=1
 !includesub ../legend.puml!legend

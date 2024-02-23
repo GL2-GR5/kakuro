@@ -1,6 +1,6 @@
 @startuml error
 
-title diagramme de classes des erreurs du jeu
+title "diagramme de classes des erreurs du jeu"
 
 !$method=1
 !$enum=1
@@ -31,5 +31,5 @@ package "error" #lightgrey {
 }
 !endsub
 
-center footer Les erreurs que le joueur à fait (ex: mauvaise valeur)
+center footer "Les erreurs que le joueur à fait (ex: mauvaise valeur)"
 @enduml

@@ -1,6 +1,6 @@
 @startuml legend
 
-title Legend des diagramme de classes
+title "Legend des diagramme de classes"
 
 !$all=1
 ' $opt=1 => active | par défault, c'est désactiver.
@@ -85,5 +85,5 @@ package "legend" #lightblue {
 }
 !endsub
 
-center footer La legende commune à tout les diagrammes de classes
+center footer "La legende commune à tout les diagrammes de classes"
 @enduml
