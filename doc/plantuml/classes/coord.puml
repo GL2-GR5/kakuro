@@ -1,0 +1,53 @@
+@startuml classes_coord
+
+title diagramme de la classe gérant les coordonnées
+
+!includesub legend.puml!legend
+
+!startsub coord
+class "Coord" AS Coord {
+	{field} - numCell : int
+	==
+	.. Constructeurs ..
+	{method} {static} + new Coord() : Coord
+	{method} {static} + new Coord(String) : Coord
+	{method} {static} + new Coord(int,int) : Coord
+	{method} {static} + new Coord(int) : Coord
+	.. Accesseurs graphiques ..
+	{method} + getId(void) : String
+	.. Accesseurs matriciel ..
+	{method} + getLine(void) : int
+	{method} + getColumn(void) : int
+	.. Accesseur linaire ..
+	{method} + getIndice(void) : int
+	{method} - setIndice(int) : void
+	.. Modifieur ..
+	{method} + nextCell(void) : boolean // EndOfLine?
+	{method} + previousCell(void) : boolean // StartOfLine?
+	{method} + nextLine(void) : boolean // EndOfCol?
+	{method} + previousLine(void) : boolean //StartOfCol?
+	{method} + newColumn(void) : boolean //true
+	{method} + oldColumn(void) : boolean //true
+	{method} + newLine(void) : boolean //true
+	{method} + oldLine(void) : boolean //true
+	{method} + moveCoord(Supplier<Boolean>,nbRep) : int
+	.. Comparaison ..
+	{method} + equals(Object o) : boolean
+	{method} + compareTo(Coord c) : int
+	.. Autres ..
+	{method} + copy(void) : Coord
+	{method} + copy(Coord) : Coord
+	{method} + exist(void) : boolean
+}
+note left of Coord::getId
+	id : Coordonnée d'une case,
+	pour le controleur de l'interface graphique.
+	end note
+	note left of Coord::getLine
+	line & column : Coordonnée d'une case,
+	pour le moteur de jeu (la classe gérant la matrice de jeu).
+end note
+!endsub
+
+center footer Sert d'interface entre plusieurs modules n'utilisant pas le même système de coordonnées.
+@enduml
