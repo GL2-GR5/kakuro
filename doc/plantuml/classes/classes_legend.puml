@@ -2,8 +2,7 @@
 
 title Legend des diagramme de classes
 
-!startsub legend
-package "Legend" #lightblue {
+package "OldLegend" #lightblue {
 	interface "Interface" AS I {
 		.. "Seul type d'attribut authorisé" ..
 		{field} {static} + CONST_PUBLIC : <color green>final</color> type
@@ -61,6 +60,10 @@ package "Legend" #lightblue {
 	I -[hidden]right- A
 	A -[hidden]right- C
 }
+!startsub legend
+legend bottom
+  <img:classes_legend_min.svg>
+endlegend
 !endsub
 
 center footer La legende commune à tout les diagrammes de classes

@@ -2,6 +2,8 @@
 
 title diagramme de la classe gérant les coordonnées
 
+!includesub classes_legend.puml!legend
+
 !startsub coord
 class "Coord" AS Coord {
 	{field} - numCell : int
