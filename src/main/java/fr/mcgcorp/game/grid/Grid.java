@@ -3,6 +3,10 @@ package fr.mcgcorp.game.grid;
 //package interne
 import fr.mcgcorp.game.Coord;
 import fr.mcgcorp.game.Game;
+import fr.mcgcorp.game.grid.cell.BlackCell;
+import fr.mcgcorp.game.grid.cell.Cell;
+import fr.mcgcorp.game.grid.cell.ResultCell;
+import fr.mcgcorp.game.grid.cell.WhiteCell;
 //package externe
 import java.lang.Iterable;
 import java.lang.StringBuilder;

@@ -165,6 +165,28 @@
       </plugin>
 
       <plugin>
+        <!-- auto génère un diagrame de classe pour le package-->
+        <groupId>de.elnarion.maven</groupId>
+        <artifactId>plantuml-generator-maven-plugin</artifactId>
+        <version>2.4.1</version>
+        <executions>
+          <execution>
+            <id>generate-simple-diagram</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <phase>compile</phase>
+            <configuration>
+              <outputFilename>fine.puml</outputFilename>
+              <scanPackages>
+                <scanPackage>fr.mcgcorp</scanPackage>
+              </scanPackages>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <!-- Implémentaton de JavaFx pour les test -->
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
