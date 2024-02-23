@@ -1,7 +1,9 @@
-@startuml classes_cell
+@startuml cell
 
 title diagramme des classes de cellules
 
+!$implements=1
+!$method=1
 !includesub legend.puml!legend
 
 !startsub cell

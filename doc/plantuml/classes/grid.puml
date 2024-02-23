@@ -1,7 +1,9 @@
-@startuml classes_grid
+@startuml grid
 
 title diagramme de classes de la grille du jeu
 
+!$class=1
+!$method=1
 !includesub legend.puml!legend
 
 !startsub grid

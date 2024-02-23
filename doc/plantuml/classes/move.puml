@@ -1,7 +1,9 @@
-@startuml classes_move
+@startuml move
 
 title diagramme des classes stockant les actions du joueur
 
+!$extends=1
+!$method=1
 !includesub legend.puml!legend
 
 !startsub move

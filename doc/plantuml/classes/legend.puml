@@ -1,21 +1,31 @@
-@startuml classes_legend
+@startuml legend
 
 title Legend des diagramme de classes
 
-!startsub legend_large
-package "OldLegend" #lightblue {
-  interface "Interface" AS I {
-    .. "Seul type d'attribut authorisé" ..
-    {field} {static} + CONST_PUBLIC : <color green>final</color> type
-    ==
-    .. "Methodes de l'interface" ..
-    {method} + methodePublic(typeParams) : typeRetour # retourDefault
-    .. "Methodes static de l'interface" ..
-    {method} {static} + methodePublicStatic(typeParams) : typeRetour # retourDefault
-  }
-  abstract class "abstractClasse" AS A {
+!$all=1
+' $opt=1 => active | par défault, c'est désactiver.
+' option $all => active tout
+' ===========================================================================
+' option $interface => active la legende d'une interface
+' option $abstract => active la legende d'une classe abstraite
+' option $class => active la legende d'une classe
+' option $enum => active la legende d'une enumeration
+' option $singleton => active la legende d'un singleton
+' ===========================================================================
+' option $implements => active la legende d'une implémentation d'une interface
+' option $implements => active la legende de l'héritage d'une classe
+' option $const => active la legende des constantes
+' option $method => active la legende des méthodes spéciale (ex: override)
+' ===========================================================================
+
+!startsub legend
+package "legend" #lightblue {
+  class "General" AS G < ? general > << (S,#FFFFFF) Singleton >> {
+    !if ($all==1) || ($const==1)
     .. Constante ..
-    {field} {static} - CONST_PRIVEE : type
+    {field} {static} VAR_CLASSE_PRIVEE : type
+    {field} {static} CONST_PUBLIC : <color green>final</color> type
+    !endif
     .. Attributs ..
     {field} - attributPrivee : type
     {field} # attributProtege : type
@@ -23,50 +33,56 @@ package "OldLegend" #lightblue {
     {field} + attributPublic : type
     ==
     .. Methodes ..
-    {method} - methodePrive2(typeParams) : typeRetour # retourDefault
+    {method} - methodePrive(typeParams) : typeRetour # retourDefault
     {method} # methodeProtege(typeParams) : typeRetour # retourDefault
     {method} ~ methodePackage(typeParams) : typeRetour # retourDefault
     {method} + methodePublic(typeParams) : typeRetour # retourDefault
-    .. Methodes Override ..
-    {method} - @methodePrive(typeParams) : typeRetour # retourDefault
-    .. Methodes abstraites ..
-    {method} {abstract} - methodePriveAbstract(typeParams) : typeRetour # retourDefault
-    .. Methodes statiques ..
-    {method} {static} - methodePriveStatic(typeParams) : typeRetour # retourDefault
+    !if ($all==1) || ($method==1)
+    .. Methodes Speciale ..
+    {method} @methodeOverride(typeParams) : typeRetour # retourDefault
+    {method} {abstract} methodeAbstract(typeParams) : typeRetour # retourDefault
+    {method} {static} methodeStatic(typeParams) : typeRetour # retourDefault
+    {method} {static} <color green>final</color> methodeFinal(typeParams) : typeRetour # retourDefault
+    !endif
   }
-  abstract class A implements I
-  note on link : implements
-  class "Classe" AS C {
-    .. Constante ..
-    {field} {static} - CONST_PRIVEE : type
-    .. Attributs ..
-    {field} - attributPrivee : type
-    {field} # attributProtege : type
-    {field} ~ attributPackage : type
-    {field} + attributPublic : type
-    ==
-    .. Methodes ..
-    {method} - methodePrive3(typeParams) : typeRetour # retourDefault
-    {method} # methodeProtege2(typeParams) : typeRetour # retourDefault
-    {method} ~ methodePackage2(typeParams) : typeRetour # retourDefault
-    {method} + methodePublic2(typeParams) : typeRetour # retourDefault
-    .. Methodes Override ..
-    {method} - @methodePrive2(typeParams) : typeRetour # retourDefault
-    .. Methodes statiques ..
-    {method} {static} - methodePriveStatic2(typeParams) : typeRetour # retourDefault
-  }
-  class C extends A
-  note on link : extends
 
-  I -[hidden]right- A
-  A -[hidden]right- C
+  !if ($all==1) || ($interface==1) || ($implements==1)
+    interface "Interface" AS I
+    I -[hidden]r--> G
+  !endif
+  !if ($all==1) || ($abstract==1) || ($extends==1)
+    abstract class "abstractClasse" AS A
+    A -[hidden]r--> G
+  !endif
+  !if ($all==1) || ($class==1) || ($extends==1) || (($implements==1) && ($abstract!=1))
+    class "classe" AS C
+    C -[hidden]r-> G
+  !endif
+
+  !if ($all==1) || ($implements==1)
+    !if ($all==1) || ($abstract==1) || ($extends==1)
+      abstract class A implements I
+      note on link : A implements I
+    !else
+      class C implements I
+      note on link : C implements I
+    !endif
+  !endif
+  !if ($all==1) || ($extends==1)
+    class C extends A
+    note on link : C extends A
+  !endif
+  !if ($all==1) || ($enum==1)
+    enum "Enumeration" AS E {
+      value1,
+      value2,
+      ...
+    }
+  !endif
+  !if ($all==1) || ($singleton==1)
+    class "Singleton" AS S << (S,#FF7700) singleton >>
+  !endif
 }
-!endsub
-
-!startsub legend
-legend bottom
-  <img:classes_legend_min.svg>
-endlegend
 !endsub
 
 center footer La legende commune à tout les diagrammes de classes

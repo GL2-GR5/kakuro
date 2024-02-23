@@ -1,7 +1,10 @@
-@startuml classes_game
+@startuml game
 
 title diagramme des classes responsable des règles du jeu
 
+!$singleton=1
+!$method=1
+!$const=1
 !includesub legend.puml!legend
 
 !startsub game

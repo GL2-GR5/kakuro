@@ -1,7 +1,8 @@
-@startuml classes_coord
+@startuml coord
 
 title diagramme de la classe gérant les coordonnées
 
+!$method=1
 !includesub legend.puml!legend
 
 !startsub coord
@@ -9,7 +10,7 @@ class "Coord" AS Coord {
 	{field} - numCell : int
 	==
 	.. Constructeurs ..
-	{method} {static} + new Coord() : Coord
+  {method} {static} + new Coord(void) : Coord
 	{method} {static} + new Coord(String) : Coord
 	{method} {static} + new Coord(int,int) : Coord
 	{method} {static} + new Coord(int) : Coord

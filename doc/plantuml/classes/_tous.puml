@@ -1,7 +1,8 @@
-@startuml classes
+@startuml _tous
 
 title Diagramme de classe
 
+!$all=1
 !includesub legend.puml!legend
 
 package game {
@@ -17,8 +18,8 @@ package game {
 	!includesub game.puml!game
 }
 
-Legend -[hidden]down- Game : zev
-Coord -[hidden]down- Move : zev
+G -[hidden]down- Game
+Coord -[hidden]down- Move
 
 center footer "Prend en compte l'organisation des packages"
 
