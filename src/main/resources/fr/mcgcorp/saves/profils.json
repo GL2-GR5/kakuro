@@ -1,0 +1,19 @@
+{
+  "profils": {
+    "1": {
+    "name": "Default Name",
+
+    "settings": {
+
+    },
+
+    "games": {
+      "gridId": 0,
+      "moves": {
+
+      },
+      "score": 0,
+      "" : true
+    }
+  }}
+}
