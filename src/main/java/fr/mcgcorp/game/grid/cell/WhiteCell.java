@@ -1,4 +1,4 @@
-package fr.mcgcorp.game.grid;
+package fr.mcgcorp.game.grid.cell;
 
 //package interne
 import fr.mcgcorp.game.Game;
@@ -27,7 +27,7 @@ public class WhiteCell implements Cell {
    *
    * @param correctValue La valeur correcte de la cellule.
    */
-  WhiteCell(int correctValue) {
+  public WhiteCell(int correctValue) {
     this.correctValue = correctValue;
     this.notes = new HashSet<Integer>();
     this.value = Game.getNullValue();

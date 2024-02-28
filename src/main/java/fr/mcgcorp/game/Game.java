@@ -11,10 +11,10 @@ package fr.mcgcorp.game;
 //package interne
 import fr.mcgcorp.game.error.EntryError;
 import fr.mcgcorp.game.error.TypeEntryError;
-import fr.mcgcorp.game.grid.Cell;
 import fr.mcgcorp.game.grid.Grid;
-import fr.mcgcorp.game.grid.ResultCell;
-import fr.mcgcorp.game.grid.WhiteCell;
+import fr.mcgcorp.game.grid.cell.Cell;
+import fr.mcgcorp.game.grid.cell.ResultCell;
+import fr.mcgcorp.game.grid.cell.WhiteCell;
 import fr.mcgcorp.game.move.Move;
 //package externe
 import java.util.ArrayDeque;
@@ -29,8 +29,11 @@ import java.util.stream.Collectors;
 
 /**
  * La classe gérant tout le dérouler du jeu.
+ * <br>
  * Cette classe gère le dérouler du jeu en fonction des messages envoyé par le
  * contrôleur de l'interface graphique.
+ * <br>
+ * <img src="doc-files/Game.svg" alt="Diagramme de la classes Game" width="100%" />
  *
  * @author PECHON Erwan
  */

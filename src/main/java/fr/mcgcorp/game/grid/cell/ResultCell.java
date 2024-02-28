@@ -1,4 +1,4 @@
-package fr.mcgcorp.game.grid;
+package fr.mcgcorp.game.grid.cell;
 
 /**
  * Contient le résultat demandé pour une ligne et/ou une colonne.
@@ -25,7 +25,7 @@ public class ResultCell implements Cell {
    * @param line Le résultat attendu pour la ligne.
    * @param column Le résultat attendu pour la colonne.
    */
-  ResultCell(int line, int column) {
+  public ResultCell(int line, int column) {
     this.line = line;
     this.column = column;
   }
