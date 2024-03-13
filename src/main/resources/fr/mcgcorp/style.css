@@ -24,7 +24,6 @@
 
 .text-field{
     -fx-alignment: center; /* Alignement du texte */
-    -fx-font: "Typo Round Bold Demo"; /* police */
     -fx-text-fill: black; 
     -fx-prompt-text-fill: gray;
     -fx-highlight-fill: rgb(255, 255, 255);
@@ -51,18 +50,15 @@
 
 .check-box{
     -fx-text-alignment: center;
-    -fx-font: "Typo Round Bold Demo";
     -fx-text-fill: #000000;
 }
 
 .tilted-pane{
     -fx-text-alignment: center;
-    -fx-font: "Typo Round Bold Demo";
     -fx-text-fill: #000000;
 }
 
 .label{
     -fx-alignment: center;
-    -fx-font: "Typo Round Bold Demo";
 }
 
