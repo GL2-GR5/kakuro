@@ -1,8 +1,10 @@
-@startuml classes_move
+@startuml move
 
-title diagramme des classes stockant les actions du joueur
+title "Diagramme des classes stockant les actions du joueur"
 
-!includesub legend.puml!legend
+!$extends=1
+!$method=1
+!includesub ../legend.puml!legend
 
 !startsub move
 package "Move" #lightgrey {
@@ -34,5 +36,5 @@ package "Move" #lightgrey {
 }
 !endsub
 
-center footer Les classes stockant les actions du joueur afin de pouvoir les restituer.
+center footer "Les classes stockant les actions du joueur afin de pouvoir les restituer."
 @enduml

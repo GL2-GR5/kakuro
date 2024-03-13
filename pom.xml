@@ -157,6 +157,16 @@
             <fileset>
               <directory>doc/javadoc</directory>
             </fileset>
+            <fileset>
+              <directory>doc/plantuml</directory>
+              <includes>
+                <include>**/*.svg</include>
+                <include>**/*.png</include>
+              </includes>
+              <excludes>
+                <exclude>**/*.puml</exclude>
+              </excludes>
+            </fileset>
           </filesets>
         </configuration>
       </plugin>

@@ -11,8 +11,8 @@ doc/javadoc/
 
 ######
 # images en double de plantUML
-doc/plantuml/*/*.png
-doc/plantuml/*/*.svg
+doc/plantuml/**/*.png
+doc/plantuml/**/*.svg
 
 ######
 # Liste des dépendance de Mave

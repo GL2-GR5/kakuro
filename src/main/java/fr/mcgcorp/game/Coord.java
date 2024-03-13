@@ -4,11 +4,15 @@ package fr.mcgcorp.game;
 import java.util.function.Supplier;
 
 /**
+ * Classe de gestion des coordonnée.
+ * <br>
  * Représentation d'une coordonnée dans un milieu matriciel et/ou graphique.
  * Cette classe à pour but de rassemblé les coordonnées transmise de méthodes en méthodes, afin de les rendre plus compréhensible.
  * L'objectif secondaire de cette classe est de servir de traducteur entre :
  * - les coordonnée de l'interface utilisateur
  * - les coordonnée de la matrice de jeu.
+ * <br>
+ * <img src="doc-files/Coord.svg" alt="Diagramme de la classes Coord" width="100%" />
  *
  * @author PECHON Erwan
  */

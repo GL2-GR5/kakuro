@@ -1,4 +1,4 @@
-package fr.mcgcorp.game.grid;
+package fr.mcgcorp.game.grid.cell;
 
 /**
  * Définit les message qu'une cellule peut comprendre.

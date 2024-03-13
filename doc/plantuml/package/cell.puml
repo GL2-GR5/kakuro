@@ -1,8 +1,10 @@
-@startuml classes_cell
+@startuml cell
 
-title diagramme des classes de cellules
+title "Diagramme des classes de cellules"
 
-!includesub legend.puml!legend
+!$implements=1
+!$method=1
+!includesub ../legend.puml!legend
 
 !startsub cell
 interface "Cell" AS IC {
@@ -33,9 +35,9 @@ class "WhiteCell" AS WC implements IC {
 	{method} + @serialize(void) : String
 }
 note AS Nset
-	Si il y à eu une modification,
+	"Si il y à eu une modification,
 	créer un nouvelle objet 'Move'
-	afin de l'enregistrer.
+	afin de l'enregistrer."
 end note
 WC::setValue .. Nset #yellow
 Nset .. WC::setNotes #yellow
@@ -66,5 +68,5 @@ WC -[hidden]r- BC
 BC -[hidden]r- RC
 !endsub
 
-center footer Toutes les classes représentant une cellule du jeu
+center footer "Toutes les classes représentant une cellule du jeu"
 @enduml

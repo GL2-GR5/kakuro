@@ -1,12 +1,14 @@
-@startuml classes_error
+@startuml error
 
-title diagramme de classes des erreurs du jeu
+title "Diagramme de classes des erreurs du jeu"
 
-!includesub legend.puml!legend
+!$method=1
+!$enum=1
+!includesub ../legend.puml!legend
 
 !startsub error
 package "error" #lightgrey {
-	Enum "TypeEntryError" AS TError {
+	enum "TypeEntryError" AS TError {
 		NOERR,
 		DOUBLE,
 		OVER_RESULT_LINE,
@@ -29,5 +31,5 @@ package "error" #lightgrey {
 }
 !endsub
 
-center footer Les erreurs que le joueur à fait (ex: mauvaise valeur)
+center footer "Les erreurs que le joueur à fait (ex: mauvaise valeur)"
 @enduml
