@@ -20,12 +20,12 @@ public class SettingsController extends OverController {
 
   @Interact(id = "leaveButton", type = InteractType.ON_ACTION)
   public void onLeaveButtonClicked(ActionEvent event) {
-    this.getStage().close();
+    this.close();
   }
 
   @Interact(id = "sliderSon", type = InteractType.ON_MOUSE_RELEASED)
   public void onSoundUpdate(MouseEvent event) {
-    System.out.println("Son = " + sliderSon.valueProperty());
+    System.out.println("Son = " + sliderSon.getValue());
   }
 
   @Interact(id = "#pleinEcranItem", type = InteractType.ON_ACTION)
