@@ -46,9 +46,7 @@ public class OsManager {
   }
 
   /**
-   * Méthode permettant de récupérer le type de l'OS.
-   *
-   * @return OsType le type de l'OS
+   * Enumération des types d'OS.
    */
   public enum OsType {
     /**
