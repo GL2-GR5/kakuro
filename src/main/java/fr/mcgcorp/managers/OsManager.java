@@ -50,7 +50,7 @@ public class OsManager {
    *
    * @return le type de l'OS
    */
-  private enum OsType {
+  public enum OsType {
     WINDOWS("win"),
     MAC("mac"),
     LINUX("nux"),
@@ -59,7 +59,7 @@ public class OsManager {
     /**
      * Clé de l'OS.
      */
-    private String key;
+    private final String key;
 
     /**
      * Constructeur de l'enum.
