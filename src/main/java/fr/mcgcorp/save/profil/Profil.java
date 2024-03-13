@@ -1,7 +1,10 @@
 package fr.mcgcorp.save.profil;
 
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,12 +42,25 @@ public class Profil {
         }
     }
 
+    public JSONObject loadProfils() {
+        JSONObject profilObject = null;
+        try (FileReader reader = new FileReader("profils.json")) {
+            JSONTokener tokener = new JSONTokener(reader);
+            profilObject = new JSONObject(tokener);
+            System.out.println("Loaded JSON Object: " + profilObject);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return profilObject;
+    }
+
     public static void main(String[] args) {
 
         Profil p = new Profil("Hôa");
 
         System.out.println("Profil:\n\tNom: " + p.name + "\n\tId: " + p.profilId);
-
+        JSONObject profilObject = new JSONObject();
+        profilObject.getJSONObject();
         p.saveProfil();
 
     }
