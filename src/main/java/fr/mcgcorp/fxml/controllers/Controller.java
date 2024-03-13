@@ -43,12 +43,11 @@ public abstract class Controller {
     if (url == null) {
       throw new RuntimeException("Fichier FXML non trouvé");
     }
-
     try {
       FXMLLoader loader = new FXMLLoader(url);
+      loader.setController(this);
       Scene scene = new Scene(loader.load());
       getStage().setScene(scene);
-      loader.setController(this);
     } catch (Exception e) {
       throw new RuntimeException("Impossible de charger le fichier FXML", e);
     }
