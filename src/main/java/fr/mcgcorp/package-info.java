@@ -1,8 +1,9 @@
 /**
  * Ce package est le package racine du jeu.
- * <p>
+ * <br>
  * Il contient les classes principales du jeu.
- * </p>
+ * <br>
+ * <img src="doc-files/classes.svg" alt="Diagramme de classes du package fr.mcgcorp" width="100%" />
  * 
  * @author GOUDET Lucas, HOUGET Julien, LAHMAR Marwan, LE LUET Hôa, PECHON Erwan, POURCEAU Luca, PUREN Mewen 
  * @version 0.1

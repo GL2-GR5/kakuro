@@ -1,0 +1,89 @@
+@startuml legend
+
+title "Legend des diagramme de classes"
+
+!$all=1
+' $opt=1 => active | par défault, c'est désactiver.
+' option $all => active tout
+' ===========================================================================
+' option $interface => active la legende d'une interface
+' option $abstract => active la legende d'une classe abstraite
+' option $class => active la legende d'une classe
+' option $enum => active la legende d'une enumeration
+' option $singleton => active la legende d'un singleton
+' ===========================================================================
+' option $implements => active la legende d'une implémentation d'une interface
+' option $implements => active la legende de l'héritage d'une classe
+' option $const => active la legende des constantes
+' option $method => active la legende des méthodes spéciale (ex: override)
+' ===========================================================================
+
+!startsub legend
+package "legend" #lightblue {
+  class "General" AS G < ? general > << (S,#FFFFFF) Singleton >> {
+    !if ($all==1) || ($const==1)
+    .. Constante ..
+    {field} {static} VAR_CLASSE_PRIVEE : type
+    {field} {static} CONST_PUBLIC : <color green>final</color> type
+    !endif
+    .. Attributs ..
+    {field} - attributPrivee : type
+    {field} # attributProtege : type
+    {field} ~ attributPackage : type
+    {field} + attributPublic : type
+    ==
+    .. Methodes ..
+    {method} - methodePrive(typeParams) : typeRetour # retourDefault
+    {method} # methodeProtege(typeParams) : typeRetour # retourDefault
+    {method} ~ methodePackage(typeParams) : typeRetour # retourDefault
+    {method} + methodePublic(typeParams) : typeRetour # retourDefault
+    !if ($all==1) || ($method==1)
+    .. Methodes Speciale ..
+    {method} @methodeOverride(typeParams) : typeRetour # retourDefault
+    {method} {abstract} methodeAbstract(typeParams) : typeRetour # retourDefault
+    {method} {static} methodeStatic(typeParams) : typeRetour # retourDefault
+    {method} {static} <color green>final</color> methodeFinal(typeParams) : typeRetour # retourDefault
+    !endif
+  }
+
+  !if ($all==1) || ($interface==1) || ($implements==1)
+    interface "Interface" AS I
+    I -[hidden]r--> G
+  !endif
+  !if ($all==1) || ($abstract==1) || ($extends==1)
+    abstract class "abstractClasse" AS A
+    A -[hidden]r--> G
+  !endif
+  !if ($all==1) || ($class==1) || ($extends==1) || (($implements==1) && ($abstract!=1))
+    class "classe" AS C
+    C -[hidden]r-> G
+  !endif
+
+  !if ($all==1) || ($implements==1)
+    !if ($all==1) || ($abstract==1) || ($extends==1)
+      abstract class A implements I
+      note on link : A implements I
+    !else
+      class C implements I
+      note on link : C implements I
+    !endif
+  !endif
+  !if ($all==1) || ($extends==1)
+    class C extends A
+    note on link : C extends A
+  !endif
+  !if ($all==1) || ($enum==1)
+    enum "Enumeration" AS E {
+      value1,
+      value2,
+      ...
+    }
+  !endif
+  !if ($all==1) || ($singleton==1)
+    class "Singleton" AS S << (S,#FF7700) singleton >>
+  !endif
+}
+!endsub
+
+center footer "La legende commune à tout les diagrammes de classes"
+@enduml

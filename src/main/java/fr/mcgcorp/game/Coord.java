@@ -1,13 +1,18 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game;
 
+//package externe
 import java.util.function.Supplier;
 
 /**
+ * Classe de gestion des coordonnée.
+ * <br>
  * Représentation d'une coordonnée dans un milieu matriciel et/ou graphique.
  * Cette classe à pour but de rassemblé les coordonnées transmise de méthodes en méthodes, afin de les rendre plus compréhensible.
  * L'objectif secondaire de cette classe est de servir de traducteur entre :
  * - les coordonnée de l'interface utilisateur
  * - les coordonnée de la matrice de jeu.
+ * <br>
+ * <img src="doc-files/Coord.svg" alt="Diagramme de la classes Coord" width="100%" />
  *
  * @author PECHON Erwan
  */
@@ -31,7 +36,7 @@ public class Coord implements Comparable<Coord> {
    */
   public Coord(String id) {
     String[] idSplit = id.split("_");
-    this.numCell = Integer.parseInt(idSplit[0]) * Kakuro.getLastCoord().getColumn();
+    this.numCell = Integer.parseInt(idSplit[0]) * Game.getLastCoord().getColumn();
     this.numCell += Integer.parseInt(idSplit[1]);
   }
 
@@ -44,7 +49,7 @@ public class Coord implements Comparable<Coord> {
    * @param column Le numéro de colonne de la cellule visé.
    */
   public Coord(int line, int column) {
-    this.numCell = line * Kakuro.getLastCoord().getColumn();
+    this.numCell = line * Game.getLastCoord().getColumn();
     this.numCell += column;
   }
 
@@ -79,7 +84,7 @@ public class Coord implements Comparable<Coord> {
    * @return L'indice de la ligne où se trouve la case.
    */
   public int getLine() {
-    return this.numCell / Kakuro.getLastCoord().getColumn();
+    return this.numCell / Game.getLastCoord().getColumn();
   }
 
   /**
@@ -88,7 +93,7 @@ public class Coord implements Comparable<Coord> {
    * @return L'indice de la colonne où se trouve la case.
    */
   public int getColumn() {
-    return this.numCell % Kakuro.getLastCoord().getColumn();
+    return this.numCell % Game.getLastCoord().getColumn();
   }
 
 
@@ -122,7 +127,7 @@ public class Coord implements Comparable<Coord> {
    */
   public boolean nextCell() {
     this.numCell += 1;
-    return (this.numCell % Kakuro.getLastCoord().getColumn()) == 0;
+    return (this.numCell % Game.getLastCoord().getColumn()) == 0;
   }
 
   /**
@@ -131,7 +136,7 @@ public class Coord implements Comparable<Coord> {
    * @return Est-on passé à la ligne précédente ?
    */
   public boolean previousCell() {
-    boolean restart = (this.numCell % Kakuro.getLastCoord().getColumn()) == 0;
+    boolean restart = (this.numCell % Game.getLastCoord().getColumn()) == 0;
     this.numCell -= 1;
     return restart;
   }
@@ -142,7 +147,7 @@ public class Coord implements Comparable<Coord> {
    * @return Est-on passé à une nouvelle colonne ?
    */
   public boolean nextLine() {
-    Coord lim = Kakuro.getLastCoord();
+    Coord lim = Game.getLastCoord();
     if (this.getLine() == lim.getLine()) {
       this.newColumn();
     }
@@ -159,7 +164,7 @@ public class Coord implements Comparable<Coord> {
     if (this.getLine() == 0) {
       return this.oldColumn();
     }
-    this.numCell -= Kakuro.getLastCoord().getColumn();
+    this.numCell -= Game.getLastCoord().getColumn();
     return false;
   }
 
@@ -232,7 +237,7 @@ public class Coord implements Comparable<Coord> {
     if (this.numCell < 0) {
       return false;
     }
-    if (Kakuro.getLastCoord().getIndice() < 0) {
+    if (Game.getLastCoord().getIndice() < 0) {
       return false;
     }
     return true;

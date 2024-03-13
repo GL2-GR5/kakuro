@@ -1,6 +1,6 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.move;
 
-import java.util.HashSet;
+//package externe
 import java.util.Set;
 
 /**
@@ -9,7 +9,7 @@ import java.util.Set;
  * @see Move
  * @author PECHON Erwan
  */
-class MoveNotes extends Move {
+public class MoveNotes extends Move {
   /** Notes modifié par le joueur. */
   protected Set<Integer> notesOld;
   /** Nouvelle notes saisie par le joueur. */
@@ -21,19 +21,19 @@ class MoveNotes extends Move {
    * @param notesOld Les notes de la cellule, avant ce mouvement.
    * @param notesNew Les notes de la cellule, après ce mouvement.
    */
-  MoveNotes(Set<Integer> notesOld, Set<Integer> notesNew) {
+  public MoveNotes(Set<Integer> notesOld, Set<Integer> notesNew) {
     super();
     this.notesOld = notesOld;
     this.notesNew = notesNew;
   }
 
   @Override
-  Object getOld() {
+  public Object getOld() {
     return this.notesOld;
   }
 
   @Override
-  Object getNew() {
+  public Object getNew() {
     return this.notesNew;
   }
 }

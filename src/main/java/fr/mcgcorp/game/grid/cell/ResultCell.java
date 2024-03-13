@@ -1,11 +1,11 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.grid.cell;
 
 /**
  * Contient le résultat demandé pour une ligne et/ou une colonne.
  *
  * @author HOUGET Julien, PUREN Mewen, PECHON Erwan
  */
-class ResultCell implements Cell {
+public class ResultCell implements Cell {
   //
   // Attributs d'instance
   //
@@ -25,8 +25,7 @@ class ResultCell implements Cell {
    * @param line Le résultat attendu pour la ligne.
    * @param column Le résultat attendu pour la colonne.
    */
-  ResultCell(int line, int column) {
-    super();
+  public ResultCell(int line, int column) {
     this.line = line;
     this.column = column;
   }
@@ -40,7 +39,7 @@ class ResultCell implements Cell {
    *
    * @return Le résultat attendu pour la ligne.
    */
-  int getLine() {
+  public int getLine() {
     return this.line;
   }
 
@@ -49,7 +48,7 @@ class ResultCell implements Cell {
    *
    * @return Le résultat attendu pour la colonne.
    */
-  int getColumn() {
+  public int getColumn() {
     return this.column;
   }
 

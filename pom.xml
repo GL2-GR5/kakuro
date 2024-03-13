@@ -70,6 +70,13 @@
       <version>5.10.2</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- JSON dependencies -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20240205</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -149,6 +156,16 @@
             <!-- Chemin du dossier relatif à la base du projet -->
             <fileset>
               <directory>doc/javadoc</directory>
+            </fileset>
+            <fileset>
+              <directory>doc/plantuml</directory>
+              <includes>
+                <include>**/*.svg</include>
+                <include>**/*.png</include>
+              </includes>
+              <excludes>
+                <exclude>**/*.puml</exclude>
+              </excludes>
             </fileset>
           </filesets>
         </configuration>
