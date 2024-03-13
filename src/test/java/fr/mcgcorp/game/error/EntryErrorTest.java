@@ -1,5 +1,7 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.error;
 
+import fr.mcgcorp.Tests;
+import fr.mcgcorp.game.Coord;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,8 +36,8 @@ public class EntryErrorTest extends Tests {
     @Test
     void InitializeBaseConstructor_ShouldVariablesHaveNull() {
         EntryError entryError = new EntryError();
-        assertNull(entryError.coord);
-        assertNull(entryError.error);
+        assertNull(entryError.getCoord());
+        assertNull(entryError.getError());
     }
 
     /**
@@ -47,8 +49,8 @@ public class EntryErrorTest extends Tests {
         //Kakuro game = Kakuro.createGame(10,10);
         Coord coord = new Coord(1,1);
         EntryError entryError = new EntryError(coord);
-        assertEquals(coord, entryError.coord);
-        assertNull(entryError.error);
+        assertEquals(coord, entryError.getCoord());
+        assertNull(entryError.getError());
     }
 
     /**
@@ -57,8 +59,8 @@ public class EntryErrorTest extends Tests {
     @Test
     void InitializeConstructorError_ShouldErrorHaveValue() {
         EntryError entryError = new EntryError(TypeEntryError.NO_ERR);
-        assertNull(entryError.coord);
-        assertEquals(TypeEntryError.NO_ERR, entryError.error);
+        assertNull(entryError.getCoord());
+        assertEquals(TypeEntryError.NO_ERR, entryError.getError());
     }
 
     /**
@@ -69,8 +71,8 @@ public class EntryErrorTest extends Tests {
     void InitializeConstructorAll_ShouldCoordAndErrorHaveValue() {
         Coord coord = new Coord(1,1);
         EntryError entryError = new EntryError(coord, TypeEntryError.NO_ERR);
-        assertEquals(coord, entryError.coord);
-        assertEquals(TypeEntryError.NO_ERR, entryError.error);
+        assertEquals(coord, entryError.getCoord());
+        assertEquals(TypeEntryError.NO_ERR, entryError.getError());
     }
 
     /**
@@ -103,7 +105,7 @@ public class EntryErrorTest extends Tests {
     @Test
     void GetError_ShouldReturnCorrectError() {
         EntryError entryError = new EntryError(TypeEntryError.NO_ERR);
-        assertEquals(TypeEntryError.NO_ERR, entryError.error);
+        assertEquals(TypeEntryError.NO_ERR, entryError.getError());
     }
 
     /**
@@ -113,6 +115,6 @@ public class EntryErrorTest extends Tests {
     void SetError_ShouldSetError() {
         EntryError entryError = new EntryError();
         entryError.setTypeEntryError(TypeEntryError.NO_ERR);
-        assertEquals(TypeEntryError.NO_ERR, entryError.error);
+        assertEquals(TypeEntryError.NO_ERR, entryError.getError());
     }
 }

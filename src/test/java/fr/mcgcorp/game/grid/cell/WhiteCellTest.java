@@ -1,5 +1,8 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.grid.cell;
 
+import fr.mcgcorp.Tests;
+import fr.mcgcorp.game.Game;
+import fr.mcgcorp.game.grid.cell.WhiteCell;
 import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
@@ -13,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Cette classe contient des méthodes de test pour tester le comportement de la classe WhiteCell.
  * @author Hôa Le Luët
  */
-public class WhiteCellTest extends Tests{
+public class WhiteCellTest extends Tests {
 
     /**
      * Cette méthode est exécutée une fois avant tous les tests de cette classe.
@@ -39,7 +42,7 @@ public class WhiteCellTest extends Tests{
     @Test
     void InitializeWhiteCell_ShouldCorrectValueHaveValue() {
         WhiteCell whiteCell = new WhiteCell(1);
-        assertEquals(1, whiteCell.getCorrectValue());
+        assertEquals(1, whiteCell.getValue());
     }
 
     /**
@@ -51,7 +54,7 @@ public class WhiteCellTest extends Tests{
         assertEquals(0, whiteCell.getValue());
     }
 
-    /**
+    /**MoveNotes
      * Teste si après l'initialisation de WhiteCell, les notes nulles.
      */
     @Test
@@ -69,8 +72,8 @@ public class WhiteCellTest extends Tests{
         WhiteCell whiteCell = new WhiteCell(1);
         whiteCell.setValue(1);
         assertEquals(1, whiteCell.getValue());
-        whiteCell.setValue(Kakuro.getMaxValue() + 1);
-        assertNotEquals(Kakuro.getMaxValue() + 1, whiteCell.getValue());
+        whiteCell.setValue(Game.getMaxValue() + 1);
+        assertNotEquals(Game.getMaxValue() + 1, whiteCell.getValue());
     }
 
     /**

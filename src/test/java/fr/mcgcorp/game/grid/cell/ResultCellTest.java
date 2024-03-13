@@ -1,5 +1,6 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.grid.cell;
 
+import fr.mcgcorp.Tests;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Hôa Le Luët
  */
-public class ResultCellTest extends Tests{
+public class ResultCellTest extends Tests {
 
     /**
      * Méthode exécutée avant tous les tests.

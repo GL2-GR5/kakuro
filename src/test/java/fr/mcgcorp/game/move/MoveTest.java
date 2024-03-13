@@ -1,5 +1,6 @@
-package fr.mcgcorp;
+package fr.mcgcorp.game.move;
 
+import fr.mcgcorp.Tests;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Hôa Le Luët
  */
-public class MoveTest extends Tests{
+public class MoveTest extends Tests {
 
     /**
      * Cette méthode est exécutée une fois avant tous les tests de cette classe.
