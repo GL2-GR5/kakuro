@@ -1,6 +1,5 @@
 package fr.mcgcorp.fxml.controllers;
 
-
 import fr.mcgcorp.fxml.annotations.Interact;
 import fr.mcgcorp.fxml.annotations.Interact.InteractType;
 import javafx.event.ActionEvent;

@@ -31,6 +31,7 @@ public abstract class OverController extends Controller {
     stage.setOnCloseRequest(event -> {
       ControllerManager.getInstance().setCurrentController(this.parent);
       this.parent.getStage().getScene().getRoot().setEffect(null);
+      //todo fix le bordel
     });
 
     super.show();
