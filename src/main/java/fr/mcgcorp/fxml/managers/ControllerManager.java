@@ -93,5 +93,6 @@ public class ControllerManager {
 
   public void setFullScreen(boolean b) {
     this.fullScreen = b;
+    this.getCurrentController().getStage().setFullScreen(b);
   }
 }

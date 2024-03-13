@@ -25,15 +25,13 @@ public abstract class OverController extends Controller {
 
   @Override
   public final void show() {
-    Stage stage = this.getStage();
     this.parent = ControllerManager.getInstance().getCurrentController();
-    this.parent.getStage().getScene().getRoot().setEffect(new BoxBlur());
-    stage.setOnCloseRequest(event -> {
-      ControllerManager.getInstance().setCurrentController(this.parent);
+    //this.parent.getStage().getScene().getRoot().setEffect(new BoxBlur());
+    this.stage.setOnCloseRequest(event -> {
+      System.out.println("Closing");
       this.parent.getStage().getScene().getRoot().setEffect(null);
-      //todo fix le bordel
+      this.parent = null;
     });
-
-    super.show();
+    this.stage.show();
   }
 }

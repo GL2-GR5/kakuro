@@ -10,7 +10,6 @@ import java.lang.annotation.Target;
 public @interface Interact {
   String[] id() default {};
   InteractType type() default InteractType.ON_ACTION;
-  String[] scrollPane() default "";
 
   enum InteractType {
     ON_ACTION("setOnAction"),

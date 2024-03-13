@@ -35,7 +35,7 @@ public class GameController extends Controller {
     int widthCaseNumber = (int) Math.sqrt(caseNumber);
     int heightCaseNumber = (int) Math.sqrt(caseNumber);
 
-    int caseSize = 50;
+    int caseSize = 150;
 
     this.gamePane.setPrefSize(caseSize * widthCaseNumber, caseSize * heightCaseNumber);
 
