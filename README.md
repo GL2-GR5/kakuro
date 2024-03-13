@@ -39,3 +39,7 @@ Aides présentes dans le jeu :
 ```
 Le Mans Université
 ```
+
+## Documentation
+
+la documentation peut se trouver [ici](https://gl2-gr5.github.io/kakuro/)

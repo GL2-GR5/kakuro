@@ -1,0 +1,72 @@
+@startuml cell
+
+title "Diagramme des classes de cellules"
+
+!$implements=1
+!$method=1
+!includesub ../legend.puml!legend
+
+!startsub cell
+interface "Cell" AS IC {
+	{method} {abstract} + serialize() : String
+	{method} {abstract} + toString() : String
+}
+
+class "WhiteCell" AS WC implements IC {
+	{field} - correctValue : int
+	{field} - value : int # Kakuro.NULL_VALUE
+	{field} - notes : Set<Integer>
+	==
+	.. Constructeur ..
+	{method} {static} + WhiteCell(int) : WhiteCell
+	.. Accesseurs ..
+	{method} + getCorrectValue(void) : int
+	{method} + getValue(void) : int
+	{method} + setValue(int) : Move # null
+	{method} + getNotes(void) : Set<Integer>
+	{method} + setNotes(Set<Integer>) : Move # null
+	.. Modifier ..
+	{method} + traiteMove(Move,boolean) : boolean # false
+	.. Checker ..
+	{method} + isCorrect(void) : boolean
+	{method} + badValue(void) : boolean
+	.. Afficher ..
+	{method} + @toString(void) : String
+	{method} + @serialize(void) : String
+}
+note AS Nset
+	"Si il y à eu une modification,
+	créer un nouvelle objet 'Move'
+	afin de l'enregistrer."
+end note
+WC::setValue .. Nset #yellow
+Nset .. WC::setNotes #yellow
+Nset -[hidden]l- WC
+Nset -[hidden]l- IC
+
+class "BlackCell" AS BC implements IC {
+	{method} {static} + BlackCell() : BlackCell
+	{method} + @serialize(void) : String
+	{method} + @toString(void) : String
+}
+
+class "ResultCell" AS RC implements IC {
+	{field} - line : int
+	{field} - column : int
+	==
+	.. Constructeur ..
+	{method} {static} + ResultCell(int,int) : ResultCell
+	.. Accesseur ..
+	{method} + getLine(void) : int
+	{method} + getColumn(void) : int
+	.. Affichage ..
+	{method} + @toString(void) : String
+	{method} + @serialize(void) : String
+}
+
+WC -[hidden]r- BC
+BC -[hidden]r- RC
+!endsub
+
+center footer "Toutes les classes représentant une cellule du jeu"
+@enduml
