@@ -42,7 +42,7 @@ public class WhiteCellTest extends Tests {
     @Test
     void InitializeWhiteCell_ShouldCorrectValueHaveValue() {
         WhiteCell whiteCell = new WhiteCell(1);
-        assertEquals(1, whiteCell.getValue());
+        assertEquals(1, whiteCell.getCorrectValue());
     }
 
     /**
