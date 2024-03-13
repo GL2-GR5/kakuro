@@ -69,7 +69,6 @@ public class InteractManager {
             if (n == null) {
               continue;
             }
-            System.out.println("Registering " + n.getId());
 
             ((ButtonBase) n).setOnAction(e -> {
               try {

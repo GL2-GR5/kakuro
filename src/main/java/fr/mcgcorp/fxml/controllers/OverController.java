@@ -5,8 +5,11 @@ import javafx.scene.effect.BoxBlur;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.naming.ldap.Control;
 
 public abstract class OverController extends Controller {
+
+  private Controller parent;
 
   abstract String getPathToFxml();
 
@@ -23,11 +26,11 @@ public abstract class OverController extends Controller {
   @Override
   public final void show() {
     Stage stage = this.getStage();
-    Controller parent = ControllerManager.getInstance().getCurrentController();
-    parent.getStage().getScene().getRoot().setEffect(new BoxBlur());
+    this.parent = ControllerManager.getInstance().getCurrentController();
+    this.parent.getStage().getScene().getRoot().setEffect(new BoxBlur());
     stage.setOnCloseRequest(event -> {
-      ControllerManager.getInstance().setCurrentController(parent);
-      parent.getStage().getScene().getRoot().setEffect(null);
+      ControllerManager.getInstance().setCurrentController(this.parent);
+      this.parent.getStage().getScene().getRoot().setEffect(null);
     });
 
     super.show();
