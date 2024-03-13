@@ -1,7 +1,7 @@
 package fr.mcgcorp.fxml.managers;
 
-import fr.mcgcorp.fxml.controllers.Controller;
 import fr.mcgcorp.fxml.annotations.Interact;
+import fr.mcgcorp.fxml.controllers.Controller;
 import java.lang.reflect.Method;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -57,7 +57,7 @@ public class InteractManager {
         }
 
         if (interact.type() == Interact.InteractType.ON_ACTION) {
-          if (!nodeClass.isAssignableFrom(ButtonBase.class)) {
+          if (!ButtonBase.class.isAssignableFrom(nodeClass)) {
             continue;
           }
           if (method.getParameterCount() != 1 || method.getParameterTypes()[0] != ActionEvent.class) {
@@ -69,6 +69,7 @@ public class InteractManager {
             if (n == null) {
               continue;
             }
+            System.out.println("Registering " + n.getId());
 
             ((ButtonBase) n).setOnAction(e -> {
               try {
