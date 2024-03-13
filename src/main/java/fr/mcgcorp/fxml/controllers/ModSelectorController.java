@@ -1,4 +1,4 @@
-package fr.mcgcorp.controllers;
+package fr.mcgcorp.fxml.controllers;
 
 /**
  * Contrôleur du sélecteur du mode de jeu.

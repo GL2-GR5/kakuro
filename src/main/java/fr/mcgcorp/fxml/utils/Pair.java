@@ -1,4 +1,4 @@
-package fr.mcgcorp.fxmlbuilders;
+package fr.mcgcorp.fxml.utils;
 
 public class Pair<K, V> {
 

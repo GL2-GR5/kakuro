@@ -1,11 +1,11 @@
-package fr.mcgcorp.managers;
+package fr.mcgcorp.fxml.managers;
 
-import fr.mcgcorp.controllers.CampaignController;
-import fr.mcgcorp.controllers.Controller;
-import fr.mcgcorp.controllers.GameController;
-import fr.mcgcorp.controllers.MenuController;
-import fr.mcgcorp.controllers.ModSelectorController;
-import fr.mcgcorp.controllers.SettingsController;
+import fr.mcgcorp.fxml.controllers.CampaignController;
+import fr.mcgcorp.fxml.controllers.Controller;
+import fr.mcgcorp.fxml.controllers.GameController;
+import fr.mcgcorp.fxml.controllers.MenuController;
+import fr.mcgcorp.fxml.controllers.ModSelectorController;
+import fr.mcgcorp.fxml.controllers.SettingsController;
 
 /**
  * Classe singleton qui gère les différents contrôleurs de l'application.

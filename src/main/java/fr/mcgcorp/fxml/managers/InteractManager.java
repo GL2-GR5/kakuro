@@ -1,6 +1,7 @@
-package fr.mcgcorp.fxmlbuilders;
+package fr.mcgcorp.fxml.managers;
 
-import fr.mcgcorp.controllers.Controller;
+import fr.mcgcorp.fxml.controllers.Controller;
+import fr.mcgcorp.fxml.annotations.Interact;
 import java.lang.reflect.Method;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

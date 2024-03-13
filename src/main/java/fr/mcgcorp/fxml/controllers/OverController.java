@@ -1,6 +1,6 @@
-package fr.mcgcorp.controllers;
+package fr.mcgcorp.fxml.controllers;
 
-import fr.mcgcorp.managers.ControllerManager;
+import fr.mcgcorp.fxml.managers.ControllerManager;
 import javafx.scene.effect.BoxBlur;
 import javafx.stage.Modality;
 import javafx.stage.Stage;

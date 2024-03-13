@@ -1,7 +1,4 @@
-package fr.mcgcorp.controllers;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
+package fr.mcgcorp.fxml.controllers;
 
 
 public class SettingsController extends OverController {

@@ -1,9 +1,9 @@
-package fr.mcgcorp.controllers;
+package fr.mcgcorp.fxml.controllers;
 
-import fr.mcgcorp.fxmlbuilders.Interact;
-import fr.mcgcorp.fxmlbuilders.Interact.InteractType;
-import fr.mcgcorp.fxmlbuilders.InteractManager;
-import fr.mcgcorp.managers.ControllerManager;
+import fr.mcgcorp.fxml.annotations.Interact;
+import fr.mcgcorp.fxml.annotations.Interact.InteractType;
+import fr.mcgcorp.fxml.managers.InteractManager;
+import fr.mcgcorp.fxml.managers.ControllerManager;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;

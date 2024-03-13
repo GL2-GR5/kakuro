@@ -1,9 +1,7 @@
 package fr.mcgcorp;
 
-import fr.mcgcorp.managers.ControllerManager;
+import fr.mcgcorp.fxml.managers.ControllerManager;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.stage.Stage;
 
 /**

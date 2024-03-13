@@ -1,11 +1,9 @@
-package fr.mcgcorp.controllers;
+package fr.mcgcorp.fxml.controllers;
 
-import fr.mcgcorp.fxmlbuilders.Interact;
-import fr.mcgcorp.fxmlbuilders.Interact.InteractType;
-import fr.mcgcorp.managers.ControllerManager;
-import javafx.application.Platform;
+import fr.mcgcorp.fxml.annotations.Interact;
+import fr.mcgcorp.fxml.annotations.Interact.InteractType;
+import fr.mcgcorp.fxml.managers.ControllerManager;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
 /**

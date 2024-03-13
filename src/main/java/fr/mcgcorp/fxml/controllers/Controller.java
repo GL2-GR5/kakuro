@@ -1,21 +1,16 @@
-package fr.mcgcorp.controllers;
+package fr.mcgcorp.fxml.controllers;
 
 import fr.mcgcorp.Main;
-import fr.mcgcorp.fxmlbuilders.InteractManager;
-import fr.mcgcorp.managers.ControllerManager;
-import java.awt.Rectangle;
+import fr.mcgcorp.fxml.managers.InteractManager;
+import fr.mcgcorp.fxml.managers.ControllerManager;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
