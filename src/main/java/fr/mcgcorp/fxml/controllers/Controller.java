@@ -1,8 +1,8 @@
 package fr.mcgcorp.fxml.controllers;
 
 import fr.mcgcorp.Main;
-import fr.mcgcorp.fxml.managers.InteractManager;
 import fr.mcgcorp.fxml.managers.ControllerManager;
+import fr.mcgcorp.fxml.managers.InteractManager;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
