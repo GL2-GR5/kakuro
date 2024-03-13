@@ -48,12 +48,24 @@ public class OsManager {
   /**
    * Méthode permettant de récupérer le type de l'OS.
    *
-   * @return le type de l'OS
+   * @return OsType le type de l'OS
    */
   public enum OsType {
+    /**
+     * windows.
+     */
     WINDOWS("win"),
+    /**
+     * mac.
+     */
     MAC("mac"),
+    /**
+     * linux.
+     */
     LINUX("nux"),
+    /**
+     * solaris.
+     */
     SOLARIS("sunos");
 
     /**
@@ -71,10 +83,10 @@ public class OsManager {
     }
 
     /**
-     * Méthode permettant de récupérer le type de l'OS.
+     * Méthode permettant de récupérer le type de l'OS à partir du nom du système.
      *
      * @param os le nom de l'OS
-     * @return le type de l'OS
+     * @return OsType le type de l'OS
      */
     private static OsType getByName(String os) {
       for (OsType t : OsType.values()) {
