@@ -2,6 +2,7 @@ package fr.mcgcorp.managers;
 
 import fr.mcgcorp.controllers.CampaignController;
 import fr.mcgcorp.controllers.Controller;
+import fr.mcgcorp.controllers.GameController;
 import fr.mcgcorp.controllers.MenuController;
 import fr.mcgcorp.controllers.ModSelectorController;
 import fr.mcgcorp.controllers.SettingsController;
@@ -34,6 +35,7 @@ public class ControllerManager {
   private final ModSelectorController modSelectorController;
   private final SettingsController settingsController;
   private final CampaignController campaignController;
+  private final GameController gameController = new GameController();
 
   /**
    * Constructeur de la classe ControllerManager.
@@ -71,6 +73,10 @@ public class ControllerManager {
 
   public CampaignController getCampaignController() {
     return campaignController;
+  }
+
+  public GameController getGameController() {
+    return gameController;
   }
 
   public Controller getCurrentController() {

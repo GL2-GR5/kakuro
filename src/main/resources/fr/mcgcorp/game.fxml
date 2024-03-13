@@ -14,7 +14,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="calcul_display" layoutX="108.0" layoutY="493.0" prefHeight="28.0" prefWidth="580.0" style="-fx-border-color: BLACK;" />
-      <Button layoutX="856.0" layoutY="300.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="81.0" text="Options" />
+      <Button fx:id="settingsButton" layoutX="856.0" layoutY="300.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="81.0" text="Options" />
       <Button layoutX="856.0" layoutY="363.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="81.0" text="Quitter" />
       <GridPane layoutX="855.0" layoutY="175.0" prefHeight="96.0" prefWidth="108.0">
         <columnConstraints>
@@ -49,9 +49,9 @@
       </ImageView>
       <Label fx:id="niveau_display" layoutX="34.0" layoutY="16.0" prefHeight="28.0" prefWidth="222.0" style="-fx-border-color: BLACK;" />
       <Label fx:id="point_display" layoutX="631.0" layoutY="16.0" prefHeight="28.0" prefWidth="167.0" style="-fx-border-color: BLACK;" />
-      <ScrollPane layoutX="100.0" layoutY="60.0" prefHeight="420.0" prefWidth="720.0">
+      <ScrollPane fx:id="scroll" layoutX="145.0" layoutY="100.0" prefHeight="323.0" prefWidth="597.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="676.0" prefWidth="718.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="431.0" prefWidth="684.0" />
         </content>
       </ScrollPane>
    </children>

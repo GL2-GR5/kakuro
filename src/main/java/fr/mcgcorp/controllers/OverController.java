@@ -1,6 +1,5 @@
 package fr.mcgcorp.controllers;
 
-import fr.mcgcorp.fxmlbuilders.Interact;
 import fr.mcgcorp.managers.ControllerManager;
 import javafx.scene.effect.BoxBlur;
 import javafx.stage.Modality;
@@ -24,14 +23,13 @@ public abstract class OverController extends Controller {
   @Override
   public final void show() {
     Stage stage = this.getStage();
-    Stage parent = ControllerManager.getInstance().getCurrentController().getStage();
-    parent.getScene().getRoot().setEffect(new BoxBlur());
+    Controller parent = ControllerManager.getInstance().getCurrentController();
+    parent.getStage().getScene().getRoot().setEffect(new BoxBlur());
     stage.setOnCloseRequest(event -> {
-      parent.getScene().getRoot().setEffect(null);
-      stage.initOwner(null);
+      ControllerManager.getInstance().setCurrentController(parent);
+      parent.getStage().getScene().getRoot().setEffect(null);
     });
 
-    stage.initOwner(parent);
     super.show();
   }
 }

@@ -3,9 +3,19 @@ package fr.mcgcorp.controllers;
 import fr.mcgcorp.Main;
 import fr.mcgcorp.fxmlbuilders.InteractManager;
 import fr.mcgcorp.managers.ControllerManager;
+import java.awt.Rectangle;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -59,5 +69,57 @@ public abstract class Controller {
       this.stage = new Stage();
     }
     return this.stage;
+  }
+
+  public Node lookup(String id) {
+    return this.lookup(id, this.getStage().getScene().getRoot());
+  }
+
+  private Node lookup(String id, Parent parent) {
+    for (Node n : parent.getChildrenUnmodifiable()) {
+      if (n.getId() != null && n.getId().matches(id)) {
+        return n;
+      }
+      if (n instanceof Parent) {
+        Node result = this.lookup(id, (Parent) n);
+        if (result != null) {
+          return result;
+        }
+      }
+      if (n instanceof ScrollPane) {
+        Node result = this.lookup(id, (Parent) ((ScrollPane) n).getContent());
+        if (result != null) {
+          return result;
+        }
+      }
+    }
+    return null;
+  }
+
+  public Set<Node> lookupAll(String id) {
+    return lookupAll(id, this.getStage().getScene().getRoot(), new HashSet<Node>());
+  }
+
+  private Set<Node> lookupAll(String id, Parent parent, Set<Node> nodes) {
+    for (Node n : parent.getChildrenUnmodifiable()) {
+      if (n.getId() != null && n.getId().matches(id)) {
+        nodes.add(n);
+        continue;
+      }
+      if (n instanceof Parent) {
+        Set<Node> result = this.lookupAll(id, (Parent) n, nodes);
+        if (result != null) {
+          nodes.addAll(result);
+          continue;
+        }
+      }
+      if (n instanceof ScrollPane) {
+        Set<Node> result = this.lookupAll(id, (Parent) ((ScrollPane) n).getContent(), nodes);
+        if (result != null) {
+          nodes.addAll(result);
+        }
+      }
+    }
+    return null;
   }
 }

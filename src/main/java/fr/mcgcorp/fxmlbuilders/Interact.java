@@ -4,29 +4,32 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import java.util.function.Supplier;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD })
+@Target(ElementType.METHOD)
 public @interface Interact {
-
   String[] id() default {};
-  String action() default "click";
-  ItemType type() default ItemType.BUTTON;
+  InteractType type() default InteractType.ON_ACTION;
+  String[] scrollPane() default "";
 
-  public enum ItemType {
-    BUTTON(Button.class),
-    MENU_ITEM(MenuItem.class);
+  enum InteractType {
+    ON_ACTION("setOnAction"),
+    ON_MOUSE_CLICKED("setOnMouseClicked"),
+    ON_MOUSE_ENTERED("setOnMouseEntered"),
+    ON_MOUSE_EXITED("setOnMouseExited"),
+    ON_MOUSE_PRESSED("setOnMousePressed"),
+    ON_MOUSE_RELEASED("setOnMouseReleased"),
+    ON_MOUSE_DRAGGED("setOnMouseDragged");
 
-    final Class<?> associated;
+    private final String methodName;
 
-    ItemType(final Class<?> associated) {
-      this.associated = associated;
+    InteractType(String methodName) {
+      this.methodName = methodName;
     }
 
-    public Class<?> getAssociatedType() {
-      return this.associated;
+    public String getMethodName() {
+      return methodName;
     }
   }
 }
