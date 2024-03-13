@@ -1,9 +1,11 @@
-package fr.mcgcorp.managers;
+package fr.mcgcorp.fxml.managers;
 
-import fr.mcgcorp.controllers.CampaignController;
-import fr.mcgcorp.controllers.MenuController;
-import fr.mcgcorp.controllers.ModSelectorController;
-import fr.mcgcorp.controllers.SettingsController;
+import fr.mcgcorp.fxml.controllers.CampaignController;
+import fr.mcgcorp.fxml.controllers.Controller;
+import fr.mcgcorp.fxml.controllers.GameController;
+import fr.mcgcorp.fxml.controllers.MenuController;
+import fr.mcgcorp.fxml.controllers.ModSelectorController;
+import fr.mcgcorp.fxml.controllers.SettingsController;
 
 /**
  * Classe singleton qui gère les différents contrôleurs de l'application.
@@ -27,19 +29,13 @@ public class ControllerManager {
     return instance;
   }
 
+  private Controller currentController;
   private boolean fullScreen;
-
-  /**
-   * Contrôleur du menu principal.
-   */
   private final MenuController menuController;
-
-  /**
-   * Contrôleur du sélecteur du mode de jeu.
-   */
   private final ModSelectorController modSelectorController;
   private final SettingsController settingsController;
   private final CampaignController campaignController;
+  private final GameController gameController = new GameController();
 
   /**
    * Constructeur de la classe ControllerManager.
@@ -79,12 +75,23 @@ public class ControllerManager {
     return campaignController;
   }
 
-  public boolean getFullScreen() {
+  public GameController getGameController() {
+    return gameController;
+  }
+
+  public Controller getCurrentController() {
+    return currentController;
+  }
+
+  public void setCurrentController(Controller currentController) {
+    this.currentController = currentController;
+  }
+
+  public boolean isFullScreen() {
     return fullScreen;
   }
 
   public void setFullScreen(boolean b) {
     this.fullScreen = b;
   }
-
 }
