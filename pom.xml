@@ -77,6 +77,16 @@
       <artifactId>json</artifactId>
       <version>20240205</version>
     </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.17.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.17.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -131,8 +141,8 @@
           <use>true</use>
           <windowtitle>${project.name}</windowtitle>
           <doctitle>Documentaion ${project.name}</doctitle>
-          <title>${project.name} ${project.version}</title>
-          <testdoctitle>Documentation des tests ${project.name}</testdoctitle>
+          <doctitle>${project.name} ${project.version}</doctitle>
+          <testDoctitle>Documentation des tests ${project.name}</testDoctitle>
 
           <!-- Chemin de génération -->
           <reportOutputDirectory>${project.basedir}/doc</reportOutputDirectory>
@@ -141,7 +151,7 @@
 
           <!-- paramètre génération -->
           <serialwarn>true</serialwarn>
-          <failsOnError>true</failsOnError>
+          <failOnError>true</failOnError>
           <failOnWarnings>true</failOnWarnings>
         </configuration>
       </plugin>
