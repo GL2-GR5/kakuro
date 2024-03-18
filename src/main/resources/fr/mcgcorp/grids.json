@@ -1,0 +1,14 @@
+{
+  "grids": {
+    "1": {
+      "size": "3:3",
+      "difficulty": "easy",
+      "serialized": "b:b:b:b:w:w:b:w:w"
+    },
+    "2": {
+      "size": "4:4",
+      "difficulty": "medium",
+      "serialized": "b:b:b:b:b:w:w:w:b:w:w:w:b:w:w:w"
+    }
+  }
+}

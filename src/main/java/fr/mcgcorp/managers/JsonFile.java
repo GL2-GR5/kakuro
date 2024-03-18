@@ -2,37 +2,68 @@ package fr.mcgcorp.managers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.FileReader;
+import fr.mcgcorp.Main;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
-import org.json.JSONObject;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class JsonFile {
 
-  public static void main(String[] args) {
-    JsonFile file = new JsonFile("path/to/file.json");
-    System.out.println(file.getInt("key"));
-  }
+  private final JsonNode root;
 
-  private final String path;
-
-  public JsonFile(String path) {
-    this.path = path;
+  public JsonFile(String pathFile) {
+    URL url = Main.class.getResource(pathFile);
     ObjectMapper mapper = new ObjectMapper();
 
-    try {
-      Stream<String> lines = Files.lines(
-          Paths.get(getResource("path/to/file.json").toURI()));
-
+    if (url == null) {
+      throw new RuntimeException("File not found");
     }
 
-    JsonNode node = mapper.readTree(SourceData.asString());
+    String sourceData;
+
+    try {
+      sourceData = Files.lines(Paths.get(url.toURI())).collect(Collectors.joining());
+    } catch (IOException e) {
+      throw new RuntimeException("Error reading file", e);
+    } catch (URISyntaxException e) {
+      throw new RuntimeException("Invalid URL format", e);
+    }
+
+    try {
+      this.root = mapper.readTree(sourceData);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
-  //read the json file and return the value of the key
-  public int getInt(String key) {
-    JSONNode node = new JSONNode(new JSONObject(new FileReader(path)));
+  private List<String> getPath(String path) {
+    if (!path.matches("^[a-zA-Z0-9.]+$")) {
+      throw new RuntimeException("Invalid path (" + path + "). Must be [a-zA-Z0-9.]+ (node1.node2.node3...)");
+    }
+    return Arrays.asList(path.split("\\."));
   }
 
+  private JsonNode getNode(String path) {
+    List<String> paths = getPath(path);
+    JsonNode node = root;
+
+    for (String p : paths) {
+      node = node.get(p);
+    }
+
+    return node;
+  }
+
+  public int getInt(String path) {
+    return getNode(path).asInt();
+  }
+
+  public String getString(String path) {
+    return getNode(path).asText();
+  }
 }
