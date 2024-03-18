@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -25,6 +26,7 @@ public abstract class Controller {
    */
   public Controller() {
     this.load();
+    this.getStage().setResizable(false);
     InteractManager.getInstance().registerAll(this);
   }
 
@@ -38,7 +40,7 @@ public abstract class Controller {
   /**
    * Charge le fichier FXML associé au contrôleur.
    */
-  public void load() {
+  private void load() {
     URL url = Main.class.getResource(this.getPathToFxml());
     if (url == null) {
       throw new RuntimeException("Fichier FXML non trouvé");
@@ -55,21 +57,35 @@ public abstract class Controller {
 
   public void show() {
     getStage().show();
+    if (ControllerManager.getInstance().getCurrentController() != null) {
+      ControllerManager.getInstance().getCurrentController().getStage().close();
+    }
     ControllerManager.getInstance().setCurrentController(this);
   }
 
-  public Stage getStage() {
+  protected Stage getStage() {
     if (this.stage == null) {
       this.stage = new Stage();
     }
     return this.stage;
   }
 
-  public Node lookup(String id) {
+  protected double getWidth() {
+    return ((Pane) this.getStage().getScene().getRoot()).getPrefWidth();
+  }
+
+  protected double getHeight() {
+    return ((Pane) this.getStage().getScene().getRoot()).getPrefHeight();
+  }
+
+  protected Node lookup(String id) {
     return this.lookup(id, this.getStage().getScene().getRoot());
   }
 
   private Node lookup(String id, Parent parent) {
+    if (parent.getId() != null && parent.getId().matches(id)) {
+      return parent;
+    }
     for (Node n : parent.getChildrenUnmodifiable()) {
       if (n.getId() != null && n.getId().matches(id)) {
         return n;
@@ -91,29 +107,25 @@ public abstract class Controller {
   }
 
   public Set<Node> lookupAll(String id) {
-    return lookupAll(id, this.getStage().getScene().getRoot(), new HashSet<Node>());
+    return lookupAll(id, this.getStage().getScene().getRoot());
   }
 
-  private Set<Node> lookupAll(String id, Parent parent, Set<Node> nodes) {
+  private Set<Node> lookupAll(String id, Parent parent) {
+    Set<Node> result = new HashSet<>();
+    if (parent.getId() != null && parent.getId().matches(id)) {
+      result.add(parent);
+    }
     for (Node n : parent.getChildrenUnmodifiable()) {
       if (n.getId() != null && n.getId().matches(id)) {
-        nodes.add(n);
-        continue;
+        result.add(n);
       }
       if (n instanceof Parent) {
-        Set<Node> result = this.lookupAll(id, (Parent) n, nodes);
-        if (result != null) {
-          nodes.addAll(result);
-          continue;
-        }
+        result.addAll(this.lookupAll(id, (Parent) n));
       }
       if (n instanceof ScrollPane) {
-        Set<Node> result = this.lookupAll(id, (Parent) ((ScrollPane) n).getContent(), nodes);
-        if (result != null) {
-          nodes.addAll(result);
-        }
+        result.addAll(this.lookupAll(id, (Parent) ((ScrollPane) n).getContent()));
       }
     }
-    return null;
+    return result;
   }
 }

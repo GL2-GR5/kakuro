@@ -12,12 +12,7 @@
    <children>
       <Label layoutX="201.0" layoutY="26.0" text="Type de saisie" />
       <CheckBox fx:id="checkClavierNumerique" layoutX="179.0" layoutY="70.0" mnemonicParsing="false" text="Clavier numérique" />
-      <MenuButton fx:id="menuScreenButton" layoutX="173.0" layoutY="122.0" mnemonicParsing="false" text="Fenêtré">
-        <items>
-          <MenuItem fx:id="pleinEcranItem" mnemonicParsing="false" text="Plein écran" />
-          <MenuItem fx:id="fenetreItem" mnemonicParsing="false" text="Fenêtré" />
-        </items>
-      </MenuButton>
+      <MenuButton fx:id="menuScreenButton" layoutX="173.0" layoutY="122.0" mnemonicParsing="false"/>
       <Label layoutX="199.0" layoutY="178.0" text="Volume sonore" />
       <Slider fx:id="sliderSon" layoutX="126.0" layoutY="210.0" prefHeight="17.0" prefWidth="226.0" />
       <Button fx:id="leaveButton" layoutX="461.0" layoutY="9.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="10.0" prefWidth="10.0" />

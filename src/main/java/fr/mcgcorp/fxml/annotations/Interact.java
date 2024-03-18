@@ -18,7 +18,13 @@ public @interface Interact {
     ON_MOUSE_EXITED("setOnMouseExited"),
     ON_MOUSE_PRESSED("setOnMousePressed"),
     ON_MOUSE_RELEASED("setOnMouseReleased"),
-    ON_MOUSE_DRAGGED("setOnMouseDragged");
+    ON_MOUSE_DRAGGED("setOnMouseDragged"),
+    ON_KEY_PRESSED("setOnKeyPressed"),
+    ON_KEY_RELEASED("setOnKeyReleased"),
+    ON_KEY_TYPED("setOnKeyTyped"),
+    ON_SCROLL("setOnScroll"),
+    ON_SCROLL_STARTED("setOnScrollStarted"),
+    ON_SCROLL_FINISHED("setOnScrollFinished");
 
     private final String methodName;
 

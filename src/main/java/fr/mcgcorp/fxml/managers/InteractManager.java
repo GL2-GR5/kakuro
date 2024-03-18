@@ -3,12 +3,16 @@ package fr.mcgcorp.fxml.managers;
 import fr.mcgcorp.fxml.annotations.Interact;
 import fr.mcgcorp.fxml.controllers.Controller;
 import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 
 public class InteractManager {
 
@@ -33,51 +37,44 @@ public class InteractManager {
           throw new IllegalArgumentException("No type specified for the interact");
         }
 
-        Class<? extends Node> nodeClass = null;
+        final Set<Node> affectedNodes = new HashSet<>();
 
         for (String id : interact.id()) {
-          if (controller.lookup(id) != null) {
-            nodeClass = controller.lookup(id).getClass();
-            break;
-          }
+          affectedNodes.addAll(controller.lookupAll(id));
         }
 
-        if (nodeClass == null) {
+        if (affectedNodes.isEmpty()) {
           continue;
         }
 
-        int stop = 0;
-        for (String id : interact.id()) {
-          if (controller.lookup(id).getClass() != nodeClass) {
-            stop = 1;
+        final Class<? extends Node> nodeClass = affectedNodes.iterator().next().getClass();
+
+        for (Node n : affectedNodes) {
+          if (n.getClass() != nodeClass) {
+            throw new IllegalArgumentException("The affected nodes are not of the same type for " + n.getId());
           }
         }
-        if (stop == 1) {
-          continue;
+
+        if (method.getReturnType() != void.class) {
+          throw new IllegalArgumentException("The method " + method.getName() + " does not have the correct return type. Expected: void");
         }
 
         if (interact.type() == Interact.InteractType.ON_ACTION) {
           if (!ButtonBase.class.isAssignableFrom(nodeClass)) {
-            continue;
+            throw new IllegalArgumentException("The item type " + nodeClass + " does not support the ON_ACTION type");
           }
           if (method.getParameterCount() != 1 || method.getParameterTypes()[0] != ActionEvent.class) {
-            continue;
+            throw new IllegalArgumentException("The method " + method.getName()
+                + " does not have the correct signature. Expected: method(ActionEvent event)");
           }
 
-          for (String id : interact.id()) {
-            final Node n = controller.lookup(id);
-            if (n == null) {
-              continue;
+          affectedNodes.stream().map(n -> (ButtonBase) n).forEach(n -> n.setOnAction(e -> {
+            try {
+              method.invoke(controller, e);
+            } catch (Exception ex) {
+              throw new RuntimeException("Error while invoking the method " + method.getName(), ex);
             }
-
-            ((ButtonBase) n).setOnAction(e -> {
-              try {
-                method.invoke(controller, e);
-              } catch (Exception ex) {
-                throw new RuntimeException("Error while invoking the method " + method.getName(), ex);
-              }
-            });
-          }
+          }));
         } else {
           Class<? extends InputEvent> eventClass;
 
@@ -90,12 +87,23 @@ public class InteractManager {
             case ON_MOUSE_DRAGGED:
               eventClass = MouseEvent.class;
               break;
+            case ON_KEY_PRESSED:
+            case ON_KEY_RELEASED:
+            case ON_KEY_TYPED:
+              eventClass = KeyEvent.class;
+              break;
+            case ON_SCROLL:
+            case ON_SCROLL_STARTED:
+            case ON_SCROLL_FINISHED:
+              eventClass = ScrollEvent.class;
+              break;
             default:
               throw new IllegalArgumentException("The type " + interact.type() + " is not supported");
           }
 
           if (method.getParameterCount() != 1 || method.getParameterTypes()[0] != eventClass) {
-            continue;
+            throw new IllegalArgumentException("The method " + method.getName()
+                + " does not have the correct signature. Expected: method(" + eventClass.getSimpleName() + " event)");
           }
 
           Method associatedMethod;
@@ -105,12 +113,7 @@ public class InteractManager {
             throw new IllegalArgumentException("The item type " + interact.id()[0].getClass() + " does not support the " + interact.type() + " type");
           }
 
-          for (String id : interact.id()) {
-            final Node n = controller.lookup(id);
-            if (n == null) {
-              continue;
-            }
-
+          affectedNodes.forEach(n -> {
             EventHandler<? super InputEvent> handler = e -> {
               try {
                 method.invoke(controller, e);
@@ -123,7 +126,7 @@ public class InteractManager {
             } catch (Exception e) {
               throw new RuntimeException("Error while invoking the method " + associatedMethod.getName(), e);
             }
-          }
+          });
         }
       }
     }

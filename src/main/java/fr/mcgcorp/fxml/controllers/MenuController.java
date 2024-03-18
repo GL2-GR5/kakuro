@@ -27,14 +27,4 @@ public class MenuController extends Controller {
   public void onQuitButton(ActionEvent event) {
     Platform.exit();
   }
-
-  @Interact(id = "tutoButton", type = InteractType.ON_ACTION)
-  public void onTutoButtonClicked(ActionEvent event) {
-    System.out.println("CLick sur le boutton");
-  }
-
-  @Interact(id = "tuto.*", type = InteractType.ON_MOUSE_EXITED)
-  public void test(MouseEvent event) {
-    System.out.println("Souris est sortie");
-  }
 }

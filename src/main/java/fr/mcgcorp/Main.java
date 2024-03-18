@@ -28,6 +28,6 @@ public class Main extends Application {
    */
   @Override
   public void start(Stage primaryStage) {
-    ControllerManager.getInstance().getMenuController().show();
+    ControllerManager.getInstance().getGameController().show();
   }
 }

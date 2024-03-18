@@ -23,6 +23,10 @@ public abstract class OverController extends Controller {
     return this.stage;
   }
 
+  public final void setBlurParent(boolean blurParent) {
+    this.blurParent = blurParent;
+  }
+
   public final void close() {
     if (this.blurParent) {
       ControllerManager.getInstance().getCurrentController().getStage().getScene().getRoot().setEffect(null);
@@ -33,6 +37,7 @@ public abstract class OverController extends Controller {
   @Override
   public final void show() {
     Stage parent = ControllerManager.getInstance().getCurrentController().getStage();
+    this.getStage().initOwner(parent);
 
     final double stageWidth = ((Pane) this.getStage().getScene().getRoot()).getPrefWidth();
     final double stageHeight = ((Pane) this.getStage().getScene().getRoot()).getPrefHeight();
