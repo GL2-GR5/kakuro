@@ -21,9 +21,8 @@ public class SaveManager {
   private Path getSaveDir() {
     return switch (this.osType) {
       case WINDOWS -> Path.of(System.getenv("APPDATA"), "Kakuro");
-      case LINUX -> Path.of(System.getProperty("user.home"), ".kakuro");
       case MAC -> Path.of(System.getProperty("user.home"), "Library", "Application Support", "Kakuro");
-      default -> Path.of(System.getProperty("user.home"), "Kakuro");
+      default -> Path.of(System.getProperty("user.home"), ".game", "Kakuro");
     };
   }
 
