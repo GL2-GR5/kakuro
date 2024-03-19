@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Classe de test pour WhiteCell.
  * Cette classe contient des méthodes de test pour tester le comportement de la classe WhiteCell.
- * @author Hôa Le Luët
+ * @author Le Luët Hôa
  */
 public class WhiteCellTest extends Tests {
 
@@ -54,7 +54,7 @@ public class WhiteCellTest extends Tests {
         assertEquals(0, whiteCell.getValue());
     }
 
-    /**MoveNotes
+    /**
      * Teste si après l'initialisation de WhiteCell, les notes nulles.
      */
     @Test

@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Elle contient des méthodes de test pour vérifier le bon fonctionnement des méthodes de ces classes.
  * Chaque méthode de test vérifie une fonctionnalité spécifique de la classe correspondante.
  *
- * @author Hôa Le Luët
+ * @author Le Luët Hôa
  */
 public class MoveTest extends Tests {
 

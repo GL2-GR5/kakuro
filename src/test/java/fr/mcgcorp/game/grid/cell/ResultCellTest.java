@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Classe de test pour la classe ResultCell.
  * Cette classe contient des méthodes de test pour vérifier le comportement de la classe ResultCell.
  *
- * @author Hôa Le Luët
+ * @author Le Luët Hôa
  */
 public class ResultCellTest extends Tests {
 
