@@ -20,7 +20,7 @@ public class JsonFileTest extends Tests {
      */
     @BeforeAll
     public static void initAll(){
-        printNameAtStart(JsonFile.class);
+        printNameAtStart(JsonFileTest.class);
     }
 
     /**
@@ -29,7 +29,7 @@ public class JsonFileTest extends Tests {
      */
     @AfterAll
     public static void tearDownAll(){
-        printNameAtEnd(JsonFile.class);
+        printNameAtEnd(JsonFileTest.class);
     }
 
     /**
@@ -58,7 +58,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getString_JohnDoe(){
-      JsonFile jsonFile = loadJsonFile("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json");
       String name = jsonFile.getString("name");
       assertEquals("John Doe",name);
     }
@@ -69,7 +69,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getStringFarAway_Anytown(){
-      JsonFile jsonFile = loadJsonFile("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json");
       String city = jsonFile.getString("address.city");
       assertEquals("Anytown",city);
     }
@@ -80,7 +80,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getInt_30(){
-      JsonFile jsonFile = loadJsonFile("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json");
       int age = jsonFile.getInt("age");
       assertEquals(30,age);
     }
@@ -91,7 +91,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getIntFromDouble_175(){
-      JsonFile jsonFile = loadJsonFile("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json");
       int height = jsonFile.getInt("height");
       assertEquals(175,height);
     }
@@ -102,7 +102,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getNumeric_175_5(){
-      JsonFile jsonFile = loadJsonFile("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json");
       Double height = jsonFile.getNumeric("height",Double.class);
       assertEquals(175.5,height);
     }
@@ -113,7 +113,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void isNull_true(){
-      JsonFile jsonFile = loadJsonFile("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json");
       boolean nuller = jsonFile.isNull("details.car");
       assertTrue(nuller);
     }
@@ -124,7 +124,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void isNotNull_false(){
-      JsonFile jsonFile = loadJsonFile("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json");
       boolean nuller = jsonFile.isNull("details");
       assertFalse(nuller);
     }
@@ -135,7 +135,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getBoolean_false(){
-      JsonFile jsonFile = loadJsonFile("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json");
       boolean married = jsonFile.getBoolean("details.married");
       assertFalse(married);
     }
@@ -146,8 +146,8 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getArray_lst(){
-      JsonFile jsonFile = loadJsonFile("test.json");
-      String lst = jsonFile.getBoolean("grades").toString();
+      JsonFile jsonFile = JsonFile.load("test.json");
+      String lst = jsonFile.getArray("grades",Integer.class).toString();
       assertEquals("[85,90,78,92]",lst);
     }
 
@@ -157,7 +157,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getJson_F2NONE(){
-      JsonFile jsonFile = loadJsonFile("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json");
       String det = jsonFile.getJson("details",Details.class).toString();
       assertEquals(">F2NONE<",det);
     }
