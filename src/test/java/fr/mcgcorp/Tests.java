@@ -8,7 +8,7 @@ import java.lang.invoke.MethodHandles;
 
 /**
  * Classe principale de Tests.
- * @author Hôa Le Luët
+ * @author Le Luët Hôa
  */
 @ExtendWith(VerifTest.class)
 public abstract class Tests {

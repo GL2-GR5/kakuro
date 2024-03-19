@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Cette classe étend la classe Tests et représente un ensemble spécifique de tests pour les erreurs d'entrée.
- * @author Hôa Le Luët
+ * @author Le Luët Hôa
  */
 public class EntryErrorTest extends Tests {
 

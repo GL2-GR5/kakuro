@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.TestWatcher;
 import java.util.Optional;
 
 /**
- * @author Hôa Le Luët
+ * @author Le Luët Hôa
  * Cette classe implémente l'interface TestWatcher qui est utilisée pour définir des méthodes de rappel
  * qui seront appelées lorsqu'un test est réussi, échoué, désactivé ou abandonné.
  */
