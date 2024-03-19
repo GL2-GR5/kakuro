@@ -2,8 +2,11 @@ package fr.mcgcorp.fxml.controllers;
 
 import fr.mcgcorp.fxml.annotations.Interact;
 import fr.mcgcorp.fxml.annotations.Interact.InteractType;
+import fr.mcgcorp.fxml.managers.ControllerManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 
@@ -31,4 +34,5 @@ public class SettingsController extends OverController {
   public void onSoundUpdate(MouseEvent event) {
     System.out.println("Son = " + sliderSon.getValue());
   }
+
 }

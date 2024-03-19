@@ -23,8 +23,14 @@ public class MenuController extends Controller {
     ControllerManager.getInstance().getSettingsController().show();
   }
 
+  @Interact(id = "tutoButton", type = InteractType.ON_ACTION)
+  public void onTutoButton(ActionEvent event) {
+    ControllerManager.getInstance().getTutoController().show();
+  }
+
   @Interact(id = "quitButton", type = InteractType.ON_ACTION)
   public void onQuitButton(ActionEvent event) {
     Platform.exit();
   }
+
 }

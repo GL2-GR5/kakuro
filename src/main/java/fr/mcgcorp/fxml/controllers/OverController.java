@@ -37,7 +37,6 @@ public abstract class OverController extends Controller {
   @Override
   public final void show() {
     Stage parent = ControllerManager.getInstance().getCurrentController().getStage();
-    this.getStage().initOwner(parent);
 
     final double stageWidth = ((Pane) this.getStage().getScene().getRoot()).getPrefWidth();
     final double stageHeight = ((Pane) this.getStage().getScene().getRoot()).getPrefHeight();

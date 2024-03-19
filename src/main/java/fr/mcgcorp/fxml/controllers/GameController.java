@@ -88,6 +88,7 @@ public class GameController extends Controller {
     }
   }
 
+
   @Override
   String getPathToFxml() {
     return "game.fxml";

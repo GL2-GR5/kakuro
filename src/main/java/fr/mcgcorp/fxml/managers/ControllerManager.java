@@ -6,6 +6,7 @@ import fr.mcgcorp.fxml.controllers.GameController;
 import fr.mcgcorp.fxml.controllers.MenuController;
 import fr.mcgcorp.fxml.controllers.ModSelectorController;
 import fr.mcgcorp.fxml.controllers.SettingsController;
+import fr.mcgcorp.fxml.controllers.TutoController;
 
 /**
  * Classe singleton qui gère les différents contrôleurs de l'application.
@@ -21,6 +22,7 @@ public class ControllerManager {
   private final SettingsController settingsController;
   private final CampaignController campaignController;
   private final GameController gameController;
+  private final TutoController tutoController;
 
   public static ControllerManager getInstance() {
     if (instance == null) {
@@ -35,6 +37,7 @@ public class ControllerManager {
     this.settingsController = new SettingsController();
     this.campaignController = new CampaignController();
     this.gameController = new GameController();
+    this.tutoController = new TutoController();
   }
 
   public Controller getCurrentController() {
@@ -63,5 +66,9 @@ public class ControllerManager {
 
   public GameController getGameController() {
     return gameController;
+  }
+
+  public TutoController getTutoController() {
+    return tutoController;
   }
 }
