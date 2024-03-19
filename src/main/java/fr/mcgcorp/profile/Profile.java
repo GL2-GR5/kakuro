@@ -3,30 +3,47 @@ package fr.mcgcorp.profile;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Profil d'un utilisateur.
+ * 
+ * @author HOUGET Julien
+ */
 public class Profile {
-  // Nom du profil
+  /**
+   * Nom du profil.
+   */
   String name;
 
-  // Options du profil
+  /**
+   * Options du profil.
+   */
   private SettingsProfile settings;
 
-  // Statistiques
-  // Progression dans le mode campagne 
+  /** 
+   * Statistiques.
+   * Progression dans le mode campagne 
+   */
   private Integer progressCampaign;
-
-  // Liste des profiles existant
+  
+  /**
+   * Liste des profiles existant.
+   */
   static List<Profile> profiles = new ArrayList<Profile>();
-
-  // Constructeur
+  
+  /**
+   * Constructeur d'un profil.
+   * @param name nom du profil
+   */
   Profile(String name) {
     this.name = name;
     this.settings = new SettingsProfile();
     this.progressCampaign = 0;
     profiles.add(this);
   }
-
+  
   /**
    * Getter.
+   * @return les options du profil
    */
   public SettingsProfile getSettings() {
     return this.settings;
@@ -34,6 +51,7 @@ public class Profile {
 
   /**
    * Getter.
+   * @return la progression du profil dans le mode Campagne
    */
   public Integer getProgressCampaign() {
     return this.progressCampaign;

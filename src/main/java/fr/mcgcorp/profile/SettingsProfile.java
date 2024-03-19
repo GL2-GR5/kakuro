@@ -1,31 +1,47 @@
 package fr.mcgcorp.profile;
 
-// Options propres à chaque profil
+/**
+ * Options propres à chaque profil.
+ * 
+ * @author HOUGET Julien
+ */
 public class SettingsProfile {
-  // Mode papier : aucune détection d’infraction des règles
+  /**
+   * Mode papier : aucune détection d’infraction des règles.
+   */
   private Boolean paperMode;
-
-  /* Différents types de saisie des chiffres dans les cases :
-   * clavier
-   * souris
+  
+  /**
+   * Différents types de saisie des chiffres dans les cases.
+   * Clavier
    */
   private Boolean activateKeyboard;
+
+  /**
+   * Différents types de saisie des chiffres dans les cases.
+   * Souris
+   */
   private Boolean activateMouse;
 
-  // Mode plein écran
+  /**
+   * Mode plein écran.
+   */
   private Boolean fullscreen;
-
-  // Constructeur des options de profil par défaut
+  
+  /** 
+   * Constructeur des options de profil par défaut.
+   */
   SettingsProfile() {
     this.paperMode = false;
     this.activateKeyboard = true;
     this.activateMouse = true;
     this.fullscreen = false;
   }
-
+  
   // Getters des options
   /**
    * Getter.
+   * @return l'option demandée
    */
   public Boolean getPaperMode() {
     return this.paperMode;
@@ -33,6 +49,7 @@ public class SettingsProfile {
 
   /**
    * Getter.
+   * @return l'option demandée
    */
   public Boolean getKeyboardState() {
     return this.activateKeyboard;
@@ -40,6 +57,7 @@ public class SettingsProfile {
 
   /**
    * Getter.
+   * @return l'option demandée
    */
   public Boolean getMouseState() {
     return this.activateMouse;
@@ -47,6 +65,7 @@ public class SettingsProfile {
 
   /**
    * Getter.
+   * @return l'option demandée
    */
   public Boolean getFullscreen() {
     return this.fullscreen;
