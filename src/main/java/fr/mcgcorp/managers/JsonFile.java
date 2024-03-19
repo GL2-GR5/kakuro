@@ -30,12 +30,15 @@ public class JsonFile {
    */
   private JsonFile(String pathFile) {
     URL url = Main.class.getResource(pathFile);
+    if (url == null) {
+      throw new RuntimeException("Impossible de récupérer la ressource demandé.");
+    }
     ObjectMapper mapper = new ObjectMapper();
 
     String sourceData;
 
     try {
-      if (url == null) {
+      if (pathFile == null) {
         sourceData = "{}";
       } else {
         sourceData = Files.lines(Paths.get(url.toURI())).collect(Collectors.joining());
@@ -94,7 +97,7 @@ public class JsonFile {
    */
   private JsonNode getNode(String path) {
     List<String> paths = getPath(path);
-    JsonNode node = root;
+    JsonNode node = this.root;
 
     for (String p : paths) {
       node = node.get(p);
