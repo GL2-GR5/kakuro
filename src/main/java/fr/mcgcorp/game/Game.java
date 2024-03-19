@@ -60,7 +60,7 @@ public final class Game {
 
   /**
    * Le constructeur du jeu de Kakuro.
-   * 
+   * <br>
    * Ce constructeur sert à préparer les variables pour tout type de jeu.
    * Pour initialiser le jeu pour des paramètres spécifiques, il faut
    * passer par la méthode @link Kakuro#initialize.
@@ -216,7 +216,7 @@ public final class Game {
 
   /**
    * Gestion de la sauvegarde de l'état du jeu.
-   *
+   * <br>
    * Cette fonction définit comment le jeu doit-être sauvegardé.
    * Elle devra être invoquer régulièrement (environ tous les 10 coups)
    * afin d'éviter la perte d'une partie du à une coupure de courant.
