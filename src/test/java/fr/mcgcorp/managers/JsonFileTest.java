@@ -38,7 +38,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void loadJsonFile_ShouldNotNull(){
-        JsonFile jsonFile = JsonFile.load("grids.json");
+        JsonFile jsonFile = JsonFile.load("grids.json", true);
         assertNotNull(jsonFile);
     }
 
@@ -58,7 +58,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getString_JohnDoe(){
-      JsonFile jsonFile = JsonFile.load("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json", true);
       String name = jsonFile.getString("name");
       assertEquals("John Doe",name);
     }
@@ -69,7 +69,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getStringFarAway_Anytown(){
-      JsonFile jsonFile = JsonFile.load("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json", true);
       String city = jsonFile.getString("address.city");
       assertEquals("Anytown",city);
     }
@@ -80,7 +80,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getInt_30(){
-      JsonFile jsonFile = JsonFile.load("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json", true);
       int age = jsonFile.getInt("age");
       assertEquals(30,age);
     }
@@ -91,7 +91,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getIntFromDouble_175(){
-      JsonFile jsonFile = JsonFile.load("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json", true);
       int height = jsonFile.getInt("height");
       assertEquals(175,height);
     }
@@ -102,7 +102,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getNumeric_175_5(){
-      JsonFile jsonFile = JsonFile.load("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json", true);
       Double height = jsonFile.getNumeric("height",Double.class);
       assertEquals(175.5,height);
     }
@@ -113,7 +113,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void isNull_true(){
-      JsonFile jsonFile = JsonFile.load("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json", true);
       boolean nuller = jsonFile.isNull("details.car");
       assertTrue(nuller);
     }
@@ -124,7 +124,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void isNotNull_false(){
-      JsonFile jsonFile = JsonFile.load("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json", true);
       boolean nuller = jsonFile.isNull("details");
       assertFalse(nuller);
     }
@@ -135,7 +135,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getBoolean_false(){
-      JsonFile jsonFile = JsonFile.load("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json", true);
       boolean married = jsonFile.getBoolean("details.married");
       assertFalse(married);
     }
@@ -146,7 +146,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getArray_lst(){
-      JsonFile jsonFile = JsonFile.load("test.json");
+      JsonFile jsonFile = JsonFile.load("test.json", true);
       String lst = jsonFile.getArray("grades",Integer.class).toString();
       assertEquals("[85,90,78,92]",lst);
     }
@@ -157,21 +157,23 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getJson_F2NONE(){
-      JsonFile jsonFile = JsonFile.load("test.json");
-      String det = jsonFile.getJson("details",Details.class).toString();
-      assertEquals(">F2NONE<",det);
+      JsonFile jsonFile = JsonFile.load("test.json", true);
+      Details det = new Details();
+      jsonFile.getJson("details",det);
+      assertEquals(">F2NONE<",det.toString());
     }
-    private class Details {
+
+    private static class Details {
       private boolean married;
       private int children;
       private String none;
 
       public String toString() {
-        return ">"+
-          ((this.married)?('T'):('F'))+
-          this.children+
-          ((this.none == null)?("NONE"):(this.none))+
-          '<';
+        return ">"
+          + ((this.married) ? ('T') : ('F'))
+          + this.children
+          + ((this.none == null) ? ("NONE") : (this.none))
+          + '<';
       }
     }
 }

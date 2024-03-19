@@ -2,6 +2,7 @@ package fr.mcgcorp.managers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.POJONode;
 import fr.mcgcorp.Main;
 import java.io.IOException;
@@ -9,7 +10,9 @@ import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,28 +24,46 @@ public class JsonFile {
   /** L'objet JSON à gérer. */
   private final JsonNode root;
   /** Le fichier de sauvegarde du JSON à gérer. */
-  private String file;
+  private final Path file;
+  /** Peut-on modifié le fichier ?. */
+  private boolean saveAuthorized = true;
 
   /**
    * Constructeur de la classe JsonFile.
    *
    * @param pathFile Chemin du fichier JSON (Si aucun fichier n'est donné, un JSON vide ({}) sera créer).
+   * @param withLoad Faut-il chargé le contenu du fichier demandé ?
+   * @param inRessource Faut-il cherché le fichier dans les ressources du jar ?
    */
-  private JsonFile(String pathFile) {
-    URL url = Main.class.getResource(pathFile);
-    if (url == null) {
-      throw new RuntimeException("Impossible de récupérer la ressource demandé.");
+  private JsonFile(String pathFile, boolean withLoad, boolean inRessource) {
+    if (pathFile == null) {
+      throw new RuntimeException("Aucun fichier n'à était renseigné.");
     }
-    ObjectMapper mapper = new ObjectMapper();
 
+    ObjectMapper mapper = new ObjectMapper();
     String sourceData;
 
     try {
-      if (pathFile == null) {
-        sourceData = "{}";
+      // Obtenir le chemin vers le fichier demandé
+      if (inRessource) {
+        URL url = Main.class.getResource(pathFile);
+        if (url == null) {
+          throw new RuntimeException("Impossible de récupérer la ressource demandé.");
+        }
+        this.saveAuthorized = false;
+        this.file = Paths.get(url.toURI());
       } else {
-        sourceData = Files.lines(Paths.get(url.toURI())).collect(Collectors.joining());
-        this.file = pathFile;
+        this.file = Paths.get(pathFile);
+      }
+      // Vérifier que le chemin est était obtenu
+      if (this.file == null) {
+        throw new RuntimeException("Impossible d'accéder au fichier demandé.");
+      }
+      // Obtenir le JSON
+      if (withLoad) {
+        sourceData = Files.lines(this.file).collect(Collectors.joining());
+      } else {
+        sourceData = "{}";
       }
     } catch (IOException e) {
       throw new RuntimeException("Error reading file", e);
@@ -61,23 +82,21 @@ public class JsonFile {
    * Charge le contenu d'un fichier JSON.
    *
    * @param pathFile Chemin du fichier JSON.
+   * @param inRessource Faut-il cherché le fichier dans les ressources du jar ?
+   * @return L'objet JsonFile créer, avec le JSON demandé chargé à l'intérieur.
    */
-  public static JsonFile load(String pathFile) {
-    if (pathFile == null) {
-      throw new RuntimeException("Aucun fichier n'à était renseigné.");
-    }
-    return new JsonFile(pathFile);
+  public static JsonFile load(String pathFile, boolean inRessource) {
+    return new JsonFile(pathFile, true, inRessource);
   }
 
   /**
    * Crée un nouveau fichier JSON.
    *
    * @param pathFile Chemin du fichier JSON.
+   * @return L'objet JsonFile créer, avec le JSON demandé chargé à l'intérieur.
    */
   public static JsonFile create(String pathFile) {
-    JsonFile o = new JsonFile(null);
-    o.file = pathFile;
-    return o;
+    return new JsonFile(pathFile, false, false);
   }
 
   /**
@@ -116,11 +135,15 @@ public class JsonFile {
   public <T> List<T> getArray(String path, Class<? extends T> clazz) {
     JsonNode node = getNode(path);
     ObjectMapper mapper = new ObjectMapper();
+    List lst = new ArrayList();
     try {
-      return Arrays.asList(mapper.treeToValue(node, clazz));
+      for (JsonNode element : node) {
+        lst.add(mapper.treeToValue(element, clazz));
+      }
     } catch (IOException e) {
       throw new RuntimeException("Error converting JSON to array", e);
     }
+    return lst;
   }
 
   /**
@@ -193,40 +216,28 @@ public class JsonFile {
    * Récupère un objet JSON à partir d'un chemin donné et le mappe vers une classe.
    *
    * @param path  Chemin de l'objet JSON.
-   * @param clazz Classe de l'objet Java.
-   * @return L'objet Java rempli avec les données de l'objet JSON.
+   * @param instance Une instance qui sera modifié afin de récupérer le contenu du JSON.
    */
-  public <T> T getJson(String path, Class<T> clazz) {
+  public <T> void getJson(String path, T instance) {
     JsonNode node = getNode(path);
-    if (!(node instanceof POJONode)) {
+    if (node.getNodeType() != JsonNodeType.OBJECT) {
       throw new RuntimeException("Node at path " + path + " is not a POJONode");
     }
 
     ObjectMapper mapper = new ObjectMapper();
-    T instance;
 
-    try {
-      instance = clazz.newInstance();
-    } catch (InstantiationException | IllegalAccessException e) {
-      throw new RuntimeException("Error creating instance of class", e);
-    }
-
-    POJONode pojoNode = (POJONode) node;
-
-    Field[] fields = clazz.getDeclaredFields();
+    Field[] fields = instance.getClass().getDeclaredFields();
     for (Field field : fields) {
-      if (pojoNode.has(field.getName())) {
+      if (node.has(field.getName())) {
         try {
           field.setAccessible(true);
-          Object value = mapper.treeToValue(pojoNode.get(field.getName()), field.getType());
+          Object value = mapper.treeToValue(node.get(field.getName()), field.getType());
           field.set(instance, value);
         } catch (Exception e) {
           throw new RuntimeException("Error setting field value", e);
         }
       }
     }
-
-    return instance;
   }
 
   /**
