@@ -20,7 +20,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="385.0" layoutY="400.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="195.0" text="Jouer" />
-      <Button layoutX="385.0" layoutY="324.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="195.0" text="Paramètre par défaut" />
+      <Button fx:id="playButton" layoutX="385.0" layoutY="400.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="195.0" text="Jouer" />
+      <Button fx:id="defaultSettingButton" layoutX="385.0" layoutY="324.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="195.0" text="Paramètre par défaut" />
    </children>
 </Pane>

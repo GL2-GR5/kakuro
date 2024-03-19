@@ -27,4 +27,10 @@ public class MenuController extends Controller {
   public void onQuitButton(ActionEvent event) {
     Platform.exit();
   }
+
+  @Interact(id = "playButton", type = InteractType.ON_ACTION)
+  public void onPlayButton(ActionEvent event) {
+    ControllerManager.getInstance().getModSelectorController().show();
+  }
+
 }

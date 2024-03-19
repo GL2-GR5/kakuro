@@ -93,6 +93,8 @@ public class GameController extends Controller {
     return "game.fxml";
   }
 
+
+
   @Interact(id = "settingsButton", type = InteractType.ON_ACTION)
   public void onSettingsButtonClicked(ActionEvent event) {
     ControllerManager.getInstance().getSettingsController().show();
