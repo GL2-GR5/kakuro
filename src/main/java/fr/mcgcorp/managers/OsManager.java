@@ -1,8 +1,6 @@
 package fr.mcgcorp.managers;
 
 /**
- * OsManager.java
- *
  * This class is used to get the current OS type.
  *
  * @version 1.0
