@@ -1,7 +1,9 @@
 package fr.mcgcorp.profile;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Profil d'un utilisateur.
@@ -9,6 +11,7 @@ import java.util.List;
  * @author HOUGET Julien
  */
 public class Profile {
+
   /**
    * Nom du profil.
    */
@@ -17,7 +20,7 @@ public class Profile {
   /**
    * Options du profil.
    */
-  private SettingsProfile settings;
+  private final SettingsProfile settings;
 
   /** 
    * Statistiques.
@@ -26,23 +29,28 @@ public class Profile {
   private Integer progressCampaign;
   
   /**
-   * Liste des profiles existant.
-   */
-  static List<Profile> profiles = new ArrayList<Profile>();
-  
-  /**
    * Constructeur d'un profil.
+   *
    * @param name nom du profil
    */
-  Profile(String name) {
+  public Profile(String name) {
     this.name = name;
     this.settings = new SettingsProfile();
     this.progressCampaign = 0;
-    profiles.add(this);
+  }
+
+  /**
+   * Getter.
+   *
+   * @return le nom du profil
+   */
+  public String getName() {
+    return this.name;
   }
   
   /**
    * Getter.
+   *
    * @return les options du profil
    */
   public SettingsProfile getSettings() {
@@ -51,6 +59,7 @@ public class Profile {
 
   /**
    * Getter.
+   *
    * @return la progression du profil dans le mode Campagne
    */
   public Integer getProgressCampaign() {
@@ -59,6 +68,7 @@ public class Profile {
 
   /**
    * Setter.
+   *
    * @param progressCampaign progression dans la campagne
    */
   public void setKeyboardState(Integer progressCampaign) {

@@ -31,14 +31,13 @@ public class SettingsProfile {
   /** 
    * Constructeur des options de profil par défaut.
    */
-  SettingsProfile() {
+  protected SettingsProfile() {
     this.paperMode = false;
     this.activateKeyboard = true;
     this.activateMouse = true;
     this.fullscreen = false;
   }
-  
-  // Getters des options
+
   /**
    * Getter.
    * @return l'option demandée
@@ -103,5 +102,4 @@ public class SettingsProfile {
   public void setFullscreen(Boolean fullscreen) {
     this.fullscreen = fullscreen;
   }
-
 }
