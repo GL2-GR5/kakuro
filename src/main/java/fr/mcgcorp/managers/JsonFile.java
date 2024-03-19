@@ -20,13 +20,15 @@ import java.util.stream.Collectors;
 public class JsonFile {
   /** L'objet JSON à gérer. */
   private final JsonNode root;
+  /** Le fichier de sauvegarde du JSON à gérer. */
+  private String file;
 
   /**
    * Constructeur de la classe JsonFile.
    *
    * @param pathFile Chemin du fichier JSON (Si aucun fichier n'est donné, un JSON vide ({}) sera créer).
    */
-  public JsonFile(String pathFile) {
+  private JsonFile(String pathFile) {
     URL url = Main.class.getResource(pathFile);
     ObjectMapper mapper = new ObjectMapper();
 
@@ -37,6 +39,7 @@ public class JsonFile {
         sourceData = "{}";
       } else {
         sourceData = Files.lines(Paths.get(url.toURI())).collect(Collectors.joining());
+        this.file = pathFile;
       }
     } catch (IOException e) {
       throw new RuntimeException("Error reading file", e);
@@ -49,6 +52,29 @@ public class JsonFile {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  /**
+   * Charge le contenu d'un fichier JSON.
+   *
+   * @param pathFile Chemin du fichier JSON.
+   */
+  public static JsonFile load(String pathFile) {
+    if (pathFile == null) {
+      throw new RuntimeException("Aucun fichier n'à était renseigné.");
+    }
+    return new JsonFile(pathFile);
+  }
+
+  /**
+   * Crée un nouveau fichier JSON.
+   *
+   * @param pathFile Chemin du fichier JSON.
+   */
+  public static JsonFile create(String pathFile) {
+    JsonFile o = new JsonFile(null);
+    o.file = pathFile;
+    return o;
   }
 
   /**
