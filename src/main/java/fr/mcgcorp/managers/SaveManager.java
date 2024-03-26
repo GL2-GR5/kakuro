@@ -5,21 +5,17 @@ import java.nio.file.Path;
 
 public class SaveManager {
 
-  public static void main(String[] args) {
-    SaveManager saveManager = SaveManager.getInstance();
-  }
-
   private static final SaveManager instance = new SaveManager();
   private final OsType osType = OsManager.getInstance().getOsType();
-  private final Path saveDir;
+  private Path saveDir;
   private SaveManager() {
-    this.saveDir = getSaveDir();
+    setSaveDir();
     initSaveDir();
     initFiles();
   }
 
-  private Path getSaveDir() {
-    return switch (this.osType) {
+  private void setSaveDir() {
+    this.saveDir =  switch (this.osType) {
       case WINDOWS -> Path.of(System.getenv("APPDATA"), "Kakuro");
       case MAC -> Path.of(System.getProperty("user.home"), "Library", "Application Support", "Kakuro");
       default -> Path.of(System.getProperty("user.home"), ".game", "Kakuro");
@@ -51,5 +47,9 @@ public class SaveManager {
 
   public static SaveManager getInstance() {
     return instance;
+  }
+
+  public Path getSaveDir() {
+    return this.saveDir;
   }
 }
