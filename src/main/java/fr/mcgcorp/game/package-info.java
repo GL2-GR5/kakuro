@@ -1,5 +1,5 @@
 /**
- * Package général du jeu.
+ * Package de gestion du jeu.
  * <br>
  * Il contient toute la logique de gestion de la partie
  * <br>
