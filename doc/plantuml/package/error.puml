@@ -1,0 +1,35 @@
+@startuml error
+
+title "Diagramme de classes des erreurs du jeu"
+
+!$method=1
+!$enum=1
+!includesub ../legend.puml!legend
+
+!startsub error
+package "error" #lightgrey {
+	enum "TypeEntryError" AS TError {
+		NOERR,
+		DOUBLE,
+		OVER_RESULT_LINE,
+		OVER_RESULT_COLUMN,
+		VALUE
+		{method} + toString(void) : String
+	}
+	class "EntryError" AS Error {
+		{field} + coord : Coord
+		{field} + error : TypeEntryError
+		{method} {static} + EntryError(void) : EntryError
+		{method} {static} + EntryError(Coord) : EntryError
+		{method} {static} + EntryError(TypeEntryError) : EntryError
+		{method} {static} + EntryError(Coord,TypeEntryError) : EntryError
+		{method} + getCoord(void) : Coord
+		{method} + setCoord(Coord) : void
+		{method} + getError(void) : TypeError
+		{method} + setError(TypeError) : void
+	}
+}
+!endsub
+
+center footer "Les erreurs que le joueur a fait (ex: mauvaise valeur)"
+@enduml
