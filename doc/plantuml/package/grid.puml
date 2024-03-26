@@ -38,12 +38,12 @@ package "Grid" #lightgrey {
 		==
 		.. Constructeur ..
 		{method} + new Grid(/*lstParam*/) : Grid
-		.. obtenir une cellule ..
+		.. Obtenir une cellule ..
 		{method} + getCell(Coord) : Cell
 		{method} + getCell(GridIterator,Predicate<T>) : Cell
 		{method} + getCoord(GridIterator,Predicate<T>) : Coord
 		{method} + getLastCoord(void) : Coord
-		.. parcourir la grille ..
+		.. Parcourir la grille ..
 		{method} + @iterator(void) : GridIterator
 		{method} + iterator(C,C,B,F<C,B>) : GridIterator
 		{method} + getAreas(Coord) : GridIterator[2]
@@ -64,7 +64,7 @@ package "Grid" #lightgrey {
 		et le parcours est dans le sens par défaut."
 	end note
 	note left of Grid::serialize
-		'Renvoit la liste des cellules, séparées par des '|'.
+		'Renvoie la liste des cellules, séparées par des '|'.
 		Les lignes sont séparées par des '\n'.
 		> Exemple : "|B|B|W(5)|\\n|R(7,n)|W(n)|R(4,1)"
 		> Devient : "||5|\\n7,n|3|4,1|\\n"'
