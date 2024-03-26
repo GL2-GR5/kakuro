@@ -11,9 +11,15 @@
       "size": "4:4",
       "difficulty": "medium",
       "serialized": "b:b:b:b:b:w:w:w:b:w:w:w:b:w:w:w"
+    },
+    {
+      "id": 3,
+      "size": "8:8",
+      "difficulty": "medium",
+      "serialized": "b:b:b:r4/:r/:b:b:r6/:r9/:b:r3/:r14/3:w:w:r8/:r/4:w:w:"
     }
   ],
 
-  "NbGrids" : 2
+  "NbGrids" : 3
 
 }
