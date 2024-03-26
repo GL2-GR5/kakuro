@@ -14,12 +14,18 @@
     },
     {
       "id": 3,
+      "size": "5:5",
+      "difficulty": "easy",
+      "serialized": "b:r/3:r/29:r/20:b:r10/:w:w:w:b:r9/:w:w:w:r/3:b:r17/:w:w:w:b:r19/:w:w:w"
+    },
+    {
+      "id": 4,
       "size": "8:8",
       "difficulty": "medium",
-      "serialized": "b:b:b:r4/:r/:b:b:r6/:r9/:b:r3/:r14/3:w:w:r8/:r/4:w:w:"
+      "serialized": ""
     }
   ],
 
-  "NbGrids" : 3
+  "NbGrids" : 4
 
 }
