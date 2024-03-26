@@ -2,7 +2,7 @@ package fr.mcgcorp.managers;
 
 public class GridManager {
   private static final GridManager instance = new GridManager();
-  private final JsonFile file = JsonFile.load("grids.json", true);
+  private final JsonFile file = JsonFile.loadRessource("grids.json");
 
   public static GridManager getInstance() {
     return instance;

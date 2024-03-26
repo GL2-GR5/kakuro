@@ -10,7 +10,6 @@ package fr.mcgcorp.managers;
  * @see OsType
  */
 public class OsManager {
-
   /**
    * The instance of the OsManager.
    */
@@ -51,7 +50,6 @@ public class OsManager {
    * The OS type enum.
    */
   public enum OsType {
-
     /**
      * Windows OS.
      */

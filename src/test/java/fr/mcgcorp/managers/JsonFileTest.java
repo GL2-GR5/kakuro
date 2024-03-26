@@ -37,17 +37,32 @@ public class JsonFileTest extends Tests {
      * Attendu => non null.
      */
     @Test
-    public void loadJsonFile_ShouldNotNull(){
-        JsonFile jsonFile = JsonFile.load("grids.json", true);
-        assertNotNull(jsonFile);
+    public void loadRessource_contentJson(){
+        JsonFile jsonFile = JsonFile.loadRessource("anotherTest.json");
+        assertEquals("File : /fr/mcgcorp/anotherTest.json\n{\"message\":\"Mon test\",\"id\":42}",jsonFile.toString());
     }
+
+    /**
+     * Test pour vérifier le chargement d'un fichier JSON.
+     * Attendu => non null.
+     */
+    @Test
+    public void load_ShouldNotNull(){
+      JsonFile jsonFile = null;
+      try {
+        jsonFile = JsonFile.load("anotherTest.json");
+      } catch (Exception e) {
+      }
+      assertEquals("File : /fr/mcgcorp/anotherTest.json\n{\"message\":\"Mon test\",\"id\":42}",jsonFile.toString());
+    }
+
 
     /**
      * Test pour vérifier la création d'un nouveau JSON.
      * Attendu => non null.
      */
     @Test
-    public void createJsonFile_ShouldNotNull(){
+    public void create_ShouldNotNull(){
         JsonFile jsonFile = JsonFile.create("noFile");
         assertNotNull(jsonFile);
     }
@@ -58,7 +73,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getString_JohnDoe(){
-      JsonFile jsonFile = JsonFile.load("test.json", true);
+      JsonFile jsonFile = JsonFile.loadRessource("test.json");
       String name = jsonFile.getString("name");
       assertEquals("John Doe",name);
     }
@@ -69,7 +84,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getStringFarAway_Anytown(){
-      JsonFile jsonFile = JsonFile.load("test.json", true);
+      JsonFile jsonFile = JsonFile.loadRessource("test.json");
       String city = jsonFile.getString("address.city");
       assertEquals("Anytown",city);
     }
@@ -80,7 +95,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getInt_30(){
-      JsonFile jsonFile = JsonFile.load("test.json", true);
+      JsonFile jsonFile = JsonFile.loadRessource("test.json");
       int age = jsonFile.getInt("age");
       assertEquals(30,age);
     }
@@ -91,7 +106,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getIntFromDouble_175(){
-      JsonFile jsonFile = JsonFile.load("test.json", true);
+      JsonFile jsonFile = JsonFile.loadRessource("test.json");
       int height = jsonFile.getInt("height");
       assertEquals(175,height);
     }
@@ -102,8 +117,8 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getNumeric_175_5(){
-      JsonFile jsonFile = JsonFile.load("test.json", true);
-      Double height = jsonFile.getNumeric("height",Double.class);
+      JsonFile jsonFile = JsonFile.loadRessource("test.json");
+      Double height = jsonFile.getValue("height",Double.class);
       assertEquals(175.5,height);
     }
 
@@ -113,7 +128,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void isNull_true(){
-      JsonFile jsonFile = JsonFile.load("test.json", true);
+      JsonFile jsonFile = JsonFile.loadRessource("test.json");
       boolean nuller = jsonFile.isNull("details.car");
       assertTrue(nuller);
     }
@@ -124,7 +139,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void isNotNull_false(){
-      JsonFile jsonFile = JsonFile.load("test.json", true);
+      JsonFile jsonFile = JsonFile.loadRessource("test.json");
       boolean nuller = jsonFile.isNull("details");
       assertFalse(nuller);
     }
@@ -135,7 +150,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getBoolean_false(){
-      JsonFile jsonFile = JsonFile.load("test.json", true);
+      JsonFile jsonFile = JsonFile.loadRessource("test.json");
       boolean married = jsonFile.getBoolean("details.married");
       assertFalse(married);
     }
@@ -146,7 +161,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getArray_lst(){
-      JsonFile jsonFile = JsonFile.load("test.json", true);
+      JsonFile jsonFile = JsonFile.loadRessource("test.json");
       String lst = jsonFile.getArray("grades",Integer.class).toString();
       assertEquals("[85,90,78,92]",lst);
     }
@@ -157,7 +172,7 @@ public class JsonFileTest extends Tests {
      */
     @Test
     public void getJson_F2NONE(){
-      JsonFile jsonFile = JsonFile.load("test.json", true);
+      JsonFile jsonFile = JsonFile.loadRessource("test.json");
       Details det = new Details();
       jsonFile.getJson("details",det);
       assertEquals(">F2NONE<",det.toString());
