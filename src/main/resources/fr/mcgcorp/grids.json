@@ -20,9 +20,9 @@
     },
     {
       "id": 4,
-      "size": "8:8",
+      "size": "9:9",
       "difficulty": "medium",
-      "serialized": ""
+      "serialized": "b:b:r/15:r/3:b:b:r/30:r/16:r/8:b:r3/:w:w:r/16:r17/:w:w:w:b:r14/3:w:w:w:r24/17:w:w:w:r4/:w:w:r23/:w:w:w:r/29:b:r3/:w:w:r/11:r24/4:w:w:w:r/17:b:r8/:w:w:w:r/4:r17/:w:w:b:r/4:r6/3:w:w:w:r16/4:w:w:r6/:w:w:w:r6/:w:w:w:b:r9/:w:w:w:b:r4/:w:w:b"
     }
   ],
 
