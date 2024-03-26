@@ -12,6 +12,8 @@
       "difficulty": "medium",
       "serialized": "b:b:b:b:b:w:w:w:b:w:w:w:b:w:w:w"
     }
-  ]
+  ],
+
+  "NbGrids" : 2
 
 }
