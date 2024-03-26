@@ -31,5 +31,5 @@ package "error" #lightgrey {
 }
 !endsub
 
-center footer "Les erreurs que le joueur à fait (ex: mauvaise valeur)"
+center footer "Les erreurs que le joueur a fait (ex: mauvaise valeur)"
 @enduml

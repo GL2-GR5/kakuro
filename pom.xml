@@ -144,7 +144,7 @@
           <destDir>javadoc</destDir>
           <docfilessubdirs>true</docfilessubdirs>
 
-          <!-- Paramètre génération -->
+          <!-- Paramètre de génération -->
           <serialwarn>true</serialwarn>
           <failOnError>true</failOnError>
           <failOnWarnings>true</failOnWarnings>

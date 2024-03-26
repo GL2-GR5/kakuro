@@ -76,7 +76,7 @@ public class WhiteCell implements Cell {
    * Saisit la valeur entrée par le joueur.
    *
    * @param value La valeur donnée par le joueur.
-   * @return Le movement qui à était réaliser sur la cellule.
+   * @return Le movement qui a été réalisé sur la cellule.
    */
   public Move setValue(int value) {
     if (((Game.getMinValue() <= value) && (value <= Game.getMaxValue())) || (value == Game.getNullValue())) {
@@ -93,7 +93,7 @@ public class WhiteCell implements Cell {
    * Redéfinit le set de notes du joueur.
    *
    * @param notes Le nouveau set de notes.
-   * @return Le movement qui à était réaliser sur la cellule.
+   * @return Le movement qui a été réalisé sur la cellule.
    */
   public Move setNotes(Set<Integer> notes) {
     // Vérifier si il va y avoir une modification.
@@ -131,7 +131,7 @@ public class WhiteCell implements Cell {
   /**
    * Envoi le set de notes du joueur.
    *
-   * @return La liste des notes sélectionnée.
+   * @return La liste des notes sélectionnées.
    */
   public Set<Integer> getNotes() {
     return (new HashSet<Integer>(this.notes));

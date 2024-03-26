@@ -19,10 +19,10 @@ class "Coord" AS Coord {
 	.. Accesseurs matriciel ..
 	{method} + getLine(void) : int
 	{method} + getColumn(void) : int
-	.. Accesseur linaire ..
+	.. Accesseur linéaire ..
 	{method} + getIndice(void) : int
 	{method} - setIndice(int) : void
-	.. Modifieur ..
+	.. Modificateurs ..
 	{method} + nextCell(void) : boolean // EndOfLine?
 	{method} + previousCell(void) : boolean // StartOfLine?
 	{method} + nextLine(void) : boolean // EndOfCol?
@@ -32,7 +32,7 @@ class "Coord" AS Coord {
 	{method} + newLine(void) : boolean //true
 	{method} + oldLine(void) : boolean //true
 	{method} + moveCoord(Supplier<Boolean>,nbRep) : int
-	.. Comparaison ..
+	.. Comparaisons ..
 	{method} + equals(Object o) : boolean
 	{method} + compareTo(Coord c) : int
 	.. Autres ..
@@ -42,7 +42,7 @@ class "Coord" AS Coord {
 }
 note left of Coord::getId
 	id : "Coordonnée d'une case,
-	pour le controleur de l'interface graphique. "
+	pour le contrôleur de l'interface graphique. "
 end note
 note left of Coord::getLine
 	line & column : "Coordonnée d'une case,

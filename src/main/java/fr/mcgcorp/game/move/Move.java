@@ -5,12 +5,12 @@ import fr.mcgcorp.game.Coord;
 
 /**
  * Représentation d'un mouvement fait par l'utilisateur.
- * Cette classe et ses descendant permettront de stocker les mouvements de l'utilisateur, et donc de les annuler ou les refaire.
+ * Cette classe et ses descendantes permettront de stocker les mouvements de l'utilisateur, et donc de les annuler ou les refaire.
  *
  * @author PECHON Erwan
  */
 public abstract class Move {
-  /** Coordonnée de la case où le mouvement à eu lieu. */
+  /** Coordonnée de la case où le mouvement a eu lieu. */
   protected Coord coord;
 
   /** Constructeur de base du mouvement. */
@@ -31,7 +31,7 @@ public abstract class Move {
    * Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
    * Permet au jeu de connaître la case associé à ce mouvement.
    *
-   * @return cette objet Coord.
+   * @return cet objet Coord.
    */
   public Coord getCoord() {
     return this.coord;
@@ -39,10 +39,10 @@ public abstract class Move {
 
   /**
    * Accesseur sur les coordonnée de la case où le mouvement à eu lieu.
-   * Permet au jeu de définir la case associé à ce mouvement.
+   * Permet au jeu de définir la case associée à ce mouvement.
    * Cette méthode ne peut être appelé qu'une seul fois, toute appel supplémentaire sera simplement ignoré.
    *
-   * @param coord la nouvelle coordonnée de la case associé à ce mouvement.
+   * @param coord la nouvelle coordonnée de la case associée à ce mouvement.
    */
   public void setCoord(Coord coord) {
     if (this.coord == null) {

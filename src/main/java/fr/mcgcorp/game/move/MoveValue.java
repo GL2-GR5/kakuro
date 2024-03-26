@@ -6,7 +6,7 @@ package fr.mcgcorp.game.move;
  * @author PECHON Erwan
  */
 public class MoveValue extends Move {
-  /** Valeur modifié par le joueur. */
+  /** Valeur modifiée par le joueur. */
   protected int valueOld;
   /** Nouvelle valeur saisie par le joueur. */
   protected int valueNew;

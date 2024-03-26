@@ -40,7 +40,7 @@ public class Profile {
   }
 
   /**
-   * Getter.
+   * Méthode pour connaître le nom du profil.
    *
    * @return le nom du profil
    */
@@ -49,7 +49,7 @@ public class Profile {
   }
   
   /**
-   * Getter.
+   * Méthode pour connaître les options du profil.
    *
    * @return les options du profil
    */
@@ -58,7 +58,7 @@ public class Profile {
   }
 
   /**
-   * Getter.
+   * Méthode pour connaître la progression du profil dans le mode Campagne.
    *
    * @return la progression du profil dans le mode Campagne
    */
@@ -67,7 +67,7 @@ public class Profile {
   }
 
   /**
-   * Setter.
+   * Méthode pour modifier la progression du profil dans le mode Campagne.
    *
    * @param progressCampaign progression dans la campagne
    */

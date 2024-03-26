@@ -23,7 +23,7 @@ public class EntryError {
   /**
    * Constructeur de rapport d'erreur.
    *
-   * @param coord Les coordonnées de la cellule où une erreur à était détecté.
+   * @param coord Les coordonnées de la cellule où une erreur a été détectée.
    */
   public EntryError(Coord coord) {
     this.coord = coord;
@@ -32,7 +32,7 @@ public class EntryError {
   /**
    * Constructeur de rapport d'erreur.
    *
-   * @param error Le type d'erreur détecté.
+   * @param error Le type d'erreur détectée.
    */
   public EntryError(TypeEntryError error) {
     this.error = error;
@@ -41,8 +41,8 @@ public class EntryError {
   /**
    * Constructeur de rapport d'erreur.
    *
-   * @param coord Les coordonnées de la cellule où une erreur à était détecté.
-   * @param error Le type d'erreur détecté.
+   * @param coord Les coordonnées de la cellule où une erreur a été détectée.
+   * @param error Le type d'erreur détectée.
    */
   public EntryError(Coord coord, TypeEntryError error) {
     this.coord = coord;

@@ -12,16 +12,26 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(VerifTest.class)
 public class TestMain {
 
+
+    /**
+     * Cette méthode est exécutée une fois avant tous les tests de cette classe.
+     */
     @BeforeAll
     public static void initAll() {
         System.out.println("\033[31;1m================================ DÉBUT TestMain ================================\033[0m");
     }
 
+    /**
+     * Cette méthode est exécutée à la fin de tous les tests de cette classe.
+     */
     @AfterAll
     public static void endAll() {
         System.out.println("\033[31;1m================================  FIN TestMain  ================================\033[0m");
     }
 
+    /**
+     * Test 1.
+     */
     @Test
     public void test1() {
 

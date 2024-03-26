@@ -1,6 +1,6 @@
 @startuml game
 
-title "Diagramme de classe du package game"
+title "Diagramme de classes du package game"
 
 !$all=1
 !includesub ../legend.puml!legend

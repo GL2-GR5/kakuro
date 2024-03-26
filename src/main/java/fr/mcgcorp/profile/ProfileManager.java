@@ -11,11 +11,11 @@ import java.util.Set;
 public class ProfileManager {
   /** Instance du Profile manager. */
   private static final ProfileManager instance = new ProfileManager();
-  /** La liste des profile. */
+  /** La liste des profils. */
   private final Set<Profile> profiles = new HashSet<>();
 
   /**
-   * permet de récupérer l'instance de la classe.
+   * Permet de récupérer l'instance de la classe.
    * 
    * @return l'instance de la classe
    */
@@ -24,7 +24,7 @@ public class ProfileManager {
   }
 
   /**
-   * permet d'ajouter un profil.
+   * Permet d'ajouter un profil.
    * 
    * @param profile le profil à ajouter
    */
@@ -33,7 +33,7 @@ public class ProfileManager {
   }
 
   /**
-   * permet de supprimer un profil.
+   * Permet de supprimer un profil.
    * 
    * @param profile le profil à supprimer
    */
@@ -42,7 +42,7 @@ public class ProfileManager {
   }
 
   /**
-   * permet de récupérer la liste des profils.
+   * Permet de récupérer la liste des profils.
    * 
    * @return la liste des profils
    */
@@ -51,7 +51,7 @@ public class ProfileManager {
   }
 
   /**
-   * permet de récupérer un profil par son nom.
+   * Permet de récupérer un profil par son nom.
    * 
    * @param name le nom du profil
    * @return le profil
@@ -66,7 +66,7 @@ public class ProfileManager {
   }
 
   /**
-   * permet de savoir si la liste des profils est vide.
+   * Permet de savoir si la liste des profils est vide.
    * 
    * @return true si la liste est vide, false sinon
    */
@@ -75,7 +75,7 @@ public class ProfileManager {
   }
 
   /**
-   * permet de savoir si un profil existe.
+   * Permet de savoir si un profil existe.
    * 
    * @param name le nom du profil
    * @return true si le profil existe, false sinon

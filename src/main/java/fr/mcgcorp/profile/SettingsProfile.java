@@ -39,7 +39,8 @@ public class SettingsProfile {
   }
 
   /**
-   * Getter.
+   * Méthode pour connaître l'état de l'option mode papier.
+   * 
    * @return l'option demandée
    */
   public Boolean getPaperMode() {
@@ -47,7 +48,8 @@ public class SettingsProfile {
   }
 
   /**
-   * Getter.
+   * Méthode pour connaître l'état de l'option clavier.
+   * 
    * @return l'option demandée
    */
   public Boolean getKeyboardState() {
@@ -55,7 +57,8 @@ public class SettingsProfile {
   }
 
   /**
-   * Getter.
+   * Méthode pour connaître l'état de l'option souris.
+   * 
    * @return l'option demandée
    */
   public Boolean getMouseState() {
@@ -63,7 +66,8 @@ public class SettingsProfile {
   }
 
   /**
-   * Getter.
+   * Méthode pour connaître l'état de l'option plein écran.
+   * 
    * @return l'option demandée
    */
   public Boolean getFullscreen() {
@@ -72,7 +76,9 @@ public class SettingsProfile {
 
   // Setters des options
   /**
-   * Setter.
+   * Méthode pour activer le mode papier.
+   * en mode papier, aucune détection d’infraction des règles.
+   * 
    * @param paperMode valeur de l'option à modifier
    */
   public void setPaperMode(Boolean paperMode) {
@@ -80,7 +86,8 @@ public class SettingsProfile {
   }
 
   /**
-   * Setter.
+   * Méthode pour activer le clavier.
+   * 
    * @param activateKeyboard valeur de l'option à modifier
    */
   public void setKeyboardState(Boolean activateKeyboard) {
@@ -88,7 +95,8 @@ public class SettingsProfile {
   }
 
   /**
-   * Setter.
+   * Méthode pour activer la souris.
+   * 
    * @param activateMouse valeur de l'option à modifier
    */
   public void setMouseState(Boolean activateMouse) {
@@ -96,7 +104,8 @@ public class SettingsProfile {
   }
 
   /**
-   * Setter.
+   * Méthode pour activer le mode plein écran.
+   * 
    * @param fullscreen valeur de l'option à modifier
    */
   public void setFullscreen(Boolean fullscreen) {

@@ -35,8 +35,8 @@ class "WhiteCell" AS WC implements IC {
 	{method} + @serialize(void) : String
 }
 note AS Nset
-	"Si il y à eu une modification,
-	créer un nouvelle objet 'Move'
+	"Si il y a eu une modification,
+	crée un nouvelle objet 'Move'
 	afin de l'enregistrer."
 end note
 WC::setValue .. Nset #yellow

@@ -1,28 +1,28 @@
 @startuml legend
 
-title "Legend des diagramme de classes"
+title "Légende des diagrammes de classes"
 
 !$all=1
-' $opt=1 => active | par défault, c'est désactiver.
+' $opt=1 => active | par défault, c'est désactivé.
 ' option $all => active tout
 ' ===========================================================================
-' option $interface => active la legende d'une interface
-' option $abstract => active la legende d'une classe abstraite
-' option $class => active la legende d'une classe
-' option $enum => active la legende d'une enumeration
-' option $singleton => active la legende d'un singleton
+' option $interface => active la légende d'une interface
+' option $abstract => active la légende d'une classe abstraite
+' option $class => active la légende d'une classe
+' option $enum => active la légende d'une énumération
+' option $singleton => active la légende d'un singleton
 ' ===========================================================================
-' option $implements => active la legende d'une implémentation d'une interface
-' option $implements => active la legende de l'héritage d'une classe
-' option $const => active la legende des constantes
-' option $method => active la legende des méthodes spéciale (ex: override)
+' option $implements => active la légende d'une implémentation d'une interface
+' option $implements => active la légende de l'héritage d'une classe
+' option $const => active la légende des constantes
+' option $method => active la légende des méthodes spéciales (ex: override)
 ' ===========================================================================
 
 !startsub legend
 package "legend" #lightblue {
   class "General" AS G < ? general > << (S,#FFFFFF) Singleton >> {
     !if ($all==1) || ($const==1)
-    .. Constante ..
+    .. Constantes ..
     {field} {static} VAR_CLASSE_PRIVEE : type
     {field} {static} CONST_PUBLIC : <color green>final</color> type
     !endif
@@ -32,13 +32,13 @@ package "legend" #lightblue {
     {field} ~ attributPackage : type
     {field} + attributPublic : type
     ==
-    .. Methodes ..
+    .. Méthodes ..
     {method} - methodePrive(typeParams) : typeRetour # retourDefault
     {method} # methodeProtege(typeParams) : typeRetour # retourDefault
     {method} ~ methodePackage(typeParams) : typeRetour # retourDefault
     {method} + methodePublic(typeParams) : typeRetour # retourDefault
     !if ($all==1) || ($method==1)
-    .. Methodes Speciale ..
+    .. Méthodes Speciale ..
     {method} @methodeOverride(typeParams) : typeRetour # retourDefault
     {method} {abstract} methodeAbstract(typeParams) : typeRetour # retourDefault
     {method} {static} methodeStatic(typeParams) : typeRetour # retourDefault
@@ -85,5 +85,5 @@ package "legend" #lightblue {
 }
 !endsub
 
-center footer "La legende commune à tout les diagrammes de classes"
+center footer "La légende commune à tout les diagrammes de classes"
 @enduml

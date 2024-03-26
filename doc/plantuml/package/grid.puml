@@ -38,12 +38,12 @@ package "Grid" #lightgrey {
 		==
 		.. Constructeur ..
 		{method} + new Grid(/*lstParam*/) : Grid
-		.. Obtenire une cellule ..
+		.. obtenir une cellule ..
 		{method} + getCell(Coord) : Cell
 		{method} + getCell(GridIterator,Predicate<T>) : Cell
 		{method} + getCoord(GridIterator,Predicate<T>) : Coord
 		{method} + getLastCoord(void) : Coord
-		.. Parcourire la grille ..
+		.. parcourir la grille ..
 		{method} + @iterator(void) : GridIterator
 		{method} + iterator(C,C,B,F<C,B>) : GridIterator
 		{method} + getAreas(Coord) : GridIterator[2]
@@ -53,19 +53,19 @@ package "Grid" #lightgrey {
 		{method} + serialize() : String
 	}
 	note left of Grid::getCell
-		"Cherche une cellule matchant le predicat,
-		en se déplacant suivant la fonction (une
+		"Cherche une cellule matchant le prédicat,
+		en se déplaçant suivant la fonction (une
 		méthode de Grid.GridIterator)."
 	end note
 	note left of Grid::iterator
 		"Crée un itérateur sur la grille allant
 		du début(0,0) à la fin(Kakuro.LAST_COORD()).
 		Le mode block est désactivé
-		et le parcours est dans le sens par défault."
+		et le parcours est dans le sens par défaut."
 	end note
 	note left of Grid::serialize
-		'Renvoit la liste des cellule, séparer par des '|'.
-		Les lignes sont séparer par des '\n'.
+		'Renvoit la liste des cellules, séparées par des '|'.
+		Les lignes sont séparées par des '\n'.
 		> Exemple : "|B|B|W(5)|\\n|R(7,n)|W(n)|R(4,1)"
 		> Devient : "||5|\\n7,n|3|4,1|\\n"'
 	end note
