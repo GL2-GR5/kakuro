@@ -28,6 +28,11 @@ public class MenuController extends Controller {
     ControllerManager.getInstance().getTutoController().show();
   }
 
+  @Interact(id = "playButton", type = InteractType.ON_ACTION)
+  public void onPlayButton(ActionEvent event) {
+    ControllerManager.getInstance().getCampaignController().show();
+  }
+
   @Interact(id = "quitButton", type = InteractType.ON_ACTION)
   public void onQuitButton(ActionEvent event) {
     Platform.exit();

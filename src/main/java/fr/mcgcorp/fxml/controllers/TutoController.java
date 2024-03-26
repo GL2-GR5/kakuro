@@ -26,9 +26,6 @@ public class TutoController extends GameController {
 
   }
 
-  public void showPopup(String text) {
 
-
-  }
 
 }
