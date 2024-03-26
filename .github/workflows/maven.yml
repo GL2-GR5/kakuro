@@ -70,6 +70,22 @@ jobs:
     - name: Generate documentation
       run: mvn -B clean javadoc:javadoc --file pom.xml
 
+  documentation-test:
+    needs: check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Generate documentation test
+      run: mvn -B clean test javadoc:test-javadoc --file pom.xml
+
   test_linux:
 
     needs: compile
@@ -123,7 +139,7 @@ jobs:
 
   package:
 
-    needs: [test_linux, test_windows, test_macos, documentation]
+    needs: [test_linux, test_windows, test_macos, documentation, documentation-test]
     runs-on: ubuntu-latest
 
     steps:
