@@ -52,4 +52,12 @@ public class SaveManager {
   public Path getSaveDir() {
     return this.saveDir;
   }
+
+  public Path getProfileDir() {
+    return this.saveDir.resolve("profiles");
+  }
+
+  public Path getScoresDir() {
+    return this.saveDir.resolve("scores");
+  }
 }
