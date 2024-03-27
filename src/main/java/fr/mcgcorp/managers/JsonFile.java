@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,6 +20,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * La classe manipulant les objets JSON de Jackson, et gérant leurs sauvegarde.
@@ -26,6 +29,10 @@ import java.util.stream.Collectors;
  * @author Luca et Erwan PECHON
  */
 public class JsonFile {
+  /** Active le mode test (n'encrypte pas les fichiers). */
+  protected static boolean testMode = false;
+  /** La clé de chiffrement servant pour les fichiers de sauvegardes. */
+  private static final String SECRET_KEY = "KAKUR01sa5up3rgam3cr3at3dbyMCGC0rp0rat1on";
   /** L'objet JSON à gérer. */
   private final JsonNode root;
   /** Le fichier de sauvegarde du JSON à gérer. */
@@ -130,7 +137,17 @@ public class JsonFile {
         sourceData = "{}";
         Files.createFile(file);
       } else {
-        sourceData = Files.lines(file).collect(Collectors.joining());
+        if (this.testMode) {
+          sourceData = Files.lines(file).collect(Collectors.joining());
+        } else {
+          try {
+            byte[] encryptedData = Files.readAllBytes(file);
+            byte[] decryptedData = decrypt(encryptedData, SECRET_KEY);
+            sourceData = new String(decryptedData, StandardCharsets.UTF_8);
+          } catch (Exception e) {
+            throw new IOException("Le fichier " + file + " semble corrompu.");
+          }
+        }
       }
     } catch (IOException e) {
       throw new RuntimeException("Error reading file", e);
@@ -141,6 +158,47 @@ public class JsonFile {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+  
+  /**
+   * Sauvegarde le JsonFile dans son fichier.
+   *
+   * @return `true` si l'objet à était sauvegardé.
+   * @throw IOException En cas de problème durant l'écriture du fichier.
+   */
+  public boolean save() throws IOException {
+    if (this.father != null) {
+      return this.father.save();
+    }
+    if (this.file == null) {
+      return false;
+    }
+    if (this.testMode) {
+      this.mapper.writeValue(this.file.toFile(), this.root);
+    } else {
+      try {
+        byte[] jsonData = this.mapper.writeValueAsBytes(this.root);
+        byte[] encryptedData = encrypt(jsonData, SECRET_KEY);
+        Files.write(this.file, encryptedData);
+      } catch (Exception e) {
+        throw new IOException("Le fichier " + file + " semble être corrompu.");
+      }
+    }
+    return true;
+  }
+
+  private static byte[] encrypt(byte[] data, String key) throws Exception {
+    Cipher cipher = Cipher.getInstance("AES");
+    SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "AES");
+    cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+    return cipher.doFinal(data);
+  }
+
+  private static byte[] decrypt(byte[] data, String key) throws Exception {
+    Cipher cipher = Cipher.getInstance("AES");
+    SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "AES");
+    cipher.init(Cipher.DECRYPT_MODE, secretKey);
+    return cipher.doFinal(data);
   }
 
   /**
@@ -185,23 +243,39 @@ public class JsonFile {
       throw new RuntimeException("Invalid path (" + path + "). Must be [a-zA-Z0-9.]+ (node1.node2.node3...)");
     }
     List<String> list = Arrays.asList(path.split("\\."));
-    while (!list.isEmpty() && list.get(0).isEmpty()) {
-      list.remove(0);
-    }
     return list;
   }
 
   /*
    * Permet de s'éparer le dernier élément de l'adresse donnée.
+   * Si le chemin ne se terminait pas par un champs, null est renvoyé.
+   * Si le chemin se termine par un champs, ce champs est extrait du chemin.
    *
    * @param path Le chemin à diviser.
    * @return Le chemin (sans le dernier noeud) suivit du dernier noeud.
    */
   private String[] getLastField(String path) {
-    int lastIndex = path.lastIndexOf('.');
+    if ((path == null) || (path == "")) { // Il n'y à pas de path
+      return null;
+    }
+    int lastIndex = path.lastIndexOf('.'); // On obtient la dernière position du caractère '.'.
+    if (lastIndex == (path.length() - 1)) { // Il n'y à pas de '.' dans la chaîne
+      return null;
+    }
+    if (lastIndex < 0) { // Il n'y à pas de '.'
+      String[] res = {"", path};
+      return res;
+    }
+    if (lastIndex == 0) { // Le dernier '.' est le premier caractère de la chaîne.
+      String[] res = {"", path.substring(1)};
+      return res;
+    }
+    if (lastIndex == (path.length() - 1)) { // Il n'y à pas de champs après le dernier '.'.
+      return null;
+    }
     String[] res = new String[2];
-    res[0] = path.substring(lastIndex + 1);
-    res[1] = path.substring(0, lastIndex);
+    res[0] = path.substring(0, lastIndex);
+    res[1] = path.substring(lastIndex + 1);
     return res;
   }
 
@@ -220,6 +294,9 @@ public class JsonFile {
     Iterator<String> it = this.getPath(path).iterator();
     while (it.hasNext()) {
       p = it.next();
+      if ((p == null) || (p == "")) { // Ignoré les champs vide.
+        continue;
+      }
       JsonNode newNode = node.get(p);
       if (newNode == null) {
         // null est renvoyé si node n'est pas un JsonObject ou si p n'y existe pas.
