@@ -13,7 +13,9 @@
   "height": 175.5,
   "details": {
     "married": false,
+    "worker": true,
     "children": 2,
     "car": null
-  }
+  },
+  "true": true
 }

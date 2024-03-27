@@ -1,14 +1,25 @@
 package fr.mcgcorp.managers;
 
+import fr.mcgcorp.managers.JsonFile;
+import java.io.IOException;
+
 public class GridManager {
   private static final GridManager instance = new GridManager();
-  private final JsonFile file = JsonFile.loadRessource("grids.json");
+  private final JsonFile file;
 
   public static GridManager getInstance() {
     return instance;
   }
 
   private GridManager() {
+    JsonFile file = null;
+    try {
+      file = new JsonFile("grids.json");
+    } catch (IOException e) {
+      e.printStackTrace();
+      file = null;
+    }
+    this.file = file;
   }
 
   public String getGridById(int id) {
