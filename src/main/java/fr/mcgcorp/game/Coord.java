@@ -4,15 +4,15 @@ package fr.mcgcorp.game;
 import java.util.function.Supplier;
 
 /**
- * Classe de gestion des coordonnée.
+ * Classe de gestion des coordonnées.
  * <br>
  * Représentation d'une coordonnée dans un milieu matriciel et/ou graphique.
- * Cette classe à pour but de rassemblé les coordonnées transmise de méthodes en méthodes, afin de les rendre plus compréhensible.
+ * Cette classe a pour but de rassembler les coordonnées transmises de méthode en méthode, afin de les rendre plus compréhensibles.
  * L'objectif secondaire de cette classe est de servir de traducteur entre :
- * - les coordonnée de l'interface utilisateur
- * - les coordonnée de la matrice de jeu.
+ * - les coordonnées de l'interface utilisateur
+ * - les coordonnées de la matrice de jeu.
  * <br>
- * <img src="doc-files/Coord.svg" alt="Diagramme de la classes Coord" width="100%" />
+ * <img src="doc-files/Coord.svg" alt="Diagramme de la classe Coord" width="100%" />
  *
  * @author PECHON Erwan
  */
@@ -45,8 +45,8 @@ public class Coord implements Comparable<Coord> {
    * Pointe la cellule ce trouvant sur la **line**-ième ligne, et la
    * **column**-ième colonne.
    *
-   * @param line Le numéro de ligne de la cellule visé.
-   * @param column Le numéro de colonne de la cellule visé.
+   * @param line Le numéro de ligne de la cellule visée.
+   * @param column Le numéro de colonne de la cellule visée.
    */
   public Coord(int line, int column) {
     this.numCell = line * Game.getLastCoord().getColumn();

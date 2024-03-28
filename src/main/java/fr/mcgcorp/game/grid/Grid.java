@@ -30,15 +30,15 @@ public class Grid implements Iterable<Cell> {
    * @author PECHON Erwan
    */
   public class GridIterator implements Iterator<Cell> {
-    /** La dernière cellule renvoyé. */
+    /** La dernière cellule renvoyée. */
     Coord cell = null;
     /** La première cellule accessible. */
     Coord start = new Coord();
     /** La dernière cellule accessible. */
     Coord end = Game.getLastCoord();
-    /** Comment doit-on ce déplacer ? (méthode de déplacement de Coord). */
+    /** Comment doit-on se déplacer ? (méthode de déplacement de Coord). */
     Function<Coord, Boolean> moveMethod = (c) -> c.nextCell();
-    /** Est-ce que la vue est un block ou une liste ?. */
+    /** Est-ce que la vue est un bloc ou une liste ?. */
     boolean block = false;
     /** Combien y a-t-il eu de retour à la ligne/colonne ?. */
     int nbReturn = 0;
@@ -158,9 +158,9 @@ public class Grid implements Iterable<Cell> {
     }
 
     /**
-     * Obtenir les coordonnées de la dernière cellule envoyé.
+     * Obtenir les coordonnées de la dernière cellule envoyée.
      *
-     * @return Les coordonnées de la dernière cellule envoyé.
+     * @return Les coordonnées de la dernière cellule envoyée.
      */
     public Coord getCoord() {
       return this.cell;
@@ -175,8 +175,8 @@ public class Grid implements Iterable<Cell> {
   /**
    * Le constructeur de la grille du jeu.
    *
-   * @param nbLine   Le nombre de lignes que doit-avoir la grille de Kakuro.
-   * @param nbColumn Le nombre de colonnes que doit-avoir la grille de Kakuro.
+   * @param nbLine   Le nombre de lignes que doit avoir la grille de Kakuro.
+   * @param nbColumn Le nombre de colonnes que doit avoir la grille de Kakuro.
    */
   public Grid(int nbLine, int nbColumn) {
     this.lstCoordResCell = new ArrayList<Coord>();
@@ -204,7 +204,7 @@ public class Grid implements Iterable<Cell> {
   /**
    * Obtenir une cellule de la grille.
    *
-   * @param coord Les coordonnées de la cellule demandé.
+   * @param coord Les coordonnées de la cellule demandée.
    * @return La cellule.
    */
   public Cell getCell(Coord coord) {
@@ -277,7 +277,7 @@ public class Grid implements Iterable<Cell> {
    * quelconque de cellule blanche.
    *
    * @param coord La cellule dont on veut récupérer les zones.
-   * @return 0:La zone horizontal | 1:La zone vertical
+   * @return 0:La zone horizontale | 1:La zone verticale
    */
   public GridIterator[] getAreas(Coord coord) {
     // Créer l'objet à renvoyer
@@ -297,7 +297,7 @@ public class Grid implements Iterable<Cell> {
     end = null;
     it = null;
 
-    // Obtenir la dernière cellule blanche de la zone horizontal
+    // Obtenir la dernière cellule blanche de la zone horizontale
     end = new Coord(coord.getLine(), Game.getLastCoord().getColumn());
     it = this.iterator(coord.copy(), end, false, null);
     end = this.getCoord(it, (c) -> (!(c instanceof WhiteCell)));
@@ -329,7 +329,7 @@ public class Grid implements Iterable<Cell> {
     end = null;
     it = null;
 
-    // Obtenir la dernière cellule blanche de la zone vertical
+    // Obtenir la dernière cellule blanche de la zone verticale
     end = new Coord(Game.getLastCoord().getLine(), coord.getColumn());
     it = this.iterator(coord.copy(), end, false, (c) -> (c.previousLine()));
     end = this.getCoord(it, (c) -> (!(c instanceof WhiteCell)));
@@ -407,7 +407,7 @@ public class Grid implements Iterable<Cell> {
     GridIterator[] lstArea = new GridIterator[this.lstCoordResCell.size()];
     for (int i = 0; i < lstArea.length; i++) {
       Coord coord = this.lstCoordResCell.get(i);
-      // Obtenir la dernière cellule blanche de la zone horizontal
+      // Obtenir la dernière cellule blanche de la zone horizontale
       Coord end = new Coord(Game.getLastCoord().getLine(), coord.getColumn());
       GridIterator it = this.iterator(coord.copy(), end, false, (c) -> (c.nextLine()));
       end = this.getCoord(it, (c) -> (!(c instanceof WhiteCell)));
@@ -434,7 +434,7 @@ public class Grid implements Iterable<Cell> {
   /**
    * Méthode préparant la grille du jeu à être transmise.
    *
-   * @return La grille du jeu formater pour la transmission.
+   * @return La grille du jeu formatée pour la transmission.
    */
   public String serialize() {
     StringBuilder s = new StringBuilder();

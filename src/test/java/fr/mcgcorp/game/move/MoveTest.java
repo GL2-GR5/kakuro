@@ -12,7 +12,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * La classe MoveTest étend la classe Tests. Cette classe est utilisée pour tester les fonctionnalités des classes Move, MoveValue et MoveNotes.
+ * La classe MoveTest étend la classe Tests.
+ * Cette classe est utilisée pour tester les fonctionnalités des classes Move, MoveValue et MoveNotes.
  * Elle contient des méthodes de test pour vérifier le bon fonctionnement des méthodes de ces classes.
  * Chaque méthode de test vérifie une fonctionnalité spécifique de la classe correspondante.
  *

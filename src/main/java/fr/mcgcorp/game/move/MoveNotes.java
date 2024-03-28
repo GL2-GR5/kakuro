@@ -10,9 +10,9 @@ import java.util.Set;
  * @author PECHON Erwan
  */
 public class MoveNotes extends Move {
-  /** Notes modifié par le joueur. */
+  /** Notes modifiées par le joueur. */
   protected Set<Integer> notesOld;
-  /** Nouvelle notes saisie par le joueur. */
+  /** Nouvelles notes saisies par le joueur. */
   protected Set<Integer> notesNew;
 
   /**

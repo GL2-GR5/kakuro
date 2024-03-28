@@ -21,17 +21,17 @@ class "Game" AS Game << (S,#FF7700) Jeu chargé >> {
 	{field} - Grid grid
 	{field} - IntBinaryOperation function
 	==
-	.. Constructeur ..
+	.. Constructeurs ..
 	{method} {static} - new Game() : Game
 	{method} {static} + createGame(/*lstParam*/) : boolean
 	{method} {static} + chargeGame(/*lstParam*/) : boolean
-	.. Accesseur sur les Constantes ..
+	.. Accesseurs sur les Constantes ..
 	{method} {static} + getMaxValue(void) : int
 	{method} {static} + getMinValue(void) : int
 	{method} {static} + getNullValue(void) : int
 	{method} {static} + getLastCoord(void) : Coord
 	{method} {static} + getInstance() : Game
-	.. Accesseur ..
+	.. Accesseurs ..
 	{method} + getEntryErrors(Predicate<EntryError>) : List<EntryError>
 	{method} + getCell(Coord) : String
 	{method} + affCell(Coord) : String
@@ -40,14 +40,14 @@ class "Game" AS Game << (S,#FF7700) Jeu chargé >> {
 	{method} + update(Consumer<Coord>) : void
 	{method} + updateCell(Coord) : void
 	{method} + updateErr(Coord) : void
-	.. Modification ..
+	.. Modifications ..
 	{method} + set(Coord,int) : void
 	{method} + set(Coord,Set<Integer>) : void
 	{method} + undo(void) : Coord
 	{method} + redo(void) : Coord
 	{method} + backToLastCorrect(void) : Coord[]
 	{method} - swapDeque(Deque<Move>,Deque<Move>,boolean) : Coord
-	.. Check ..
+	.. Vérifications ..
 	{method} + check(void) : void
 	{method} + check(Coord) : void
 	{method} + check(Grid.GridIterator,boolean) : boolean
@@ -68,16 +68,16 @@ note right of Game::update
   "Appel les méthodes d'affichage du contrôleur."
 end note
 note right of Game::set
-  "Les méthode modifiant le jeu,
-  ordonne au controleur d'afficher
-  leur nouvelle état, après avoir actualiser
+  "Les méthodes modifiant le jeu,
+  ordonne au contrôleur d'afficher
+  leur nouvel état, après avoir actualiser
   la liste des erreurs."
 end note
 note right of Game::check
   "Actualise la liste des erreurs"
 end note
 note right of Game::serialize()
-  'Renvoit la liste des cellule :
+  'Renvoie la liste des cellules :
   - Noire : "|"
   - Blanche : "<value>"
   - Resultat : "<line>,<column>|"
@@ -87,6 +87,6 @@ note right of Game::serialize()
 end note
 !endsub
 
-center footer Chaques classe est responsable des règles de son mode de jeu
+center footer Chaque classe est responsable des règles de son mode de jeu
 
 @enduml

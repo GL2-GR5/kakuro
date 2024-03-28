@@ -1,7 +1,7 @@
 package fr.mcgcorp.game;
 
 /*
- * import non utiliser pour le moment.
+ * import non utilisé pour le moment.
  */
 //import java.io.Serializable;
 //import java.io.FileOutputStream;
@@ -28,20 +28,20 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * La classe gérant tout le dérouler du jeu.
+ * La classe gérant tout le déroulement du jeu.
  * <br>
- * Cette classe gère le dérouler du jeu en fonction des messages envoyé par le
+ * Cette classe gère le déroulement du jeu en fonction des messages envoyés par le
  * contrôleur de l'interface graphique.
  * <br>
- * <img src="doc-files/Game.svg" alt="Diagramme de la classes Game" width="100%" />
+ * <img src="doc-files/Game.svg" alt="Diagramme de la classe Game" width="100%" />
  *
  * @author PECHON Erwan
  */
 public final class Game {
-  /** L'instance du Kakuro actuellement utilisé. */
+  /** L'instance du Kakuro actuellement utilisée. */
   protected static Game kakuro = null;
 
-  /** La plus grande valeur pouvant ce trouver dans une WhiteCell. */
+  /** La plus grande valeur pouvant se trouver dans une WhiteCell. */
   protected int cstMaxValue = 9;
   /** La plus petite valeur pouvant ce trouver dans une WhiteCell. */
   protected int cstMinValue = 1;
@@ -60,7 +60,7 @@ public final class Game {
 
   /**
    * Le constructeur du jeu de Kakuro.
-   * 
+   * <br>
    * Ce constructeur sert à préparer les variables pour tout type de jeu.
    * Pour initialiser le jeu pour des paramètres spécifiques, il faut
    * passer par la méthode @link Kakuro#initialize.
@@ -79,7 +79,7 @@ public final class Game {
    * 
    * @param nbLine   Le nombre de lignes que doit-avoir la grille de Kakuro.
    * @param nbColumn Le nombre de colonnes que doit-avoir la grille de Kakuro.
-   * @return **true** Si la nouvelle partie à put être créer.
+   * @return **true** Si la nouvelle partie a pu être créée.
    */
   public boolean createGame(int nbLine, int nbColumn) {
     if (Game.kakuro != null) {
@@ -97,7 +97,7 @@ public final class Game {
    * Kakuro et prépare le jeu en conséquence.
    *
    * @param nomF le nom du fichier de sauvegarde.
-   * @return **true** Si la nouvelle partie à put être créer.
+   * @return **true** Si la nouvelle partie a pu être créée.
    */
   public boolean chargeGame(String nomF) {
     if (Game.kakuro != null) {
@@ -110,9 +110,9 @@ public final class Game {
   }
 
   /**
-   * Obtient la valeur maximal d'une case blanche.
+   * Obtient la valeur maximale d'une case blanche.
    *
-   * @return la valeur maximal d'une case blanche.
+   * @return la valeur maximale d'une case blanche.
    */
   public static int getMaxValue() {
     if (Game.kakuro == null) {
@@ -122,9 +122,9 @@ public final class Game {
   }
 
   /**
-   * Obtient la valeur minimal d'une case blanche.
+   * Obtient la valeur minimale d'une case blanche.
    *
-   * @return la valeur minimal d'une case blanche.
+   * @return la valeur minimale d'une case blanche.
    */
   public static int getMinValue() {
     if (Game.kakuro == null) {
@@ -163,9 +163,9 @@ public final class Game {
   }
 
   /**
-   * Obtient l'instance actuel du Kakuro.
+   * Obtient l'instance actuelle du Kakuro.
    *
-   * @return La partie de kakuro en cours.
+   * @return La partie de Kakuro en cours.
    */
   public static Game getInstance() {
     return Game.kakuro;
@@ -197,13 +197,13 @@ public final class Game {
   }
 
   /**
-   * Mets à jour l'affichage d'une seule cellule.
+   * Met à jour l'affichage d'une seule cellule.
    *
    * @param coord Les coordonnées de la cellule à mettre à jour. #TODO
    */
   public void updateCell(Coord coord) {
     // String s = this.grid.getCell(coord).serialize();
-    // Dire au controller d'afficher s en coord.
+    // Dire au contrôleur d'afficher s en coord.
   }
 
   /**
@@ -216,10 +216,11 @@ public final class Game {
 
   /**
    * Gestion de la sauvegarde de l'état du jeu.
-   *
-   * Cette fonction définit comment le jeu doit-être sauvegardé.
-   * Elle devra être invoquer régulièrement (environ tous les 10 coups)
-   * afin d'éviter la perte d'une partie du à une coupure de courant.
+   * <br>
+   * Cette fonction définit comment le jeu doit être sauvegardé.
+   * Elle devra être invoqué régulièrement (environ tous les 10 coups)
+   * afin d'éviter la perte d'une partie due à une coupure de courant,
+   * ou a une fermeture inattendu du programme.
    * Afin de limiter les accès mémoire, la sauvegarde devra se faire dans
    * un fichier binaire et il faudra que seul les éléments ayant était
    * modifié depuis la dernière sauvegarde soit enregistrer (le reste
@@ -237,7 +238,7 @@ public final class Game {
    *
    */
   public void quit() {
-    this.save(); // Sauvegardé le jeu avant de perdre le jeu.
+    this.save(); // Sauvegarder le jeu avant de perdre le jeu.
     Game.kakuro = null; // Perdre le kakuro afin de pouvoir en créer un nouveau.
   }
 
@@ -408,11 +409,11 @@ public final class Game {
   /**
    * Vérifie si les deux zones d'une cellule sont correct.
    *
-   * @param coord Les coordonnées de la case à questionnée.
+   * @param coord Les coordonnées de la case à questionner.
    */
   public void check(Coord coord) {
     Grid.GridIterator[] areas = this.grid.getAreas(coord);
-    // Checker les zones horizontal.
+    // Vérifier les zones horizontales.
     this.check(areas[0], true); // Checker toute la zone.
     // Checker les zones vertical.
     this.check(areas[1], false); // Checker toute la zone.
@@ -431,7 +432,7 @@ public final class Game {
     if (!(it.hasNext())) {
       return false;
     }
-    // Obtenir les constante.
+    // Obtenir les constantes.
     int minVal = Game.getMinValue();
     int nbVal = Game.getMaxValue() - minVal;
     // Préparer les accumulateurs.

@@ -3,9 +3,7 @@ package fr.mcgcorp.managers;
 import java.util.Arrays;
 
 /**
- * OsManager.java
- *
- * This class is used to get the current OS type.
+ * Cette classe est utilisée pour obtenir le type de système d'exploitation actuel.
  *
  * @version 1.0
  * @since 1.0
@@ -14,17 +12,17 @@ import java.util.Arrays;
 public class OsManager {
 
   /**
-   * The instance of the OsManager.
+   * Le singleton de la classe OsManager.
    */
   private static final OsManager instance = new OsManager();
 
   /**
-   * The current OS type.
+   * Le type de système d'exploitation actuel.
    */
   private final OsType osType;
 
   /**
-   * The constructor of the OsManager.
+   * Constructeur de la classe OsManager.
    */
   private OsManager() {
     String os = System.getProperty("os.name").toLowerCase();
@@ -32,25 +30,25 @@ public class OsManager {
   }
 
   /**
-   * Get the instance of the OsManager.
+   * Obtenir l'instance de OsManager.
    *
-   * @return the instance of the OsManager.
+   * @return l'instance de OsManager.
    */
   public static OsManager getInstance() {
     return instance;
   }
 
   /**
-   * Get the current OS type.
+   * Obtenir le type de système d'exploitation actuel.
    *
-   * @return the current OS type.
+   * @return le type de système d'exploitation actuel.
    */
   public OsType getOsType() {
     return osType;
   }
 
   /**
-   * The OS type enum.
+   * Les types de système d'exploitation.
    */
   public enum OsType {
     
@@ -68,24 +66,24 @@ public class OsManager {
     LINUX("unix", "linux", "debian", "ubuntu", "centos", "fedora", "arch");
 
     /**
-     * The constructor of the OsType.
+     * Constructeur de la classe OsType.
      *
-     * @param keys the key of the OS type.
+     * @param key la clé du type de système d'exploitation.
      */
     OsType(String... keys) {
       this.keys = keys;
     }
 
     /**
-     * Key of the OS type.
+     * La clé du type de système d'exploitation.
      */
     private final String[] keys;
 
     /**
-     * Get the OS type by the name.
+     * Obtenir le type de système d'exploitation par son nom.
      *
-     * @param name the name of the OS.
-     * @return the OS type.
+     * @param name le nom du système d'exploitation.
+     * @return le type de système d'exploitation.
      */
     private OsType getOsByName(String name) {
       for (OsType os : OsType.values()) {

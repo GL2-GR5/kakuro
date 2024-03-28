@@ -6,9 +6,11 @@ import org.junit.jupiter.api.extension.TestWatcher;
 import java.util.Optional;
 
 /**
- * @author Le Luët Hôa
+ * Classe de supervision des tests.
  * Cette classe implémente l'interface TestWatcher qui est utilisée pour définir des méthodes de rappel
  * qui seront appelées lorsqu'un test est réussi, échoué, désactivé ou abandonné.
+ * 
+ * @author Le Luët Hôa
  */
 public class VerifTest implements TestWatcher {
 
