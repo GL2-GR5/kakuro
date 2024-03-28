@@ -24,6 +24,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Le Luët Hôa
  */
 public class JsonFileTest extends Tests {
+
+  /**
+   * Méthode pour initialiser un fichier de test.
+   * @param res le fichier de ressource à copier.
+   * @param path le chemin du fichier à copier.
+   */
   private static void initTestFile(String res, Path path) {
     try {
       // Obtenire le fichier à copier.
@@ -69,10 +75,25 @@ public class JsonFileTest extends Tests {
     printNameAtEnd(JsonFileTest.class);
   }
 
+  /**
+   * Le répertoire de sauvegarde.
+   */
   private static Path dir = SaveManager.getInstance().getSaveDir();
+  /**
+   * Le fichier de test.
+   */
   private static String sTestFile = "test.json";
+  /**
+   * Le chemin du fichier de test.
+   */
   private static Path testFile = JsonFileTest.dir.resolve(JsonFileTest.sTestFile);
+  /**
+   * Le fichier de test.
+   */
   private static String sTestFile2 = "anotherTest.json";
+  /**
+   * Le chemin du fichier de test.
+   */
   private static Path testFile2 = JsonFileTest.dir.resolve(JsonFileTest.sTestFile2);
 
   /**
@@ -420,10 +441,22 @@ public class JsonFileTest extends Tests {
       assertTrue(false);
     }
   }
-
+  /**
+   * Classe pour tester la méthode getJson.
+   */
   private static class Details {
+
+    /**
+     * Les attributs de la classe.
+     */
     private boolean married;
+    /**
+     * Les attributs de la classe.
+     */
     private int children;
+    /**
+     * Les attributs de la classe.
+     */
     private String none;
 
     public String toString() {
@@ -631,7 +664,9 @@ public class JsonFileTest extends Tests {
       assertTrue(false);
     }
   }
-
+  /**
+   * Test pour vérifier le placement d'une valeur dans le JSON.
+   */
   private interface testT {
   }
 }
