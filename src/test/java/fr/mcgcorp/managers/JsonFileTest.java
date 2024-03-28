@@ -1,11 +1,18 @@
 package fr.mcgcorp.managers;
 
+import fr.mcgcorp.Main;
 import fr.mcgcorp.Tests;
+import fr.mcgcorp.managers.SaveManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.io.InputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,14 +24,30 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Le Luët Hôa
  */
 public class JsonFileTest extends Tests {
+  private static void initTestFile(String res, Path path) {
+    try {
+      // Obtenire le fichier à copier.
+      InputStream inputStream = Main.class.getResourceAsStream(res);
+      if (inputStream == null) {
+        throw new FileNotFoundException("Ressource non trouvée : " + res);
+      }
+      // Copier le fichier obtenu dans le fichier path.
+      Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
+    } catch (Exception e) {
+      throw new RuntimeException("Impossible de copier le fichier " + res + " dans " + path, e);
+    }
+  }
+
   /**
    * Méthode exécutée avant tous les tests.
    * Affiche le nom de la classe de test au début de l'exécution.
    */
   @BeforeAll
   public static void initAll(){
-    JsonFile.testMode = true;
     printNameAtStart(JsonFileTest.class);
+    initTestFile(JsonFileTest.sTestFile,JsonFileTest.testFile);
+    initTestFile(JsonFileTest.sTestFile2,JsonFileTest.testFile2);
+    JsonFile.testMode = true;
   }
 
   /**
@@ -33,13 +56,24 @@ public class JsonFileTest extends Tests {
    */
   @AfterAll
   public static void tearDownAll(){
+    try {
+      Files.delete(JsonFileTest.testFile2);
+    } catch (IOException e) {
+      System.out.println("Fichier " + JsonFileTest.testFile2 + " n'à pût être supprimé.");
+    }
+    try {
+    Files.delete(JsonFileTest.testFile);
+    } catch (IOException e) {
+      System.out.println("Fichier " + JsonFileTest.testFile + " n'à pût être supprimé.");
+    }
     printNameAtEnd(JsonFileTest.class);
   }
 
-  private String kakuroDir = "/home/erwan/Documents/01-Apprentissage/L3/GL2/kakuro/";
-  private String dir = kakuroDir + "src/main/resources/fr/mcgcorp/";
-  private String testFile = "test.json";
-  private String testFile2 = "anotherTest.json";
+  private static Path dir = SaveManager.getInstance().getSaveDir();
+  private static String sTestFile = "test.json";
+  private static Path testFile = JsonFileTest.dir.resolve(JsonFileTest.sTestFile);
+  private static String sTestFile2 = "anotherTest.json";
+  private static Path testFile2 = JsonFileTest.dir.resolve(JsonFileTest.sTestFile2);
 
   /**
    * Test pour vérifier le chargement d'un fichier JSON.
@@ -48,7 +82,7 @@ public class JsonFileTest extends Tests {
   public void loadRessource_contentJson(){
     try {
       String strVerif = "JsonFile :\n{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76]}";
-      JsonFile jsonFile = new JsonFile(this.testFile2);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.sTestFile2);
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -67,7 +101,7 @@ public class JsonFileTest extends Tests {
   public void load_contentJson(){
     try {
       String strVerif = "JsonFile :\n{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76]}";
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), false);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, false);
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -85,8 +119,8 @@ public class JsonFileTest extends Tests {
   @Test
   public void loadForEdit_contentJson(){
     try {
-      String strVerif = "JsonFile : >Edit in " + this.dir + this.testFile2 + "<\n{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76]}";
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
+      String strVerif = "JsonFile : >Edit in " + JsonFileTest.testFile2 + "<\n{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76]}";
+      JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -106,7 +140,7 @@ public class JsonFileTest extends Tests {
     try {
       String strVerif = "JsonFile : >Edit in A_SUPPRIMER_TEST_KAKURO.JSON<\n{}";
       String file = "A_SUPPRIMER_TEST_KAKURO.JSON";
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + file), true);
+      JsonFile jsonFile = new JsonFile(Paths.get(JsonFileTest.dir + file), true);
       assertEquals(strVerif, jsonFile.toString());
       Files.delete(jsonFile.getFile());
     } catch (Exception e) {
@@ -127,7 +161,7 @@ public class JsonFileTest extends Tests {
   public void getChildren_contentJson(){
     try {
       String strVerif = "JsonFile : >Sous arbre<\n{\"married\":false,\"worker\":true,\"children\":2,\"car\":null}";
-      JsonFile jsonFile = (new JsonFile(this.testFile)).getChildren("details");
+      JsonFile jsonFile = (new JsonFile(JsonFileTest.sTestFile)).getChildren("details");
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -146,7 +180,7 @@ public class JsonFileTest extends Tests {
   public void isExist_shouldBeNull(){
     try {
       String nodePath = "details.married";
-      String path = (new JsonFile(this.testFile)).isExist(nodePath);
+      String path = (new JsonFile(JsonFileTest.sTestFile)).isExist(nodePath);
       assertNull(path);
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -165,7 +199,7 @@ public class JsonFileTest extends Tests {
   public void isExist_shouldBeNotNull(){
     try {
       String nodePath = "details.married";
-      String path = (new JsonFile(this.testFile)).isExist(nodePath + ".false");
+      String path = (new JsonFile(JsonFileTest.sTestFile)).isExist(nodePath + ".false");
       assertEquals(nodePath+"<-break", path);
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -184,7 +218,7 @@ public class JsonFileTest extends Tests {
   public void isNull_true(){
     try {
       String nodePath = "details.car";
-      boolean rep = new JsonFile(this.testFile).isNull(nodePath);
+      boolean rep = new JsonFile(JsonFileTest.sTestFile).isNull(nodePath);
       assertTrue(rep);
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -203,7 +237,7 @@ public class JsonFileTest extends Tests {
   public void isNull_false(){
     try {
       String nodePath = "grades";
-      boolean rep = new JsonFile(this.testFile).isNull(nodePath);
+      boolean rep = new JsonFile(JsonFileTest.sTestFile).isNull(nodePath);
       assertFalse(rep);
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -222,7 +256,7 @@ public class JsonFileTest extends Tests {
   public void getBoolean_true(){
     try {
       String nodePath = "details.worker";
-      boolean rep = new JsonFile(this.testFile).getBoolean(nodePath);
+      boolean rep = new JsonFile(JsonFileTest.sTestFile).getBoolean(nodePath);
       assertTrue(rep);
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -241,7 +275,7 @@ public class JsonFileTest extends Tests {
   public void getBoolean_false(){
     try {
       String nodePath = "details.married";
-      boolean rep = new JsonFile(this.testFile).getBoolean(nodePath);
+      boolean rep = new JsonFile(JsonFileTest.sTestFile).getBoolean(nodePath);
       assertFalse(rep);
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -259,7 +293,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void getInt_30(){
     try {
-      JsonFile jsonFile = new JsonFile(this.testFile);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.sTestFile);
       int age = jsonFile.getInt("age");
       assertEquals(30, age);
     } catch (Exception e) {
@@ -278,7 +312,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void getIntFromDouble_175(){
     try {
-      JsonFile jsonFile = new JsonFile(this.testFile);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.sTestFile);
       int height = jsonFile.getInt("height");
       assertEquals(175, height);
     } catch (Exception e) {
@@ -297,7 +331,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void getNumeric_175_5(){
     try {
-      JsonFile jsonFile = new JsonFile(this.testFile);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.sTestFile);
       Double height = jsonFile.getValue("height", Double.class);
       assertEquals(175.5, height);
     } catch (Exception e) {
@@ -316,7 +350,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void getString_JohnDoe(){
     try {
-      JsonFile jsonFile = new JsonFile(this.testFile);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.sTestFile);
       String name = jsonFile.getString("name");
       assertEquals("John Doe", name);
     } catch (Exception e) {
@@ -335,7 +369,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void getStringFarAway_Anytown(){
     try {
-      JsonFile jsonFile = new JsonFile(this.testFile);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.sTestFile);
       String city = jsonFile.getString("address.city");
       assertEquals("Anytown", city);
     } catch (Exception e) {
@@ -354,7 +388,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void getArray_lst(){
     try {
-      JsonFile jsonFile = new JsonFile(this.testFile);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.sTestFile);
       String lst = jsonFile.getArray("grades", Integer.class).toString();
       assertEquals("[85, 90, 78, 92]", lst);
     } catch (Exception e) {
@@ -373,7 +407,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void getJson_F2NONE(){
     try {
-      JsonFile jsonFile = new JsonFile(this.testFile);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.sTestFile);
       Details det = new Details();
       jsonFile.getJson("details", det);
       assertEquals(">F2NONE<", det.toString());
@@ -408,7 +442,7 @@ public class JsonFileTest extends Tests {
   public void removeNode_ContentJson(){
     try {
       String strVerif = "notVerif";
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile), true);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.testFile, true);
       String[] paths = jsonFile.getFields(null);
       jsonFile.removeNode(paths);
       assertEquals(strVerif, jsonFile.toString());
@@ -428,9 +462,10 @@ public class JsonFileTest extends Tests {
   @Test
   public void setNull_contentJson(){
     try {
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
       String strVerif = "notVerif";
       jsonFile.set("message");
+      System.out.println("$568$" + jsonFile.toString() + "$568$");
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -448,7 +483,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void setBoolean_contentJson(){
     try {
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
       String strVerif = "notVerif";
       jsonFile.set("Valeur", true);
       assertEquals(strVerif, jsonFile.toString());
@@ -468,9 +503,10 @@ public class JsonFileTest extends Tests {
   @Test
   public void setInt_contentJson(){
     try {
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
       String strVerif = "notVerif";
       jsonFile.set("Valeur", 3012);
+      System.out.println("$508$" + jsonFile.toString() + "$508$");
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -488,7 +524,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void setDouble_contentJson(){
     try {
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
       String strVerif = "notVerif";
       jsonFile.set("lst.2", 30.12);
       assertEquals(strVerif, jsonFile.toString());
@@ -508,9 +544,10 @@ public class JsonFileTest extends Tests {
   @Test
   public void setFloat_contentJson(){
     try {
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
       String strVerif = "notVerif";
       jsonFile.set("lst.6", 30.12);
+      System.out.println("$549$" + jsonFile.toString() + "$549$");
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -528,9 +565,10 @@ public class JsonFileTest extends Tests {
   @Test
   public void setString_contentJson(){
     try {
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
       String strVerif = "notVerif";
       jsonFile.set("Valeur", "Ça marche");
+      System.out.println("$568$" + jsonFile.toString() + "$568$");
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -548,7 +586,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void setListe_contentJson(){
     try {
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
       String strVerif = "notVerif";
       ArrayList<Integer> lst = new ArrayList<>();
       int[] tab = {32, 45, 85, 47, 32, 18, 64};
@@ -573,7 +611,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void setJson_contentJson(){
     try {
-      JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
+      JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
       String strVerif = "notVerif";
       char c = 'c';
       jsonFile.set("lst", new testT() {
