@@ -1,5 +1,7 @@
 package fr.mcgcorp.managers;
 
+import java.util.Arrays;
+
 /**
  * Cette classe est utilisée pour obtenir le type de système d'exploitation actuel.
  *
@@ -49,37 +51,33 @@ public class OsManager {
    * Les types de système d'exploitation.
    */
   public enum OsType {
-
+    
     /**
      * Windows OS.
      */
-    WINDOWS("win"),
+    WINDOWS("windows"),
     /**
      * Mac OS.
      */
-    MAC("mac"),
+    MAC("mac", "darwin"),
     /**
      * Linux OS.
      */
-    LINUX("nix"),
-    /**
-     * Solaris OS.
-     */
-    SOLARIS("nux");
+    LINUX("unix", "linux", "debian", "ubuntu", "centos", "fedora", "arch");
 
     /**
      * Constructeur de la classe OsType.
      *
      * @param key la clé du type de système d'exploitation.
      */
-    OsType(String key) {
-      this.key = key;
+    OsType(String... keys) {
+      this.keys = keys;
     }
 
     /**
      * La clé du type de système d'exploitation.
      */
-    private final String key;
+    private final String[] keys;
 
     /**
      * Obtenir le type de système d'exploitation par son nom.
@@ -89,8 +87,10 @@ public class OsManager {
      */
     private OsType getOsByName(String name) {
       for (OsType os : OsType.values()) {
-        if (name.contains(os.key)) {
-          return os;
+        for (String key : os.keys) {
+          if (name.contains(key)) {
+            return os;
+          }
         }
       }
       return null;
