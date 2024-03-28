@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Classe de test pour la classe JsonFile.
  * Cette classe contient des méthodes de test pour vérifier le comportement de la classe JsonFile.
  *
- * @author Le Luët Hôa
+ * @author PECHON Erwan
  */
 public class JsonFileTest extends Tests {
 
@@ -97,6 +97,26 @@ public class JsonFileTest extends Tests {
   private static Path testFile2 = JsonFileTest.dir.resolve(JsonFileTest.sTestFile2);
 
   /**
+   * Obtient l'entête des JsonFile éditable.
+   *
+   * @param f Le fichier de sauvegarde.
+   * @return L'entête du fichier.
+   */
+  private static String head(Path f){
+    return "JsonFile : >Edit in " + f + "<\n";
+  }
+
+  /**
+   * Obtient l'entête des JsonFile éditable.
+   *
+   * @param f Le fichier de sauvegarde.
+   * @return L'entête du fichier.
+   */
+  private static String head(String f){
+    return "JsonFile : >Edit in " + f + "<\n";
+  }
+
+  /**
    * Test pour vérifier le chargement d'un fichier JSON.
    */
   @Test
@@ -140,7 +160,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void loadForEdit_contentJson(){
     try {
-      String strVerif = "JsonFile : >Edit in " + JsonFileTest.testFile2 + "<\n{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76]}";
+      String strVerif = JsonFileTest.head(JsonFileTest.testFile2) + "{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76]}";
       JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
@@ -159,11 +179,11 @@ public class JsonFileTest extends Tests {
   @Test
   public void create_contentJson(){
     try {
-      String strVerif = "JsonFile : >Edit in A_SUPPRIMER_TEST_KAKURO.JSON<\n{}";
-      String file = "A_SUPPRIMER_TEST_KAKURO.JSON";
-      JsonFile jsonFile = new JsonFile(Paths.get(JsonFileTest.dir + file), true);
-      assertEquals(strVerif, jsonFile.toString());
+      Path file = JsonFileTest.dir.resolve("A_SUPPRIMER_TEST_KAKURO.JSON");
+      String strVerif = JsonFileTest.head(file) + "{}";
+      JsonFile jsonFile = new JsonFile(file, true);
       Files.delete(jsonFile.getFile());
+      assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
       System.out.print(stackTrace[1].getMethodName());
@@ -474,7 +494,7 @@ public class JsonFileTest extends Tests {
   @Test
   public void removeNode_ContentJson(){
     try {
-      String strVerif = "notVerif";
+      String strVerif = JsonFileTest.head(JsonFileTest.testFile) + "{}";
       JsonFile jsonFile = new JsonFile(JsonFileTest.testFile, true);
       String[] paths = jsonFile.getFields(null);
       jsonFile.removeNode(paths);
@@ -496,9 +516,8 @@ public class JsonFileTest extends Tests {
   public void setNull_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
-      String strVerif = "notVerif";
+      String strVerif = JsonFileTest.head(JsonFileTest.testFile2) + "{\"message\":null,\"id\":42,\"lst\":[52,48,76]}";
       jsonFile.set("message");
-      System.out.println("$568$" + jsonFile.toString() + "$568$");
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -517,7 +536,7 @@ public class JsonFileTest extends Tests {
   public void setBoolean_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
-      String strVerif = "notVerif";
+      String strVerif = JsonFileTest.head(JsonFileTest.testFile2) + "{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76],\"Valeur\":true}";
       jsonFile.set("Valeur", true);
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
@@ -537,9 +556,8 @@ public class JsonFileTest extends Tests {
   public void setInt_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
-      String strVerif = "notVerif";
+      String strVerif = JsonFileTest.head(JsonFileTest.testFile2) + "{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76],\"Valeur\":3012}";
       jsonFile.set("Valeur", 3012);
-      System.out.println("$508$" + jsonFile.toString() + "$508$");
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -558,7 +576,7 @@ public class JsonFileTest extends Tests {
   public void setDouble_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
-      String strVerif = "notVerif";
+      String strVerif = JsonFileTest.head(JsonFileTest.testFile2) + "{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,30.12]}";
       jsonFile.set("lst.2", 30.12);
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
@@ -578,9 +596,8 @@ public class JsonFileTest extends Tests {
   public void setFloat_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
-      String strVerif = "notVerif";
+      String strVerif = JsonFileTest.head(JsonFileTest.testFile2) + "{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76,30.12]}";
       jsonFile.set("lst.6", 30.12);
-      System.out.println("$549$" + jsonFile.toString() + "$549$");
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -599,9 +616,8 @@ public class JsonFileTest extends Tests {
   public void setString_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
-      String strVerif = "notVerif";
+      String strVerif = JsonFileTest.head(JsonFileTest.testFile2) + "{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76],\"Valeur\":\"Ça marche\"}";
       jsonFile.set("Valeur", "Ça marche");
-      System.out.println("$568$" + jsonFile.toString() + "$568$");
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
       StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
@@ -620,7 +636,7 @@ public class JsonFileTest extends Tests {
   public void setListe_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
-      String strVerif = "notVerif";
+      String strVerif = JsonFileTest.head(JsonFileTest.testFile2) + "{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76],\"Valeur\":[32,45,85,47,32,18,64]}";
       ArrayList<Integer> lst = new ArrayList<>();
       int[] tab = {32, 45, 85, 47, 32, 18, 64};
       for (int i : tab) {
@@ -645,14 +661,14 @@ public class JsonFileTest extends Tests {
   public void setJson_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(JsonFileTest.testFile2, true);
-      String strVerif = "notVerif";
+      String strVerif = JsonFileTest.head(JsonFileTest.testFile2) + "{\"message\":\"Mon test\",\"id\":42,\"lst\":{\"fieldA\":\"aaaa\",\"fieldB\":1234,\"fieldC\":\"c\",\"fieldD\":null,\"Success\":true}}";
       char c = 'c';
       jsonFile.set("lst", new testT() {
-        private String fieldA = "aaaa";
-        private int fieldB = 1234;
-        private char fieldC = c;
-        private String fieldD = null;
-        private boolean Success = true;
+        public String fieldA = "aaaa";
+        public int fieldB = 1234;
+        public char fieldC = c;
+        public String fieldD = null;
+        public boolean Success = true;
       });
       assertEquals(strVerif, jsonFile.toString());
     } catch (Exception e) {
@@ -664,8 +680,12 @@ public class JsonFileTest extends Tests {
       assertTrue(false);
     }
   }
+
   /**
-   * Test pour vérifier le placement d'une valeur dans le JSON.
+   * Interface servant à créer une classe anonyme.
+   * Cette classe anonyme permettra de tester la méthode setJson(p,T).
+   * Tout les attribut de cette classes doivent-être accessible, a moins de
+   * définire des méthodes de sérialisation pour Jackson ('@JsonProperty','@JsonGetter','@JsonSetter',...).
    */
   private interface testT {
   }
