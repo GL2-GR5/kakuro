@@ -8,6 +8,7 @@ public class SaveManager {
   private static final SaveManager instance = new SaveManager();
   private final OsType osType = OsManager.getInstance().getOsType();
   private Path saveDir;
+  
   private SaveManager() {
     setSaveDir();
     initSaveDir();
