@@ -26,7 +26,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * La classe manipulant les objets JSON de Jackson, et gérant leurs sauvegarde.
  *
- * @author Luca et Erwan PECHON
+ * @author PECHON Erwan, POURCEAU Luca
  */
 public class JsonFile {
   /** Active le mode test (n'encrypte pas les fichiers). */
@@ -47,7 +47,6 @@ public class JsonFile {
    *
    * @param father Le noeud à parcourire.
    * @param path Chemin vers le noeud demandé.
-   * @throws IOException Exception jeté en cas de problème avec l'existance du fichier demander.
    * @throws RuntimeException Exception jeté en cas de problème lors de la création du JsonFile.
    */
   public JsonFile(JsonFile father, String path) throws NoSuchElementException {
@@ -62,30 +61,34 @@ public class JsonFile {
    *
    * @param pathFile Chemin du fichier JSON (dans les ressources).
    * @throws IOException Exception jeté en cas de problème avec l'existance du fichier demander.
-   * @throws RuntimeException Exception jeté en cas de problème lors de la création du JsonFile.
    */
   public JsonFile(String pathFile) throws IOException {
     this.file = null;
     this.father = null;
     if (pathFile == null) {
+      // Aucun fichier n'à était renseigné.
       throw new RuntimeException("Aucun fichier n'à était renseigné.");
     }
     // Obtenire le chemin du fichier.
     URL url = Main.class.getResource(pathFile);
     if (url == null) {
+      // Impossible de récupérer la ressource demandé.
       throw new RuntimeException("Impossible de récupérer la ressource demandé." + pathFile);
     }
     Path file = null;
     try {
       file = Paths.get(url.toURI());
     } catch (URISyntaxException e) {
+      // Invalid URL format
       throw new RuntimeException("Invalid URL format", e);
     }
     // Vérifier l'obtention du fichier
     if (file == null) {
+      // Impossible d'accéder au fichier demandé.
       throw new RuntimeException("Impossible d'accéder au fichier demandé." + url);
     }
     if (!(Files.exists(file))) {
+      // Le fichier demandé n'existe pas.
       throw new IOException("Le fichier demandé n'existe pas : " + file);
     }
     // Obtenir le JSON
@@ -93,12 +96,14 @@ public class JsonFile {
     try {
       sourceData = Files.lines(file).collect(Collectors.joining());
     } catch (IOException e) {
+      // Error reading file
       throw new RuntimeException("Error reading file", e);
     }
     this.mapper = new ObjectMapper();
     try {
       this.root = this.mapper.readTree(sourceData);
     } catch (IOException e) {
+      // Error reading JSON
       throw new RuntimeException(e);
     }
   }
@@ -115,6 +120,7 @@ public class JsonFile {
   public JsonFile(Path file, boolean forEdit) throws IOException {
     this.father = null;
     if (file == null) {
+      // Aucun fichier n'à était renseigné.
       throw new RuntimeException("Aucun fichier n'à était renseigné.");
     }
     // Vérifier l'existance du fichier
@@ -127,6 +133,7 @@ public class JsonFile {
     } else {
       this.file = null;
       if (!(Files.exists(file))) {
+        // Le fichier demandé n'existe pas.
         throw new IOException("Le fichier demandé n'existe pas : " + file);
       }
     }
@@ -145,17 +152,20 @@ public class JsonFile {
             byte[] decryptedData = decrypt(encryptedData, SECRET_KEY);
             sourceData = new String(decryptedData, StandardCharsets.UTF_8);
           } catch (Exception e) {
+            // Impossible de lire les donnée binaire.
             throw new IOException("Le fichier " + file + " semble corrompu.");
           }
         }
       }
     } catch (IOException e) {
+      // Error reading file
       throw new RuntimeException("Error reading file", e);
     }
     this.mapper = new ObjectMapper();
     try {
       this.root = this.mapper.readTree(sourceData);
     } catch (IOException e) {
+      // Error reading JSON
       throw new RuntimeException(e);
     }
   }
@@ -164,7 +174,7 @@ public class JsonFile {
    * Sauvegarde le JsonFile dans son fichier.
    *
    * @return `true` si l'objet à était sauvegardé.
-   * @throw IOException En cas de problème durant l'écriture du fichier.
+   * @throws IOException En cas de problème durant l'écriture du fichier.
    */
   public boolean save() throws IOException {
     if (this.father != null) {
@@ -181,12 +191,21 @@ public class JsonFile {
         byte[] encryptedData = encrypt(jsonData, SECRET_KEY);
         Files.write(this.file, encryptedData);
       } catch (Exception e) {
+        // Impossible de lire les donnée binaire.
         throw new IOException("Le fichier " + file + " semble être corrompu.");
       }
     }
     return true;
   }
 
+  /**
+   * Chiffre les données.
+   * 
+   * @param data Les données à chiffrer.
+   * @param key La clé de chiffrement.
+   * @return Les données chiffrées.
+   * @throws Exception En cas de problème lors du chiffrement.
+   */
   private static byte[] encrypt(byte[] data, String key) throws Exception {
     Cipher cipher = Cipher.getInstance("AES");
     SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "AES");
@@ -194,6 +213,14 @@ public class JsonFile {
     return cipher.doFinal(data);
   }
 
+  /**
+   * Déchiffre les données.
+   * 
+   * @param data Les données à déchiffrer.
+   * @param key La clé de chiffrement.
+   * @return Les données déchiffrées.
+   * @throws Exception En cas de problème lors du déchiffrement.
+   */
   private static byte[] decrypt(byte[] data, String key) throws Exception {
     Cipher cipher = Cipher.getInstance("AES");
     SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "AES");
@@ -202,7 +229,7 @@ public class JsonFile {
   }
 
   /**
-   * Si le noeud racine de ce JsonFile fait partie d'un ConteneurNode, renvoit le JsonFile associé.
+   * Si le noeud racine de ce JsonFile fait partie d'un ConteneurNode, renvoi le JsonFile associé.
    *
    * @return Le JsonFile contenant ce JsonFile (si il existe).
    */
@@ -210,8 +237,8 @@ public class JsonFile {
     return this.father;
   }
 
-  /*
-   * Renvoit un JsonFile gérant une partie de ce JsonFile (permet d'en simplifier la gestion)
+  /**
+   * Renvoi un JsonFile gérant une partie de ce JsonFile (permet d'en simplifier la gestion).
    *
    * @param path Le chemin jusqu'au ConteneurNode au-quel ce déplacer.
    * @return Le JsonNode fils.
@@ -240,13 +267,14 @@ public class JsonFile {
       return new ArrayList<>();
     }
     if (!path.matches("^[a-zA-Z0-9.]+$")) {
+      // Invalid path
       throw new RuntimeException("Invalid path (" + path + "). Must be [a-zA-Z0-9.]+ (node1.node2.node3...)");
     }
     List<String> list = Arrays.asList(path.split("\\."));
     return list;
   }
 
-  /*
+  /**
    * Permet de s'éparer le dernier élément de l'adresse donnée.
    * Si le chemin ne se terminait pas par un champs, null est renvoyé.
    * Si le chemin se termine par un champs, ce champs est extrait du chemin.
@@ -354,6 +382,9 @@ public class JsonFile {
 
   /**
    * Obtient le nom des champs d'un ConteneurJson.
+   * 
+   * @param path Chemin du ConteneurJson.
+   * @return Les noms des champs.
    */
   public String[] getFields(String path) {
     JsonNode node = this.getNode(path);
@@ -381,6 +412,7 @@ public class JsonFile {
    *
    * @param path Chemin de la valeur.
    * @return true si la valeur est nulle, sinon false.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public boolean isNull(String path) throws NoSuchElementException {
     return this.getNode(path).isNull();
@@ -391,6 +423,7 @@ public class JsonFile {
    *
    * @param path Chemin du booléen.
    * @return Le booléen.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public boolean getBoolean(String path) throws NoSuchElementException {
     return this.getNode(path).asBoolean();
@@ -401,6 +434,7 @@ public class JsonFile {
    *
    * @param path Chemin de l'entier.
    * @return L'entier.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public int getInt(String path) throws NoSuchElementException {
     return this.getNode(path).asInt();
@@ -411,6 +445,7 @@ public class JsonFile {
    *
    * @param path Chemin de la chaîne de caractères.
    * @return Lachaîne de caractères.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public String getString(String path) throws NoSuchElementException {
     return this.getNode(path).asText();
@@ -421,6 +456,7 @@ public class JsonFile {
    *
    * @param path Chemin du tableau de booléens.
    * @return Le tableau de booléens.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public byte[] getBinary(String path) throws NoSuchElementException {
     try {
@@ -436,9 +472,11 @@ public class JsonFile {
   /**
    * Récupère un tableau JSON à partir d'un chemin donné.
    *
-   * @param path  Chemin du tableau JSON.
+   * @param <T> Type des éléments du tableau.
+   * @param path Chemin du tableau JSON.
    * @param clazz Classe des éléments du tableau.
    * @return Le tableau JSON.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public <T> List<T> getArray(String path, Class<? extends T> clazz) throws NoSuchElementException {
     JsonNode node = this.getNode(path);
@@ -455,10 +493,12 @@ public class JsonFile {
 
   /**
    * Récupère une valeur à partir d'un chemin donné.
-   *
+   * 
+   * @param <T> Type de la valeur.
    * @param path  Chemin de la valeur.
    * @param clazz Classe de la valeur.
    * @return La valeur numérique.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public <T> T getValue(String path, Class<? extends T> clazz) throws NoSuchElementException {
     JsonNode node = this.getNode(path);
@@ -472,8 +512,10 @@ public class JsonFile {
   /**
    * Récupère un objet JSON à partir d'un chemin donné et le mappe vers une classe.
    *
+   * @param <T> Type de l'objet JSON.
    * @param path  Chemin de l'objet JSON.
    * @param instance Une instance qui sera modifié afin de récupérer le contenu du JSON.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public <T> void getJson(String path, T instance) throws NoSuchElementException {
     JsonNode node = this.getNode(path);
@@ -500,6 +542,7 @@ public class JsonFile {
    *
    * @param path Le chemin vers le noeud à supprimer.
    * @return Indique si la suppression à réussie.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public boolean removeNode(String path) throws NoSuchElementException {
     if (this.file == null) {
@@ -526,6 +569,7 @@ public class JsonFile {
    *
    * @param paths La liste des chemins vers les noeuds à supprimer.
    * @return Le nombre de suppression réussie.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public int removeNode(String[] paths) throws NoSuchElementException {
     int nbSuccess = 0;
@@ -543,6 +587,7 @@ public class JsonFile {
    * @param path Le chemin vers le noeud à modifier.
    * @param value La valeur qui remplacera l'ancienne (si null, ne détruit pas le noeud).
    * @return Le chemin vers le noeud modifier ou creer.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   private String setNode(String path, JsonNode value) throws NoSuchElementException {
     if (this.file == null) {
@@ -576,6 +621,7 @@ public class JsonFile {
    *
    * @param path Le chemin vers le noeud à modifier.
    * @return Le chemin vers le noeud modifier ou creer.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public String set(String path) throws NoSuchElementException {
     // Créer le nouveau noeud.
@@ -591,6 +637,7 @@ public class JsonFile {
    * @param path Le chemin vers le noeud à modifier.
    * @param value La valeur qui remplacera l'ancienne (si null, ne détruit pas le noeud).
    * @return Le chemin vers le noeud modifier ou creer.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public String set(String path, boolean value) throws NoSuchElementException {
     // Créer le nouveau noeud.
@@ -606,6 +653,7 @@ public class JsonFile {
    * @param path Le chemin vers le noeud à modifier.
    * @param value La valeur qui remplacera l'ancienne (si null, ne détruit pas le noeud).
    * @return Le chemin vers le noeud modifier ou creer.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public String set(String path, int value) throws NoSuchElementException {
     // Créer le nouveau noeud.
@@ -621,6 +669,7 @@ public class JsonFile {
    * @param path Le chemin vers le noeud à modifier.
    * @param value La valeur qui remplacera l'ancienne (si null, ne détruit pas le noeud).
    * @return Le chemin vers le noeud modifier ou creer.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public String set(String path, String value) throws NoSuchElementException {
     // Créer le nouveau noeud.
@@ -636,6 +685,7 @@ public class JsonFile {
    * @param path Le chemin vers le noeud à modifier.
    * @param value La valeur qui remplacera l'ancienne (si null, ne détruit pas le noeud).
    * @return Le chemin vers le noeud modifier ou creer.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public String set(String path, byte[] value) throws NoSuchElementException {
     // Créer le nouveau noeud.
@@ -651,6 +701,7 @@ public class JsonFile {
    * @param path Le chemin vers le noeud à modifier.
    * @param value La valeur qui remplacera l'ancienne (si null, crée une liste vide).
    * @return Le chemin vers le noeud modifier ou creer.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public String set(String path, List value) throws NoSuchElementException {
     // Créer le nouveau noeud.
@@ -662,10 +713,12 @@ public class JsonFile {
   /**
    * Modifie un noeud, ou le crée si il n'existe pas.
    * Le nouveau noeud contiendra un nombre.
-   *
+   * 
+   * @param <T> Type du nombre.
    * @param path Le chemin vers le noeud à modifier.
    * @param value La valeur qui remplacera l'ancienne (si null, ne détruit pas le noeud).
    * @return Le chemin vers le noeud modifier ou creer.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public <T extends Number> String set(String path, T value) throws NoSuchElementException {
     // Créer le nouveau noeud.
@@ -678,9 +731,11 @@ public class JsonFile {
    * Modifie un noeud, ou le crée si il n'existe pas.
    * Le nouveau noeud contiendra la valeur donnée en paramètre.
    *
+   * @param <T> Type de la valeur.
    * @param path Le chemin vers le noeud à modifier.
    * @param value La valeur qui remplacera l'ancienne (si null, ne détruit pas le noeud).
    * @return Le chemin vers le noeud modifier ou creer.
+   * @throws NoSuchElementException Avertit de l'accès à la valeur d'une clé n'existant pas.
    */
   public <T> String set(String path, T value) throws NoSuchElementException {
     // Créer le nouveau noeud.

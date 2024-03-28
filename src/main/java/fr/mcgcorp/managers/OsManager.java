@@ -68,7 +68,7 @@ public class OsManager {
     /**
      * Constructeur de la classe OsType.
      *
-     * @param key la clé du type de système d'exploitation.
+     * @param keys la clé du type de système d'exploitation.
      */
     OsType(String... keys) {
       this.keys = keys;

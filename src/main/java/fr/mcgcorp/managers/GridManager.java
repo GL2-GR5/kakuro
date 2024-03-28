@@ -33,9 +33,6 @@ public class GridManager {
    */
   private GridManager() {
     JsonFile file = null;
-    /**
-     * Essayer de créer un fichier JSON contenant les grilles de jeu.
-     */
     try {
       file = new JsonFile("grids.json");
     } catch (IOException e) {
@@ -55,14 +52,22 @@ public class GridManager {
     return file.getString("grids." + id + ".serialized");
   }
 
-  /**
-   * Obtenir une grille de jeu par sa difficulté.
-   *
-   * @param difficulty la difficulté de la grille de jeu.
-   * @return la grille de jeu.
+  /** 
+   * Enumération des difficultés des grilles de jeu.
    */
   public enum GridDifficulty {
-    EASY("easy"), MEDIUM("medium"), HARD("hard");
+    /**
+     * La difficulté facile.
+     */
+    EASY("easy"),
+    /**
+     * La difficulté moyenne.
+     */
+    MEDIUM("medium"), 
+    /**
+     * La difficulté difficile.
+     */
+    HARD("hard");
 
     /**
      * La clé de la difficulté.
