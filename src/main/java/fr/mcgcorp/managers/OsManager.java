@@ -1,6 +1,7 @@
 package fr.mcgcorp.managers;
 
 import java.util.Arrays;
+
 /**
  * OsManager.java
  *
