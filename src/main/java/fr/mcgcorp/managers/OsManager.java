@@ -1,5 +1,6 @@
 package fr.mcgcorp.managers;
 
+import java.util.Arrays;
 /**
  * OsManager.java
  *
@@ -10,6 +11,7 @@ package fr.mcgcorp.managers;
  * @see OsType
  */
 public class OsManager {
+
   /**
    * The instance of the OsManager.
    */
@@ -50,36 +52,33 @@ public class OsManager {
    * The OS type enum.
    */
   public enum OsType {
+    
     /**
      * Windows OS.
      */
-    WINDOWS("win"),
+    WINDOWS("windows"),
     /**
      * Mac OS.
      */
-    MAC("mac"),
+    MAC("mac", "darwin"),
     /**
      * Linux OS.
      */
-    LINUX("nix"),
-    /**
-     * Solaris OS.
-     */
-    SOLARIS("nux");
+    LINUX("unix", "linux", "debian", "ubuntu", "centos", "fedora", "arch");
 
     /**
      * The constructor of the OsType.
      *
-     * @param key the key of the OS type.
+     * @param keys the key of the OS type.
      */
-    OsType(String key) {
-      this.key = key;
+    OsType(String... keys) {
+      this.keys = keys;
     }
 
     /**
      * Key of the OS type.
      */
-    private final String key;
+    private final String[] keys;
 
     /**
      * Get the OS type by the name.
@@ -89,8 +88,10 @@ public class OsManager {
      */
     private OsType getOsByName(String name) {
       for (OsType os : OsType.values()) {
-        if (name.contains(os.key)) {
-          return os;
+        for (String key : os.keys) {
+          if (name.contains(key)) {
+            return os;
+          }
         }
       }
       return null;
