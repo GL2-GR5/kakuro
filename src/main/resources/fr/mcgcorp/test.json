@@ -1,0 +1,21 @@
+{
+  "name": "John Doe",
+  "age": 30,
+  "isStudent": false,
+  "grades": [85, 90, 78, 92],
+  "address": {
+    "street": "123 Main Street",
+    "city": "Anytown",
+    "country": "USA"
+  },
+  "isEmployed": true,
+  "favoriteColors": ["blue", "green", "red"],
+  "height": 175.5,
+  "details": {
+    "married": false,
+    "worker": true,
+    "children": 2,
+    "car": null
+  },
+  "true": true
+}

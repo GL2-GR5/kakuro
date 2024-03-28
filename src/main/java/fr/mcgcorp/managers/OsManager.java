@@ -1,7 +1,6 @@
 package fr.mcgcorp.managers;
 
 import java.util.Arrays;
-
 /**
  * OsManager.java
  *
@@ -53,7 +52,7 @@ public class OsManager {
    * The OS type enum.
    */
   public enum OsType {
-
+    
     /**
      * Windows OS.
      */
