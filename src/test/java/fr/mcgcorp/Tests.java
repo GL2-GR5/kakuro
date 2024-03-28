@@ -2,6 +2,7 @@ package fr.mcgcorp;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.invoke.MethodHandles;
@@ -21,8 +22,9 @@ public abstract class Tests {
      * 
      * @param T la classe testée
      */
+    @Test
     public static void printNameAtStart(Class<? extends Tests> T){
-        System.out.println("\033[31;1m================================ \033[36;1mDÉBUT " + T.getSimpleName() + " \033[31;1m================================\033[0m");
+        System.out.println("\n\n\033[31;1m================================ \033[36;1mDÉBUT " + T.getSimpleName() + " \033[31;1m================================\033[0m");
     }
 
     /**
@@ -31,8 +33,9 @@ public abstract class Tests {
      * 
      * @param T la classe testée
      */
+    @Test
     public static void printNameAtEnd(Class<? extends Tests> T){
-        System.out.println("\033[31;1m================================  \033[36;1mFIN " + T.getSimpleName() + "  \033[31;1m================================\033[0m");
+        System.out.println("\033[31;1m================================  \033[36;1mFIN " + T.getSimpleName() + "  \033[31;1m================================\033[0m\n");
     }
     
 }
