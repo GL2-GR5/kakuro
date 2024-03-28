@@ -1,7 +1,6 @@
 package fr.mcgcorp.managers;
 
 import java.util.Arrays;
-
 /**
  * Cette classe est utilisée pour obtenir le type de système d'exploitation actuel.
  *
@@ -51,7 +50,7 @@ public class OsManager {
    * Les types de système d'exploitation.
    */
   public enum OsType {
-
+    
     /**
      * Windows OS.
      */
