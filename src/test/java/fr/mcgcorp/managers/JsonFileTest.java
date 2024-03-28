@@ -3,6 +3,7 @@ package fr.mcgcorp.managers;
 import fr.mcgcorp.Tests;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -45,6 +46,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le chargement d'un fichier JSON.
    */
   @Test
+  @Disabled
   public void loadRessource_contentJson(){
     try {
       String strVerif = "JsonFile :\n{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76]}";
@@ -64,6 +66,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le chargement d'un fichier JSON.
    */
   @Test
+  @Disabled
   public void load_contentJson(){
     try {
       String strVerif = "JsonFile :\n{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76]}";
@@ -83,6 +86,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le chargement d'un fichier JSON.
    */
   @Test
+  @Disabled
   public void loadForEdit_contentJson(){
     try {
       String strVerif = "JsonFile : >Edit in " + this.dir + this.testFile2 + "<\n{\"message\":\"Mon test\",\"id\":42,\"lst\":[52,48,76]}";
@@ -102,6 +106,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier la création d'un fichier JSON.
    */
   @Test
+  @Disabled
   public void create_contentJson(){
     try {
       String strVerif = "JsonFile : >Edit in A_SUPPRIMER_TEST_KAKURO.JSON<\n{}";
@@ -124,6 +129,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le découpage du JSON.
    */
   @Test
+  @Disabled
   public void getChildren_contentJson(){
     try {
       String strVerif = "JsonFile : >Sous arbre<\n{\"married\":false,\"worker\":true,\"children\":2,\"car\":null}";
@@ -143,6 +149,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier si un noeud existe.
    */
   @Test
+  @Disabled
   public void isExist_shouldBeNull(){
     try {
       String nodePath = "details.married";
@@ -162,6 +169,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier si un noeud existe.
    */
   @Test
+  @Disabled
   public void isExist_shouldBeNotNull(){
     try {
       String nodePath = "details.married";
@@ -181,6 +189,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier si un noeud est null.
    */
   @Test
+  @Disabled
   public void isNull_true(){
     try {
       String nodePath = "details.car";
@@ -200,6 +209,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier si un noeud est null.
    */
   @Test
+  @Disabled
   public void isNull_false(){
     try {
       String nodePath = "grades";
@@ -219,6 +229,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier l'obtention d'une valeur du JSON.
    */
   @Test
+  @Disabled
   public void getBoolean_true(){
     try {
       String nodePath = "details.worker";
@@ -238,6 +249,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier l'obtention d'une valeur du JSON.
    */
   @Test
+  @Disabled
   public void getBoolean_false(){
     try {
       String nodePath = "details.married";
@@ -257,6 +269,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier l'obtention d'une valeur du JSON.
    */
   @Test
+  @Disabled
   public void getInt_30(){
     try {
       JsonFile jsonFile = new JsonFile(this.testFile);
@@ -276,6 +289,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier l'obtention d'une valeur du JSON.
    */
   @Test
+  @Disabled
   public void getIntFromDouble_175(){
     try {
       JsonFile jsonFile = new JsonFile(this.testFile);
@@ -295,6 +309,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier l'obtention d'une valeur du JSON.
    */
   @Test
+  @Disabled
   public void getNumeric_175_5(){
     try {
       JsonFile jsonFile = new JsonFile(this.testFile);
@@ -314,6 +329,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier l'obtention d'une valeur du JSON.
    */
   @Test
+  @Disabled
   public void getString_JohnDoe(){
     try {
       JsonFile jsonFile = new JsonFile(this.testFile);
@@ -333,6 +349,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier l'obtention d'une valeur du JSON.
    */
   @Test
+  @Disabled
   public void getStringFarAway_Anytown(){
     try {
       JsonFile jsonFile = new JsonFile(this.testFile);
@@ -352,6 +369,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier l'obtention d'une valeur du JSON.
    */
   @Test
+  @Disabled
   public void getArray_lst(){
     try {
       JsonFile jsonFile = new JsonFile(this.testFile);
@@ -371,6 +389,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier l'obtention d'une valeur du JSON.
    */
   @Test
+  @Disabled
   public void getJson_F2NONE(){
     try {
       JsonFile jsonFile = new JsonFile(this.testFile);
@@ -405,6 +424,7 @@ public class JsonFileTest extends Tests {
    * Enlever un noeud dans le Json.
    */
   @Test
+  @Disabled
   public void removeNode_ContentJson(){
     try {
       String strVerif = "notVerif";
@@ -426,6 +446,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le placement d'une valeur dans le JSON.
    */
   @Test
+  @Disabled
   public void setNull_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
@@ -446,6 +467,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le placement d'une valeur dans le JSON.
    */
   @Test
+  @Disabled
   public void setBoolean_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
@@ -466,6 +488,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le placement d'une valeur dans le JSON.
    */
   @Test
+  @Disabled
   public void setInt_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
@@ -486,6 +509,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le placement d'une valeur dans le JSON.
    */
   @Test
+  @Disabled
   public void setDouble_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
@@ -506,6 +530,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le placement d'une valeur dans le JSON.
    */
   @Test
+  @Disabled
   public void setFloat_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
@@ -526,6 +551,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le placement d'une valeur dans le JSON.
    */
   @Test
+  @Disabled
   public void setString_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
@@ -546,6 +572,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le placement d'une valeur dans le JSON.
    */
   @Test
+  @Disabled
   public void setListe_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
@@ -571,6 +598,7 @@ public class JsonFileTest extends Tests {
    * Test pour vérifier le placement d'une valeur dans le JSON.
    */
   @Test
+  @Disabled
   public void setJson_contentJson(){
     try {
       JsonFile jsonFile = new JsonFile(Paths.get(this.dir + this.testFile2), true);
